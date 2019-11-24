@@ -1,5 +1,7 @@
 import pandas as pd
 from tqdm import tqdm
+import re
+import nltk
 
 def tokenize_mr(sample):
 		"""
@@ -50,26 +52,32 @@ class DataPreprocessor(object):
 		delexicalizer = Delexicalizer(delexicalization_type, delexicalization_slots)
 
 		c = 0
-		for index, row in tqdm(train_df.iterrows()):
+		for index, row in tqdm(train_df[:5].iterrows()):
 			input_mr = tokenize_mr(row[0])
 			output_ref = row[1]
 			
-			# Check if output ref is present and convert it to lower
-			if output_ref != None:
-				output_ref = output_ref.lower()
+			output_ref = output_ref.lower()
 
 			input_mr, output_ref, delexicalization_results = delexicalizer.delexicalize_sample(input_mr, output_ref)
 			
-			# print(input_mr)
-			# print(output_ref)
+			if False not in delexicalization_results:
+				print(input_mr)
+				output_ref = nltk.word_tokenize(output_ref)
 
-			if False in delexicalization_results:
-				print(row[0])
-				print(output_ref)
-				print("----------------------------------")
-				c += 1
+				# output_ref = re.findall(r"[\w'-]+|[.,!?;]", output_ref)
+				output_ref = " ".join(output_ref)
 
-		print(c)
+				
+			# # print(input_mr)
+			# # print(output_ref)
+
+			# if False in delexicalization_results:
+			# 	print(row[0])
+			# 	print(output_ref)
+			# 	print("----------------------------------")
+			# 	c += 1
+
+		
 
 		
 
@@ -106,6 +114,37 @@ class Delexicalizer(object):
 			pass
 
 		return inp, output, delexicalization_results
+
+	def reverse_delexicalize_sample(self, inp_mr, model_output):
+		"""
+			Reverses the delexicalization process
+		"""
+		if self.delexicalization_slots == None:
+			print("Pass slots to the delexicalizer")
+			return
+
+		mr = tokenize_mr(inp_mr)
+
+		for slot in self.delexicalization_slots:
+			if slot == "name":
+				# Get the name field from the dictionary if it exists
+				if "name" in mr.keys():
+					name_val = mr["name"]
+					model_output = self._reverse_delexicalize_name(name_val, model_output)
+
+			if slot == "near":
+				#Get the near field from the dictionary if it exists
+				if "near" in mr.keys():
+					near_val = mr["near"]
+					model_output = self._reverse_delexicalize_near(near_val, model_output)
+
+			if slot == "food":
+				#Get the food field from the dictionary of it exists
+				if "food" in mr.keys():
+					food_val = mr["food"]
+					model_output = self._reverse_delexicalize_food_slug2slug(food_val, model_output)
+
+		return model_output
 
 
 	def _full_delexicalization(self, inp, output):
@@ -153,17 +192,25 @@ class Delexicalizer(object):
 		is_success = True
 		if "name" in inp.keys():
 			name_value = inp["name"]
-			inp["name"] = "X-name"
+			inp["name"] = "x-name"
 			
 			if output != None:
 				# We are not at testing time
 				# Check if the name can be found in the output
 				if name_value in output:
-					output = output.replace(name_value, "X-name")
+					output = output.replace(name_value, "x-name")
 				else:
 					is_success = False
 		
 		return inp, output, is_success
+
+	def _reverse_delexicalize_name(self, inp, model_output):
+		"""
+			Reverses the delexicalization of the name field
+		"""
+
+		model_output = model_output.replace("x-name", inp)
+		return model_output
 
 	def _delexicalize_eat_type(self, sample):
 		"""
@@ -193,26 +240,33 @@ class Delexicalizer(object):
 		"""
 		is_success = True
 		if "near" in inp.keys():
-			name_value = inp["near"]
-			inp["near"] = "X-near"
+			near_value = inp["near"]
+			inp["near"] = "x-near"
 			
 			if output != None:
 				# We are not at testing time
 				# Check if the name can be found in the output
-				if name_value in output or "crown plaza hotel" in output:
-					output = output.replace(name_value, "X-near")
+				if near_value in output or "crown plaza hotel" in output:
+					output = output.replace(near_value, "x-near")
 
 					# Search specifically for Crowne Hotel Plaza as
 					# it is a problem in many of the samples
-					output = output.replace("crown plaza hotel", "X-near")
+					output = output.replace("crown plaza hotel", "x-near")
 				else:
 					is_success = False
 		
 		return inp, output, is_success
 
+	def _reverse_delexicalize_near(self, inp_val, model_output):
+		"""
+			Reverses the delexicalization of the near field
+		"""
+		model_output = model_output.replace("x-near", inp_val)
+		return model_output
+
 	def _delexicalize_food_slug2slug(self, inp, output):
 		"""
-			Delexicalizes the name field in an input/output pair
+			Delexicalizes the food field in an input/output pair
 			sample: input, output pair to be delexicalized
 		"""
 		# The food delexicalization idea was taken from the slug2slug model as the name of the function states
@@ -232,33 +286,47 @@ class Delexicalizer(object):
 			food = ["fast food"]
 
 			if food_value in cuisine_vow:
-				inp["food"] = "X-vow-cuisine-food"
+				inp["food"] = "x-vow-cuisine-food"
 
 			elif food_value in cuisine_con:
-				inp["food"] = "X-con-cuisine-food"
+				inp["food"] = "x-con-cuisine-food"
 
 			else:
-				inp["food"] = "X-con-food"
+				inp["food"] = "x-con-food"
 
 			if output != None:
 				for cv in cuisine_vow:
 					if cv in output:
 						is_success = True
-						output = output.replace(cv, "X-vow-cuisine-food")
+						output = output.replace(cv, "x-vow-cuisine-food")
 
 				for cc in cuisine_con:
 					if cc in output:
 						is_success = True
-						output = output.replace(cc, "X-con-cuisine-food")
+						output = output.replace(cc, "x-con-cuisine-food")
 
 				for f in food:
 					if f in output:
 						is_success = True
-						output = output.replace(f, "X-con-food")
+						output = output.replace(f, "x-con-food")
 		else:
 			is_success = True
 
 		return inp, output, is_success
+
+	def _reverse_delexicalize_food_slug2slug(self, inp, model_output):
+		"""
+			Reverses the delexicalization of the food field 
+		"""
+		#Try to consecutively replace all the possible placeholders 
+		
+		model_output = model_output.replace("x-vow-cuisine-food", inp)
+
+		model_output = model_output.replace("x-con-cuisine-food", inp)
+
+		model_output = model_output.replace("x-con-food", inp)
+
+		return model_output
 
 	def _delexicalize_area(self, sample):
 		"""
