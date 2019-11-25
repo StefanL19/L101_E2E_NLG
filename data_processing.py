@@ -2,6 +2,7 @@ import pandas as pd
 from tqdm import tqdm
 import re
 import nltk
+from slot_aligner import SlotAligner
 
 def tokenize_mr(sample):
 		"""
@@ -50,41 +51,73 @@ class DataPreprocessor(object):
 		test_df = pd.read_csv(test_input_path)
 
 		delexicalizer = Delexicalizer(delexicalization_type, delexicalization_slots)
+		aligner = SlotAligner()
 
-		c = 0
+		# Some dictionaries to keep track on important statistics
+		delexicalization_failures = {
+			"name":[],
+			"near":[],
+			"food":[]
+			}
+
+		# Time to align the slots, to actually check if they are realized in the utterances
+		aligner_failures = {
+		"name":[],
+		"near":[],
+		"food":[],
+		"eattype":[],
+		"pricerange":[],
+		"customerrating":[],
+		"area":[],
+		"familyfriendly":[]
+		}
+
+
+		preprocessed_mrs = []
+		preprocessed_ref_sentences = []
+
+		no_preprocessing = []
+
+
 		for index, row in tqdm(train_df[:5].iterrows()):
+			no_preprocessing.append(row[0])
+
 			input_mr = tokenize_mr(row[0])
+			
+			# The customer rating slot should be renamed - empty spaces in a slot are not a good thing :D 
+			if "customer rating" in input_mr.keys():
+				input_mr["customerrating"] = input_mr.pop("customer rating")
+
+			# Convert the values of all input_mrs to lower
+			for mr in input_mr.keys():
+				input_mr[mr] = input_mr[mr].lower()
+
 			output_ref = row[1]
 			
 			output_ref = output_ref.lower()
 
 			input_mr, output_ref, delexicalization_results = delexicalizer.delexicalize_sample(input_mr, output_ref)
 			
-			if False not in delexicalization_results:
-				print(input_mr)
-				output_ref = nltk.word_tokenize(output_ref)
+			# Inspect delexicalization results, we do not want to end up with slots that were not delexicalized
+			# or at least we want to know about it
+			for result in delexicalization_results:
+				# If the delexicalization process was not successfull
+				if result[1] == False:
+					# Keep track on which samples had failed delexicalization results
+					delexicalization_failures[result[0]].append(index)
 
-				# output_ref = re.findall(r"[\w'-]+|[.,!?;]", output_ref)
-				output_ref = " ".join(output_ref)
+			# Time to do some slot allignment to check if the slots are actually realized in the utterances
+			alignment_results = aligner.align_slots(input_mr, output_ref)
+			print(alignment_results)
 
-				
-			# # print(input_mr)
-			# # print(output_ref)
+			preprocessed_mrs.append(input_mr)
+			preprocessed_ref_sentences.append(output_ref)
 
-			# if False in delexicalization_results:
-			# 	print(row[0])
-			# 	print(output_ref)
-			# 	print("----------------------------------")
-			# 	c += 1
-
+		# Inspect delexicalization failures for each of the three slots
+		for slot_name in delexicalization_failures.keys():
+			print(slot_name + " : " + str(len(delexicalization_failures[slot_name])))
 		
 
-		
-
-
-			# print(input_mr)
-			# print(output_ref)
-			# print(delexicalization_results)
 
 	def add_samples(self, samples_file_path):
 		pass
@@ -169,14 +202,15 @@ class Delexicalizer(object):
 		delexicalization_results = []
 		if "name" in self.delexicalization_slots:
 			inp, output, is_success = self._delexicalize_name(inp, output)
-			delexicalization_results.append(is_success)
+			delexicalization_results.append(("name", is_success))
 
 		if "near" in self.delexicalization_slots:
 			inp, output, is_success = self._delexicalize_near(inp, output)
-			delexicalization_results.append(is_success)
+			delexicalization_results.append(("near", is_success))
 
 		if "food" in self.delexicalization_slots:
 			inp, output, is_success = self._delexicalize_food_slug2slug(inp, output)
+			delexicalization_results.append(("food", is_success))
 
 		return inp, output, delexicalization_results
 
@@ -277,7 +311,7 @@ class Delexicalizer(object):
 			food_value = inp["food"]
 
 			# Different cuisine names starting with a vowel
-			cuisine_vow = ["italian", "english"]
+			cuisine_vow = ["italian", "english", "indian"]
 
 			# Different cuisine names starting with a consonant
 			cuisine_con = ["japanese", "french", "chinese"]
