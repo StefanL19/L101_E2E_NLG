@@ -124,7 +124,7 @@ def __has_contrast_after_negation_tok(text_tok):
 
 def __get_boolean_slot_stems(slot):
     slot_stems = {
-        'familyfriendly': ['family', 'families', 'kid', 'kids', 'child', 'children'],
+        'familyfriendly': ['family', 'families', 'kid', 'kids', 'child', 'children', "family-friendly", "child-friendly", "kid-friendly", "age", "kids-friendly"],
     }
 
     return slot_stems.get(slot, [])
@@ -132,7 +132,7 @@ def __get_boolean_slot_stems(slot):
 
 def __get_boolean_slot_antonyms(slot):
     slot_antonyms = {
-        'familyfriendly': ['adult', 'adults'],
+        'familyfriendly': ['adult', 'adults', "non-family-friendly"],
     }
 
     return slot_antonyms.get(slot, [])

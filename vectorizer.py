@@ -14,6 +14,7 @@ from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
 from tqdm import tqdm_notebook
+from vocabulary import SequenceVocabulary
 
 class NMTVectorizer(object):
     """ The Vectorizer which coordinates the Vocabularies and puts them to use"""        

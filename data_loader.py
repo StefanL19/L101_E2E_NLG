@@ -14,7 +14,7 @@ from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
 from tqdm import tqdm_notebook
-
+from vectorizer import NMTVectorizer
 
 class NMTDataset(Dataset):
     """General operations with the dataset: Loading, creating the vectorizer from the training set, saving the vectorizer, etc."""

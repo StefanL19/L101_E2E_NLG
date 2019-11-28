@@ -3,11 +3,36 @@ from slot_aligner import SlotAligner
 import re
 from nltk.tokenize import word_tokenize
 import data_augmentation
+from data_loader import NMTDataset
+import json
 
-# Test data processor
-data_processor = DataPreprocessor()
-data_processor.from_files(train_input_path="data/e2e-dataset/trainset.csv", validation_input_path="data/e2e-dataset/devset.csv", 
-	test_input_path="data/e2e-dataset/testset.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
+# # ############################### Create a new data processor and vectorizer
+# processor = DataPreprocessor.from_files(train_input_path="data/e2e-dataset/trainset.csv", validation_input_path="data/e2e-dataset/devset.csv", 
+#  	test_input_path="data/e2e-dataset/testset.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
+
+# processor.save_data("data/inp.csv")
+# dataset = NMTDataset.load_dataset_and_make_vectorizer("data/inp.csv")
+# dataset.save_vectorizer("data/vectorizer.json")
+
+# # ################################# Load data processor and vectorizer
+processor = DataPreprocessor.from_existing_df("data/inp.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
+dataset = NMTDataset.load_dataset_and_load_vectorizer("data/inp.csv", "data/vectorizer.json")
+
+vect = dataset.get_vectorizer()
+s_v = vect.source_vocab
+print(s_v.lookup_index(14))
+res = vect.vectorize("<inform> pricerange more than £30 <inform> position inner", "prices start at £30 .")
+print(res)
+
+
+
+# processor.save_data("data/inp.csv")
+
+#processor = DataPreprocessor.from_existing_df("data/inp.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
+
+# vect = dataset._vectorizer
+# vectorizer_serializable = vect.to_serializable()
+
 
 
 # delexicalizer = Delexicalizer("partial", ["name", "near", "food"])

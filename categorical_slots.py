@@ -7,7 +7,7 @@ from alignment_utils import find_first_in_list, get_slot_value_alternatives
 def align_categorical_slot(text, text_tok, slot, value, mode='exact_match'):
     # TODO: load alternatives only once
     alternatives = get_slot_value_alternatives(slot)
-
+    
     pos = find_value_alternative(text, text_tok, value, alternatives, mode=mode)
 
     return pos

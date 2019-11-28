@@ -36,3 +36,22 @@ def get_slot_value_alternatives(slot):
         alternatives_dict = json.load(f_alternatives)
 
     return alternatives_dict.get(slot, {})
+
+def tokenize_mr(sample):
+        """
+            Performs initial tokenization of the input sample
+            sample: input, output pair to be tokenized
+            mode: train, validation, or test mode
+        """
+        output = {}
+
+        mr_parts = sample.split(",")
+
+        for mr_part in mr_parts:
+            slot_type = mr_part.split("[")[0].strip().lower()
+            slot_value = mr_part.split("[")[1].strip("]").strip().lower()
+            
+            output[slot_type] = slot_value.lower()
+
+        return output
+        
