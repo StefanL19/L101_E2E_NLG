@@ -152,14 +152,14 @@ class NMTDecoder(nn.Module):
 
             # Linear classifier on top of the prediction vector
             score_for_y_t_index = self.classifier(F.dropout(prediction_vector, 0.3))
-            p_y_t_index = F.softmax(score_for_y_t_index * self._sampling_temperature, dim=1)
             
             if use_sample:
+                p_y_t_index = F.softmax(score_for_y_t_index * self._sampling_temperature, dim=1)
                 # _, y_t_index = torch.max(p_y_t_index, 1)
                 y_t_index = torch.multinomial(p_y_t_index, 1).squeeze()
             
             # auxillary: collect the prediction scores
-            output_vectors.append(p_y_t_index)
+            output_vectors.append(score_for_y_t_index)
             
         output_vectors = torch.stack(output_vectors).permute(1, 0, 2)
         
