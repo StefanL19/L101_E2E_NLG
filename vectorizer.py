@@ -45,6 +45,13 @@ class NMTVectorizer(object):
             vector_length = len(indices)
         
         vector = np.zeros(vector_length, dtype=np.int64)
+
+        #TODO: TEMPORARY WORKAROUND
+        #MUST BE FIXED BY ITERATING OVER THE VALIDATION SET WHEN DEFINING THE MAX LENGTH
+
+        if len(indices) > vector_length:
+            indices = indices[:vector_length]
+            
         vector[:len(indices)] = indices
         vector[len(indices):] = mask_index
 

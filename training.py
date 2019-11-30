@@ -173,7 +173,7 @@ else:
     dataset.save_vectorizer(args.vectorizer_file)
 
 vectorizer = dataset.get_vectorizer()
-
+print("The max target length of the vectorizer is: ", vectorizer.max_target_length)
 model = NMTModel(source_vocab_size=len(vectorizer.source_vocab), 
                  source_embedding_size=args.source_embedding_size, 
                  target_vocab_size=len(vectorizer.target_vocab),
