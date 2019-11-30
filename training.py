@@ -58,7 +58,12 @@ def update_train_state(args, model, train_state):
 
     # Save one model at least
     if train_state['epoch_index'] == 0:
-        torch.save(model.state_dict(), train_state['model_filename'])
+        #Saving the model to recover from a class
+        #torch.save(model.state_dict(), train_state['model_filename'])
+
+        # Saving the model to recover immediately
+        torch.save(model, train_state['model_filename'])
+        
         train_state['stop_early'] = False
 
     # Save model if performance improved
