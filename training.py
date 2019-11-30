@@ -299,7 +299,9 @@ try:
             val_bar.update()
 
         train_state['val_loss'].append(running_loss)
+        print("Current validation loss is: {}".format(running_loss))
         train_state['val_acc'].append(running_acc)
+        print("Current validation accuracy is: {}".format(running_acc))
 
         train_state = update_train_state(args=args, model=model, 
                                          train_state=train_state)
