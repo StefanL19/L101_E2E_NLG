@@ -95,7 +95,6 @@ def normalize_sizes(y_pred, y_true):
             If a matrix, reshapes to be a vector
     """
     if len(y_pred.size()) == 3:
-        print("The size is 3")
         y_pred = y_pred.contiguous().view(-1, y_pred.size(2))
     if len(y_true.size()) == 2:
         y_true = y_true.contiguous().view(-1)
