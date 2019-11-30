@@ -24,11 +24,20 @@ def verbose_attention(encoder_state_vectors, query_vector):
         
     """
     batch_size, num_vectors, vector_size = encoder_state_vectors.size()
+
+    # APPLYING DOT PRODUCT ATTENTION
     vector_scores = torch.sum(encoder_state_vectors * query_vector.view(batch_size, 1, vector_size), 
                               dim=2)
+
+    # SOFTMAX OVER THE SCORES
     vector_probabilities = F.softmax(vector_scores, dim=1)
+    
+    # WEIGHT THE VECTORS WITH THE CORRESPONDING SCORES
     weighted_vectors = encoder_state_vectors * vector_probabilities.view(batch_size, num_vectors, 1)
+    
+    # CALCULATE THE CONTEXT VECTORS FOR EACH OF THE BATCH ELEMENTS BY SUMMING THE WEIGHTED VECTORS 
     context_vectors = torch.sum(weighted_vectors, dim=1)
+
     return context_vectors, vector_probabilities, vector_scores
 
 def terse_attention(encoder_state_vectors, query_vector):
@@ -64,6 +73,7 @@ class NMTDecoder(nn.Module):
         self.hidden_map = nn.Linear(rnn_hidden_size, rnn_hidden_size)
         self.classifier = nn.Linear(rnn_hidden_size * 2, num_embeddings)
         self.bos_index = bos_index
+        self._sampling_temperature = 3
     
     def _init_indices(self, batch_size):
         """ return the BEGIN-OF-SEQUENCE index vector """
@@ -73,37 +83,38 @@ class NMTDecoder(nn.Module):
         """ return a zeros vector for initializing the context """
         return torch.zeros(batch_size, self._rnn_hidden_size)
             
-    def forward(self, encoder_state, initial_hidden_state, target_sequence):
+    def forward(self, encoder_state, initial_hidden_state, target_sequence, sample_probability=0.0):
         """The forward pass of the model
         
         Args:
             encoder_state (torch.Tensor): the output of the NMTEncoder
             initial_hidden_state (torch.Tensor): The last hidden state in the  NMTEncoder
             target_sequence (torch.Tensor): the target text data tensor
+            sample_probability (float): the schedule sampling parameter
+                probabilty of using model's predictions at each decoder step
         Returns:
             output_vectors (torch.Tensor): prediction vectors at each output step
-        """    
-        # We are making an assumption there: The batch is on first
-        # The input is (Batch, Seq)
-        # We want to iterate over sequence so we permute it to (S, B)
-        target_sequence = target_sequence.permute(1, 0)
-        output_sequence_size = target_sequence.size(0)
-
+        """
+        if target_sequence is None:
+            sample_probability = 1.0
+        else:
+            # We are making an assumption there: The batch is on first
+            # The input is (Batch, Seq)
+            # We want to iterate over sequence so we permute it to (S, B)
+            target_sequence = target_sequence.permute(1, 0)
+            output_sequence_size = target_sequence.size(0)
+        
         # use the provided encoder hidden state as the initial hidden state
         h_t = self.hidden_map(initial_hidden_state)
-
+        
         batch_size = encoder_state.size(0)
-
         # initialize context vectors to zeros
         context_vectors = self._init_context_vectors(batch_size)
-
         # initialize first y_t word as BOS
         y_t_index = self._init_indices(batch_size)
         
         h_t = h_t.to(encoder_state.device)
-
         y_t_index = y_t_index.to(encoder_state.device)
-        
         context_vectors = context_vectors.to(encoder_state.device)
 
         output_vectors = []
@@ -112,7 +123,10 @@ class NMTDecoder(nn.Module):
         self._cached_decoder_state = encoder_state.cpu().detach().numpy()
         
         for i in range(output_sequence_size):
-            y_t_index = target_sequence[i]
+            # Schedule sampling is whe
+            use_sample = np.random.random() < sample_probability
+            if not use_sample:
+                y_t_index = target_sequence[i]
                 
             # Step 1: Embed word and concat with previous context
             y_input_vector = self.target_embedding(y_t_index)
@@ -130,8 +144,15 @@ class NMTDecoder(nn.Module):
             self._cached_p_attn.append(p_attn.cpu().detach().numpy())
             
             # Step 4: Use the current hidden and context vectors to make a prediction to the next word
-            prediction_vector = torch.cat((context_vectors, h_t), dim=1)
+            prediction_vector = torch.cat((context_vectors, h_t), dim=1) # denoted by h_t tilda in the paper
+
+            # Linear classifier on top of the prediction vector
             score_for_y_t_index = self.classifier(F.dropout(prediction_vector, 0.3))
+            
+            if use_sample:
+                p_y_t_index = F.softmax(score_for_y_t_index * self._sampling_temperature, dim=1)
+                # _, y_t_index = torch.max(p_y_t_index, 1)
+                y_t_index = torch.multinomial(p_y_t_index, 1).squeeze()
             
             # auxillary: collect the prediction scores
             output_vectors.append(score_for_y_t_index)

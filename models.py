@@ -33,13 +33,18 @@ class NMTModel(nn.Module):
         self.encoder = NMTEncoder(num_embeddings=source_vocab_size, 
                                   embedding_size=source_embedding_size,
                                   rnn_hidden_size=encoding_size)
+
+        # It should be multiplied by 2 because the last hidden state of the encoder
+        # comes from a Bidirectional Layer
         decoding_size = encoding_size * 2
+
+
         self.decoder = NMTDecoder(num_embeddings=target_vocab_size, 
                                   embedding_size=target_embedding_size, 
                                   rnn_hidden_size=decoding_size,
                                   bos_index=target_bos_index)
     
-    def forward(self, x_source, x_source_lengths, target_sequence):
+    def forward(self, x_source, x_source_lengths, target_sequence, sample_probability=0.0):
         """The forward pass of the model
         
         Args:
@@ -47,11 +52,15 @@ class NMTModel(nn.Module):
                 x_source.shape should be (batch, vectorizer.max_source_length)
             x_source_lengths torch.Tensor): the length of the sequences in x_source 
             target_sequence (torch.Tensor): the target text data tensor
+            sample_probability (float): the schedule sampling parameter
+                probabilty of using model's predictions at each decoder step
         Returns:
             decoded_states (torch.Tensor): prediction vectors at each output step
         """
         encoder_state, final_hidden_states = self.encoder(x_source, x_source_lengths)
         decoded_states = self.decoder(encoder_state=encoder_state, 
                                       initial_hidden_state=final_hidden_states, 
-                                      target_sequence=target_sequence)
+                                      target_sequence=target_sequence, 
+                                      sample_probability=sample_probability)
         return decoded_states
+
