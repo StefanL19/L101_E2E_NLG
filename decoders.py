@@ -129,6 +129,7 @@ class NMTDecoder(nn.Module):
                 #print("Feeding the ground truth")
                 y_t_index = target_sequence[i]
             else:
+                pass
                 #print("Not feeding the ground truth")
                 
             # Step 1: Embed word and concat with previous context
