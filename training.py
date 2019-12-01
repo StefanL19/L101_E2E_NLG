@@ -122,7 +122,7 @@ def sequence_loss(y_pred, y_true, mask_index):
     y_pred, y_true = normalize_sizes(y_pred, y_true)
     return F.cross_entropy(y_pred, y_true, ignore_index=mask_index)
 
-args = Namespace(dataset_csv="data/inp.csv",
+args = Namespace(dataset_csv="data/inp_and_gt.csv",
                  vectorizer_file="vectorizer.json",
                  model_state_file="model.pth",
                  save_dir="data/model_storage/",

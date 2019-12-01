@@ -115,7 +115,7 @@ class NMTDataset(Dataset):
         vector_dict = self._vectorizer.vectorize(row.source_language, row.target_language)
         inp_gt = row.inp_gt.split()
         ref_gt = row.ref_gt
-        if len(ref_gt > 1):
+        if len(ref_gt) > 1:
             ref_gt = ref_gt.split()
 
         return {"x_source": vector_dict["source_vector"], 
