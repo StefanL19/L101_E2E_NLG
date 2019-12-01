@@ -34,8 +34,13 @@ def align_boolean_slot(text, text_tok, slot, value, true_val='yes', false_val='n
     # Search for all possible slot realizations
     for slot_stem in slot_stems:
         idx, pos = find_first_in_list(slot_stem, text_tok)
+
         if pos >= 0:
-            if value == true_val:
+            # If we are looking for any type of realization - like in the reranker
+            if value == "-":
+                return pos
+
+            elif value == true_val:
                 # Match an instance of the slot stem without a preceding negation
                 if not __find_negation(text, text_tok, idx, pos, expected_true=True, after=False):
                     return pos

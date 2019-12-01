@@ -6,15 +6,16 @@ import data_augmentation
 from data_loader import NMTDataset
 import json
 import pandas as pd
+from alignment_utils import tokenize_mr
 
 
 # ############################### Create a new data processor and vectorizer
-processor = DataPreprocessor.from_files(train_input_path="data/e2e-dataset/trainset.csv", validation_input_path="data/e2e-dataset/devset.csv", 
- 	test_input_path="data/e2e-dataset/testset.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
+# processor = DataPreprocessor.from_files(train_input_path="data/e2e-dataset/trainset.csv", validation_input_path="data/e2e-dataset/devset.csv", 
+#  	test_input_path="data/e2e-dataset/testset.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
 
-processor.save_data("data/inp_and_gt.csv")
-dataset = NMTDataset.load_dataset_and_make_vectorizer("data/inp_and_gt.csv")
-dataset.save_vectorizer("data/vectorizer.json")
+# processor.save_data("data/inp_and_gt.csv")
+# dataset = NMTDataset.load_dataset_and_make_vectorizer("data/inp_and_gt.csv")
+# dataset.save_vectorizer("data/vectorizer.json")
 
 # # ################################# Load data processor and vectorizer
 # processor = DataPreprocessor.from_existing_df("data/inp.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
@@ -43,7 +44,20 @@ dataset.save_vectorizer("data/vectorizer.json")
 # 	print("-------------------------")
 # 	print(row[1]["ref_gt"])
 
-###########################################################
+
+##################################### Test classification reranker
+mr = "name[The Golden Palace], eatType[coffee shop], food[Fast food], priceRange[high]"
+
+ref = "there is a high priced x-con-food place called x-name. with an average customer rating . it is like a coffee shop . and it is kid-friendly . "
+
+######################################## Test Reranker 
+aligner = SlotAligner()
+inp = tokenize_mr(mr)
+res = aligner.alignment_reranker(inp, ref)
+print("The alignment result is: ", res)
+
+
+
 # processor.save_data("data/inp.csv")
 
 #processor = DataPreprocessor.from_existing_df("data/inp.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
