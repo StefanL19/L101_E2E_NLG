@@ -113,7 +113,7 @@ class NMTDataset(Dataset):
         row = self._target_df.iloc[index]
 
         vector_dict = self._vectorizer.vectorize(row.source_language, row.target_language)
-        inp_gt = row.inp_gt.split()
+        # inp_gt = row.inp_gt.split()
         ref_gt = row.ref_gt
         if len(ref_gt) > 1:
             ref_gt = ref_gt.split()
@@ -122,8 +122,8 @@ class NMTDataset(Dataset):
                 "x_target": vector_dict["target_x_vector"],
                 "y_target": vector_dict["target_y_vector"], 
                 "x_source_length": vector_dict["source_length"],
-                "inp_gt":inp_gt,
-                "ref_gt":ref_gt}
+                "inp_gt":row.inp_gt,
+                 "ref_gt":ref_gt}
         
     def get_num_batches(self, batch_size):
         """Given a batch size, return the number of batches in the dataset
@@ -147,7 +147,10 @@ def generate_nmt_batches(dataset, batch_size, shuffle=True,
         
         out_data_dict = {}
         for name, tensor in data_dict.items():
-            out_data_dict[name] = data_dict[name][sorted_length_indices].to(device)
+            if name not in ["ref_gt", "inp_gt"]:
+                out_data_dict[name] = data_dict[name][sorted_length_indices].to(device)
+            else:
+                out_data_dict[name] = tensor
         yield out_data_dict
 
 
