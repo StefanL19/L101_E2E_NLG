@@ -5,27 +5,45 @@ from nltk.tokenize import word_tokenize
 import data_augmentation
 from data_loader import NMTDataset
 import json
+import pandas as pd
 
-# # ############################### Create a new data processor and vectorizer
-# processor = DataPreprocessor.from_files(train_input_path="data/e2e-dataset/trainset.csv", validation_input_path="data/e2e-dataset/devset.csv", 
-#  	test_input_path="data/e2e-dataset/testset.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
 
-# processor.save_data("data/inp.csv")
-# dataset = NMTDataset.load_dataset_and_make_vectorizer("data/inp.csv")
-# dataset.save_vectorizer("data/vectorizer.json")
+# ############################### Create a new data processor and vectorizer
+processor = DataPreprocessor.from_files(train_input_path="data/e2e-dataset/trainset.csv", validation_input_path="data/e2e-dataset/devset.csv", 
+ 	test_input_path="data/e2e-dataset/testset.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
+
+processor.save_data("data/inp_and_gt.csv")
+dataset = NMTDataset.load_dataset_and_make_vectorizer("data/inp_and_gt.csv")
+dataset.save_vectorizer("data/vectorizer.json")
 
 # # ################################# Load data processor and vectorizer
-processor = DataPreprocessor.from_existing_df("data/inp.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
-dataset = NMTDataset.load_dataset_and_load_vectorizer("data/inp.csv", "data/vectorizer.json")
+# processor = DataPreprocessor.from_existing_df("data/inp.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
+# dataset = NMTDataset.load_dataset_and_load_vectorizer("data/inp.csv", "data/vectorizer.json")
 
-vect = dataset.get_vectorizer()
-s_v = vect.source_vocab
-print(s_v.lookup_index(14))
-res = vect.vectorize("<inform> pricerange more than £30 <inform> position inner", "prices start at £30 .")
-print(res)
+# vect = dataset.get_vectorizer()
+# s_v = vect.source_vocab
+# print(s_v.lookup_index(14))
+# res = vect.vectorize("<inform> pricerange more than £30 <inform> position inner", "prices start at £30 .")
+# print(res)
+# 
 
+# # ##################################### Test Reverse Delexicalization
+# delexicalizer = Delexicalizer("partial", ["name", "near", "food"])
+# text_df = pd.read_csv("data/inp_and_gt.csv")
+# for row in text_df[0:1].iterrows():
+# 	print(row[1]["source_language"])
+# 	print("------------------------")
+# 	print(row[1]["target_language"])
+# 	print("------------------------")
+# 	print(row[1]["inp_gt"])
+# 	print("------------------------")
 
+# 	pred_reverse_delexicalized = delexicalizer.reverse_delexicalize_sample(row[1]["inp_gt"], row[1]["target_language"])
+# 	print(pred_reverse_delexicalized)
+# 	print("-------------------------")
+# 	print(row[1]["ref_gt"])
 
+###########################################################
 # processor.save_data("data/inp.csv")
 
 #processor = DataPreprocessor.from_existing_df("data/inp.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])

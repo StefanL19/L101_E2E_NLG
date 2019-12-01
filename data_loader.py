@@ -113,11 +113,17 @@ class NMTDataset(Dataset):
         row = self._target_df.iloc[index]
 
         vector_dict = self._vectorizer.vectorize(row.source_language, row.target_language)
+        inp_gt = row.inp_gt.split()
+        ref_gt = row.ref_gt
+        if len(ref_gt > 1):
+            ref_gt = ref_gt.split()
 
         return {"x_source": vector_dict["source_vector"], 
                 "x_target": vector_dict["target_x_vector"],
                 "y_target": vector_dict["target_y_vector"], 
-                "x_source_length": vector_dict["source_length"]}
+                "x_source_length": vector_dict["source_length"],
+                "inp_gt":inp_gt,
+                "ref_gt":ref_gt}
         
     def get_num_batches(self, batch_size):
         """Given a batch size, return the number of batches in the dataset

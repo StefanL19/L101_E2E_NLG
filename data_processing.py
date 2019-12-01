@@ -4,7 +4,7 @@ import re
 import nltk
 from slot_aligner import SlotAligner
 from data_augmentation import split_utterance
-from alignment_utils import tokenize_mr
+from alignment_utils import tokenize_mr, tokenize_mr_upper
 
 
 
@@ -71,13 +71,12 @@ class DataPreprocessor(object):
         preprocessed_mrs = []
         preprocessed_ref_sentences = []
 
-        no_preprocessing = []
+        mr_no_preprocessing = []
 
         input_language = []
         output_language = []
+        ref_no_processing = []
         for index, row in tqdm(train_df.iterrows()):
-
-            no_preprocessing.append(row[0])
 
             input_mr = tokenize_mr(row[0])
             
@@ -153,13 +152,18 @@ class DataPreprocessor(object):
 
                 input_language.append(inp_sent)
                 output_language.append(ref)
+                mr_no_preprocessing.append(row[0])
+
+                # A dummy string for the training gt without delexicalization - we do not actually need it except for the dataframe
+                ref_no_processing.append(" ")
 
         print("Input training samples: ", len(input_language))
         print("Output training samples: ", len(output_language))
         train_description = ["train"]*len(input_language)
 
 
-        train_df = pd.DataFrame({'source_language': input_language, 'target_language': output_language, 'split': train_description})
+        train_df = pd.DataFrame({'source_language': input_language, 'target_language': output_language,
+         'split': train_description, 'inp_gt':mr_no_preprocessing, 'ref_gt':ref_no_processing})
         print("-------------------------------------------------")
         print(train_df)
 
@@ -182,6 +186,8 @@ class DataPreprocessor(object):
 
         val_input_language = []
         val_output_language = []
+        val_mr_no_preprocessing = []
+        val_ref_no_processing = []
 
         for index, row in tqdm(validation_df.iterrows()):
             input_mr = tokenize_mr(row[0])
@@ -212,9 +218,15 @@ class DataPreprocessor(object):
             # Punctuation should be a separate token 
             output_ref = re.sub('([.,!?()])', r' \1 ', output_ref)
             output_ref = re.sub('\s{2,}', ' ', output_ref)
+            ref_gt = row[1]
+            ref_gt = re.sub('([.,!?()])', r' \1 ', ref_gt)
+            ref_gt = re.sub('\s{2,}', ' ', ref_gt)
+
             inp_sent = " ".join(inp_val)
             val_input_language.append(inp_sent)
             val_output_language.append(output_ref)
+            val_mr_no_preprocessing.append(row[0])
+            val_ref_no_processing.append(ref_gt)
 
         print("Input validation samples: ", len(val_input_language))
         print("Input vaidation samples: ", len(val_output_language))
@@ -222,9 +234,10 @@ class DataPreprocessor(object):
 
         val_description = ["val"]*len(val_input_language)
 
-        val_df = pd.DataFrame({'source_language': val_input_language, 'target_language': val_output_language, 'split': val_description})
+        val_df = pd.DataFrame({'source_language': val_input_language, 'target_language': val_output_language,
+         'split': val_description, 'inp_gt':val_mr_no_preprocessing, 'ref_gt':val_ref_no_processing})
 
-        df = pd.concat([train_df, val_df], keys=['source_language', 'target_language', 'split'])
+        df = pd.concat([train_df, val_df], keys=['source_language', 'target_language', 'split', 'inp_gt', 'ref_gt'])
 
         return cls(df, delexicalization_type, delexicalization_slots)
 
@@ -265,7 +278,7 @@ class Delexicalizer(object):
             print("Pass slots to the delexicalizer")
             return
 
-        mr = tokenize_mr(inp_mr)
+        mr = tokenize_mr_upper(inp_mr)
 
         for slot in self.delexicalization_slots:
             if slot == "name":

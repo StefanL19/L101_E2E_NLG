@@ -54,4 +54,21 @@ def tokenize_mr(sample):
             output[slot_type] = slot_value.lower()
 
         return output
-        
+
+def tokenize_mr_upper(sample):
+        """
+            Performs initial tokenization of the input sample
+            sample: input, output pair to be tokenized
+            mode: train, validation, or test mode
+        """
+        output = {}
+
+        mr_parts = sample.split(",")
+
+        for mr_part in mr_parts:
+            slot_type = mr_part.split("[")[0].strip().lower()
+            slot_value = mr_part.split("[")[1].strip("]").strip()
+            
+            output[slot_type] = slot_value
+
+        return output
