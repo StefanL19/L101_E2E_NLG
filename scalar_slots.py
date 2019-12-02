@@ -7,7 +7,7 @@ DIST_IDX_THRESH = 10
 DIST_POS_THRESH = 30
 
 
-def align_scalar_slot(text, text_tok, slot, value, slot_mapping=None, value_mapping=None, slot_stem_only=False):
+def align_scalar_slot(text, text_tok, slot, value, slot_mapping=None, value_mapping=None, slot_stem_only=False, reranking=False):
     slot_stem_indexes = []
     slot_stem_positions = []
     leftmost_pos = -1
@@ -42,14 +42,19 @@ def align_scalar_slot(text, text_tok, slot, value, slot_mapping=None, value_mapp
     # If it's only required that the slot stem is matched, don't search for the value
     if slot_stem_only and len(slot_stem_positions) > 0:
         return slot_stem_positions[0]
+    
+    if not reranking:
+        # Get the value's alternative realizations
+        value_alternatives = [value]
 
-    # Get the value's alternative realizations
-    value_alternatives = [value]
-    if value_mapping is not None:
-        value = value_mapping[value]
-        value_alternatives.append(value)
-    if value in alternatives:
-        value_alternatives += alternatives[value]
+        if value_mapping is not None:
+            value = value_mapping[value]
+            value_alternatives.append(value)
+        if value in alternatives:
+            value_alternatives += alternatives[value]
+    else:
+        #If the stem was not matched and we are in reranking mode we should check for all alternatives
+        value_alternatives = value_mapping.values()
 
     # Search for all possible value equivalents
     for val in value_alternatives:

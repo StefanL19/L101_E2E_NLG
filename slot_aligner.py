@@ -38,7 +38,7 @@ class SlotAligner(object):
                 # Assign them to the values of the created dictionary
                 all_slots[gt_slot_name] = gt_slots[gt_slot_name]
 
-        aligned_slots = self.align_slots(all_slots, generated_sentence)
+        aligned_slots = self.align_slots(all_slots, generated_sentence, reranking=True)
 
         # The food slot will be specific because of its delexicalization
         food_values = ["x-vow-cuisine-food", "x-con-cuisine-food", "x-con-food"]
@@ -46,8 +46,6 @@ class SlotAligner(object):
         if any(x in generated_sentence for x in food_values):
             # Mark the food slot as realized
             aligned_slots[-3] = 0
-
-        print(all_slots.keys())
 
         count_all = len(list(gt_slots.keys()))
 
@@ -67,13 +65,13 @@ class SlotAligner(object):
                 count_overgenerated += 1
 
         alignment_result = count_all / ((count_overgenerated+1)*(count_undergenerated+1))
-
+        
         return alignment_result
 
 
 
 
-    def align_slots(self, mr_slots, ref_sentence):
+    def align_slots(self, mr_slots, ref_sentence, reranking=False):
         slots_realization_positions = []
 
         for slot in mr_slots.keys():
@@ -90,7 +88,7 @@ class SlotAligner(object):
                 slots_realization_positions.append(pos)
 
             elif slot == "customerrating":
-                pos = self.align_customer_rating(ref_sentence, mr_slots[slot])
+                pos = self.align_customer_rating(ref_sentence, mr_slots[slot], reranking)
                 slots_realization_positions.append(pos)
 
             elif slot == "near":
@@ -99,6 +97,8 @@ class SlotAligner(object):
 
             elif slot == "food":
                 pos = self.align_food(ref_sentence, mr_slots[slot])
+                if reranking == True:
+                    pos = -1
                 slots_realization_positions.append(pos)
 
             elif slot == "area":
@@ -136,7 +136,7 @@ class SlotAligner(object):
         pos = scalar_slots.align_scalar_slot(ref_text, ref_text_tokenized, "pricerange", value, slot_stem_only=True)
         return pos
 
-    def align_customer_rating(self, ref_text, value):
+    def align_customer_rating(self, ref_text, value, reranking_mode=False):
         ref_text_tokenized = word_tokenize(ref_text)
 
         customerrating_mapping = {
@@ -154,7 +154,8 @@ class SlotAligner(object):
         pos = scalar_slots.align_scalar_slot(ref_text, ref_text_tokenized, "customerrating", value,
                                             slot_mapping=customerrating_mapping['slot'],
                                             value_mapping=customerrating_mapping['values'],
-                                            slot_stem_only=True)
+                                            slot_stem_only=True,
+                                            reranking=reranking_mode)
         return pos
 
     def align_area(self, ref_text, value):
