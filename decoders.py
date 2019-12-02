@@ -106,6 +106,9 @@ class NMTDecoder(nn.Module):
         
         # use the provided encoder hidden state as the initial hidden state
         h_t = self.hidden_map(initial_hidden_state)
+        print("Hidden states are equal after the map")
+        
+        print(torch.equal(h_t[0], h_t[1]))
         
         batch_size = encoder_state.size(0)
         # initialize context vectors to zeros
@@ -134,30 +137,53 @@ class NMTDecoder(nn.Module):
                 
             # Step 1: Embed word and concat with previous context
             y_input_vector = self.target_embedding(y_t_index)
+            print("After taking the target embeddings: ")
+            print(torch.equal(y_input_vector[0], y_input_vector[1]))
+            
             rnn_input = torch.cat([y_input_vector, context_vectors], dim=1)
             
+            print("Before taking the GRU step: ")
+            print(torch.equal(rnn_input[0], rnn_input[1]))
+            
+            print("After taking a GRU step: ")
             # Step 2: Make a GRU step, getting a new hidden vector
             h_t = self.gru_cell(rnn_input, h_t)
+            print(torch.equal(h_t[0], h_t[1]))
+            
             self._cached_ht.append(h_t.cpu().detach().numpy())
             
             # Step 3: Use the current hidden to attend to the encoder state
             context_vectors, p_attn, _ = verbose_attention(encoder_state_vectors=encoder_state, 
                                                            query_vector=h_t)
             
+            print("After going through the attention: ")
+            print(torch.equal(context_vectors[0], context_vectors[1]))
+            
             # auxillary: cache the attention probabilities for visualization
             self._cached_p_attn.append(p_attn.cpu().detach().numpy())
             
             # Step 4: Use the current hidden and context vectors to make a prediction to the next word
             prediction_vector = torch.cat((context_vectors, h_t), dim=1) # denoted by h_t tilda in the paper
-
+            
+            print("After running the classifier: ")
             # Linear classifier on top of the prediction vector
-            score_for_y_t_index = self.classifier(F.dropout(prediction_vector, 0.3))
+            #F.dropout(prediction_vector, 0.3)
+            score_for_y_t_index = self.classifier(prediction_vector)
+            print(torch.equal(score_for_y_t_index[0], score_for_y_t_index[1]))
+            
             
             if use_sample:
                 p_y_t_index = F.softmax(score_for_y_t_index * self._sampling_temperature, dim=1)
+                print("After going the softmax layers: ")
+                print(torch.equal(p_y_t_index[0], p_y_t_index[1]))
+                print(p_y_t_index.shape)
                 # _, y_t_index = torch.max(p_y_t_index, 1)
-                y_t_index = torch.multinomial(p_y_t_index, 1).squeeze()
-            
+                #y_t_index = torch.multinomial(p_y_t_index, 1).squeeze()
+                y_t_index = torch.argmax(p_y_t_index, 1)
+                print("After taking the index of the predicted word: ")
+                print(torch.equal(y_t_index[0], y_t_index[1]))
+                print(y_t_index.shape)
+            print("#######################################")
             # auxillary: collect the prediction scores
             output_vectors.append(score_for_y_t_index)
             
