@@ -27,6 +27,7 @@ from data_processing import Delexicalizer
 from slot_aligner import SlotAligner
 from alignment_utils import tokenize_mr, tokenize_mr_upper
 import sampler
+import numpy as np
 
 args = Namespace(dataset_csv="data/inp_and_gt.csv",
                  vectorizer_file="vectorizer.json",
@@ -34,7 +35,10 @@ args = Namespace(dataset_csv="data/inp_and_gt.csv",
                  save_dir="data/model_storage/",
                  cuda=True,
                  seed=1337,
-                 batch_size=32)
+                 batch_size=32,
+                 source_embedding_size=24, 
+                 target_embedding_size=24,
+                 encoding_size=32)
 
 # Check CUDA
 if not torch.cuda.is_available():
@@ -47,7 +51,7 @@ torch.cuda.manual_seed_all(args.seed)
 
 args.device = torch.device("cuda" if args.cuda else "cpu")
 
-dataset = NMTDataset.load_dataset_and_load_vectorizer(args.dataset, args.vectorizer_file)
+dataset = NMTDataset.load_dataset_and_load_vectorizer(args.dataset_csv, args.save_dir+args.vectorizer_file)
 
 vectorizer = dataset.get_vectorizer()
 
@@ -58,7 +62,7 @@ model = NMTModel(source_vocab_size=len(vectorizer.source_vocab),
                  encoding_size=args.encoding_size,
                  target_bos_index=vectorizer.target_vocab.begin_seq_index)
 
-model.load_state_dict(torch.load(args.save_dir+args.model_state_file))
+model.load_state_dict(torch.load(args.save_dir+args.model_state_file, map_location=torch.device(args.device)))
 model.eval().to(args.device)
 
 inference_sampler = sampler.NMTSampler(vectorizer, model, use_reranker=True, beam_width=3)
@@ -72,12 +76,12 @@ batch_generator = generate_nmt_batches(dataset,
 #Contains the samples for the current batch
 batch_dict = next(batch_generator)
 
-sampler.apply_to_batch(batch_dict)
+inference_sampler.apply_to_batch(batch_dict)
 
 all_results = []
 
 for i in range(args.batch_size):
-    all_results.append(sampler.get_ith_item(i, False))
+    all_results.append(inference_sampler.get_ith_item(i, False))
 
 for result in all_results:
     print("MR GT: ")

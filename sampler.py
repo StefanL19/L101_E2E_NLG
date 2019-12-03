@@ -3,6 +3,8 @@ from utils_inference import sentence_from_indices, beam_search_decoder
 from alignment_utils import tokenize_mr, tokenize_mr_upper
 from data_processing import Delexicalizer
 from slot_aligner import SlotAligner
+import torch
+from nltk.translate import bleu_score
 
 class NMTSampler:
     def __init__(self, vectorizer, model, use_reranker, beam_width=3):
@@ -12,7 +14,8 @@ class NMTSampler:
         self.aligner = SlotAligner()
         self.use_reranker = use_reranker
         self.beam_width = beam_width
-    
+        self.smoothing_function = bleu_score.SmoothingFunction()
+
     def apply_to_batch(self, batch_dict):
         self._last_batch = batch_dict
         
@@ -105,6 +108,8 @@ class NMTSampler:
         
         output['bleu-4'] = bleu_score.sentence_bleu(references=[reference],
                                                     hypothesis=hypothesis,
-                                                    smoothing_function=chencherry.method1)
+                                                    smoothing_function=self.smoothing_function.method1)
         
         return output
+
+        

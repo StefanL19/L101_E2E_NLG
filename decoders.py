@@ -168,7 +168,7 @@ class NMTDecoder(nn.Module):
             print("After running the classifier: ")
             # Linear classifier on top of the prediction vector
             #F.dropout(prediction_vector, 0.3)
-            score_for_y_t_index = self.classifier(prediction_vector)
+            score_for_y_t_index = self.classifier(F.dropout(prediction_vector, 0.3, training=False))
             print(torch.equal(score_for_y_t_index[0], score_for_y_t_index[1]))
             
             
