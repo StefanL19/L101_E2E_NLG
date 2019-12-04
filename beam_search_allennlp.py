@@ -36,7 +36,7 @@ class BeamSearch:
         end_index: int,
         max_steps: int = 50,
         beam_size: int = 10,
-        per_node_beam_size: int = 1,
+        per_node_beam_size: int = None,
     ) -> None:
         self._end_index = end_index
         self.max_steps = max_steps

@@ -68,7 +68,7 @@ model = NMTModel(source_vocab_size=len(vectorizer.source_vocab),
 model.load_state_dict(torch.load(args.save_dir+args.model_state_file, map_location=torch.device(args.device)))
 model.eval().to(args.device)
 
-inference_sampler = sampler.NMTSampler(vectorizer, model, use_reranker=True, beam_width=3)
+inference_sampler = sampler.NMTSampler(vectorizer, model, use_reranker=True, beam_width=10)
 dataset.set_split('val')
 
 batch_generator = generate_nmt_batches(dataset, 

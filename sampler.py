@@ -22,7 +22,7 @@ class NMTSampler:
         self.beam_width = beam_width
         self.smoothing_function = bleu_score.SmoothingFunction()
         self._beam_search = BeamSearch(
-            vectorizer.target_vocab.end_seq_index, max_steps=30, beam_size=self.beam_width
+            vectorizer.target_vocab.end_seq_index, max_steps=45, beam_size=self.beam_width
         )
 
     def get_prediction_slice(self, idx):
