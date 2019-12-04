@@ -19,11 +19,13 @@ from alignment_utils import tokenize_mr
 
 # # ################################# Load data processor and vectorizer
 # processor = DataPreprocessor.from_existing_df("data/inp.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
-# dataset = NMTDataset.load_dataset_and_load_vectorizer("data/inp.csv", "data/vectorizer.json")
+dataset = NMTDataset.load_dataset_and_load_vectorizer("data/inp.csv", "data/model_storage/vectorizer.json")
 
-# vect = dataset.get_vectorizer()
-# s_v = vect.source_vocab
-# print(s_v.lookup_index(14))
+vect = dataset.get_vectorizer()
+s_v = vect.source_vocab
+print(s_v.lookup_index(3))
+print(s_v.lookup_index(13))
+print(s_v.lookup_index(18))
 # res = vect.vectorize("<inform> pricerange more than £30 <inform> position inner", "prices start at £30 .")
 # print(res)
 # 
@@ -46,15 +48,15 @@ from alignment_utils import tokenize_mr
 
 
 ##################################### Test classification reranker
-mr = "name[The Golden Palace], eatType[coffee shop], food[Fast food], priceRange[high]"
+# mr = "name[The Golden Palace], eatType[coffee shop], food[Fast food], priceRange[high]"
 
-ref = "there is a high priced x-con-food place called x-name. with an average customer rating . it is like a coffee shop . and it is kid-friendly . "
+# ref = "there is a high priced x-con-food place called x-name. with an average customer rating . it is like a coffee shop . and it is kid-friendly . "
 
-######################################## Test Reranker 
-aligner = SlotAligner()
-inp = tokenize_mr(mr)
-res = aligner.alignment_reranker(inp, ref)
-print("The alignment result is: ", res)
+# ######################################## Test Reranker 
+# aligner = SlotAligner()
+# inp = tokenize_mr(mr)
+# res = aligner.alignment_reranker(inp, ref)
+# print("The alignment result is: ", res)
 
 
 

@@ -17,7 +17,7 @@ from torch.nn import functional as F
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
-from tqdm import tqdm_notebook
+from tqdm import tqdm
 from math import log
 from nltk.translate import bleu_score
 import seaborn as sns
@@ -38,7 +38,10 @@ args = Namespace(dataset_csv="data/inp_and_gt.csv",
                  batch_size=32,
                  source_embedding_size=24, 
                  target_embedding_size=24,
-                 encoding_size=32)
+                 encoding_size=32,
+                 results_save_path="data/results/res.csv",
+                 results_gt_save_path="data/results/gt_ref.txt",
+                 results_sampled_save_path="data/results/sampled_ref.txt")
 
 # Check CUDA
 if not torch.cuda.is_available():
@@ -65,7 +68,7 @@ model = NMTModel(source_vocab_size=len(vectorizer.source_vocab),
 model.load_state_dict(torch.load(args.save_dir+args.model_state_file, map_location=torch.device(args.device)))
 model.eval().to(args.device)
 
-inference_sampler = sampler.NMTSampler(vectorizer, model, use_reranker=True, beam_width=3)
+inference_sampler = sampler.NMTSampler(vectorizer, model, use_reranker=True, beam_width=7)
 dataset.set_split('val')
 
 batch_generator = generate_nmt_batches(dataset, 
@@ -73,33 +76,121 @@ batch_generator = generate_nmt_batches(dataset,
                                        device=args.device,
                                        shuffle=False)
 
-#Contains the samples for the current batch
-batch_dict = next(batch_generator)
-
-inference_sampler.apply_to_batch(batch_dict)
-
 all_results = []
 
-for i in range(args.batch_size):
-    all_results.append(inference_sampler.get_ith_item(i, False))
+for batch_idx in tqdm(range(0, 3)):#dataset.get_num_batches(args.batch_size)-100)):
+    batch_dict = next(batch_generator)
+    inference_sampler.apply_to_batch(batch_dict)
+    
+    for i in range(args.batch_size):
+        all_results.append(inference_sampler.get_ith_item(i, False))
+
+
+res_mrs_gt = []
+res_input_mr = []
+res_sample_no_delex = []
+res_ref_gt = []
+res_sample_original = []
+
 
 for result in all_results:
-    print("MR GT: ")
-    print(result["mrs_gt"])
-    print("------------------")
-    print("Input MR: ")
-    print(result["source"])
-    print("-------------------------")
-    print("Reference ground truth: ")
-    print(result["reference_gt"])
-    print("---------------------------")
-    print("Sampled no delexicalization: ")
-    print(result["sampled_normalized"])
-    print("---------------------------")
-    print("Sampled with delexicalization: ")
-    print(" ".join(result["sampled"]))
-    print("---------------------------")
-    print("############################")
+    # print("MR GT: ")
+    # print(result["mrs_gt"])
+    res_mrs_gt.append(result["mrs_gt"])
+    # print("------------------")
+    # print("Input MR: ")
+    # print(result["source"])
+    res_input_mr.append(result["source"])
+    # print("-------------------------")
+    # print("Reference ground truth: ")
+    # print(result["reference_gt"])
+    res_ref_gt.append(result["reference_gt"])
+    # print("---------------------------")
+    # print("Sampled no delexicalization: ")
+    # print(result["sampled_normalized"])
+    res_sample_no_delex.append(result["sampled_normalized"])
+    # print("---------------------------")
+    # print("Sampled with delexicalization: ")
+    # print(" ".join(result["sampled"]))
+    res_sample_original.append(result["sampled"])
+    # print("---------------------------")
+    # print("############################")
+
+res_df = pd.DataFrame({'MR_GT': res_mrs_gt, 'Input_MR': res_input_mr,
+         'Reference_Ground_Truth': res_ref_gt, 'Sample_No_Delex':res_sample_no_delex, 'Sample_Delex':res_sample_original})
 
 
+res_df.to_csv(args.results_save_path, encoding='utf-8', index=False)
+
+df = pd.read_csv(args.results_save_path)
+
+grp = df.groupby(['MR_GT'])
+
+for name, group in grp:
+    with open(args.results_gt_save_path, "a") as f:
+        for samp in group["Reference_Ground_Truth"]:
+            f.write(samp)
+            f.write("\n")
+
+        f.write("\n")
+
+    with open(args.results_sampled_save_path, "a") as f_s:
+        f_s.write(group["Sample_No_Delex"].iloc[0])
+        f_s.write("\n")
+
+
+# #Contains the samples for the current batch
+# batch_dict = next(batch_generator)
+
+# batch_dict = next(batch_generator)
+
+# batch_dict = next(batch_generator)
+
+# batch_dict = next(batch_generator)
+
+# batch_dict = next(batch_generator)
+
+# batch_dict = next(batch_generator)
+
+
+# inference_sampler.apply_to_batch(batch_dict)
+
+# all_results = []
+
+# for i in range(args.batch_size):
+#     all_results.append(inference_sampler.get_ith_item(i, False))
+
+# res_mrs_gt = []
+# res_input_mr = []
+# res_sample_no_delex = []
+# res_ref_gt = []
+# res_sample_original = []
+
+# for result in all_results:
+#     print("MR GT: ")
+#     print(result["mrs_gt"])
+#     res_mrs_gt.append(result["mrs_gt"])
+#     print("------------------")
+#     print("Input MR: ")
+#     print(result["source"])
+#     res_input_mr.append(result["source"])
+#     print("-------------------------")
+#     print("Reference ground truth: ")
+#     print(result["reference_gt"])
+#     res_ref_gt.append(result["reference_gt"])
+#     print("---------------------------")
+#     print("Sampled no delexicalization: ")
+#     print(result["sampled_normalized"])
+#     res_sample_no_delex.append(result["sampled_normalized"])
+#     print("---------------------------")
+#     print("Sampled with delexicalization: ")
+#     print(" ".join(result["sampled"]))
+#     res_sample_original.append(result["sampled"])
+#     print("---------------------------")
+#     print("############################")
+
+# res_df = pd.DataFrame({'MR_GT': res_mrs_gt, 'Input_MR': res_input_mr,
+#          'Reference_Ground_Truth': res_ref_gt, 'Sample_No_Delex':res_sample_no_delex, 'Sample_Delex':res_sample_original})
+
+# res_df.to_csv("data/res.csv", encoding='utf-8', index=False)
 

@@ -18,7 +18,7 @@ class NMTSampler:
 
     def apply_to_batch(self, batch_dict):
         self._last_batch = batch_dict
-        
+
         y_pred = self.model(x_source=batch_dict['x_source'], 
                             x_source_lengths=batch_dict['x_source_length'], 
                             target_sequence=batch_dict['x_target'],
@@ -72,9 +72,14 @@ class NMTSampler:
 
                 # Produce the new sentence probability 
                 res_after_reranking.append(sequence[1]*reranker_score)  
-
+                print(sent_str)
+            print("------------------")
                 # Get the sentence with max probability of after both beam search and reranking
-                max_seq_idx = res_after_reranking.index(max(res_after_reranking))
+            max_seq_idx = res_after_reranking.index(max(res_after_reranking))
+            print(max_seq_idx)
+
+            if max_seq_idx != 0:
+                print("Reranker did its job")
         
         sentence_indices = top_sequences[max_seq_idx][0]
         

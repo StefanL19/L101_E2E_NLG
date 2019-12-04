@@ -40,13 +40,13 @@ class NMTEncoder(nn.Module):
                 x_unpacked.shape = (batch, seq_size, rnn_hidden_size * 2)
                 x_birnn_h.shape = (batch, rnn_hidden_size * 2)
         """
-        print("Inputs are equal")
-        print(torch.equal(x_source[0], x_source[1]))
+        # print("Inputs are equal")
+        # print(torch.equal(x_source[0], x_source[1]))
         # The sequence goes through the embedding
         x_embedded = self.source_embedding(x_source)
         
-        print("After embedding")
-        print(torch.equal(x_embedded[0], x_embedded[1]))
+        # print("After embedding")
+        # print(torch.equal(x_embedded[0], x_embedded[1]))
 
         # create PackedSequence; x_packed.data.shape=(number_items, embeddign_size)
         # Packing all the sequences within the batch
@@ -74,10 +74,10 @@ class NMTEncoder(nn.Module):
         
         x_unpacked, _ = pad_packed_sequence(x_birnn_out, batch_first=True)
         
-        print("The outputs of the last layer")
-        print(torch.equal(x_unpacked[0], x_unpacked[1]))
+        # print("The outputs of the last layer")
+        # print(torch.equal(x_unpacked[0], x_unpacked[1]))
         
-        print("The last hidden states")
-        print(torch.equal(x_birnn_h[0], x_birnn_h[1]))
+        # print("The last hidden states")
+        # print(torch.equal(x_birnn_h[0], x_birnn_h[1]))
         
         return x_unpacked, x_birnn_h

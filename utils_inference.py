@@ -1,3 +1,5 @@
+import numpy as np
+
 def beam_search_decoder(data, k):
     sequences = [[list(), 1.0]]
     
@@ -26,11 +28,19 @@ def beam_search_decoder(data, k):
 
         # select k best candidates
         sequences = ordered[:k]
+
+    print(np.where(np.array(sequences[0][0]) - np.array(sequences[1][0])))
+    # print(sequences[0][0][50])
+    # print(sequences[1][0][50])
+    print(sequences[0][0])
+    print("--------------------------------------")
+    print(sequences[1][0])
     return sequences
 
 
 def sentence_from_indices(indices, vocab, strict=True, return_string=True):
     ignore_indices = set([vocab.mask_index, vocab.begin_seq_index, vocab.end_seq_index])
+    
     out = []
     for index in indices:
         if index == vocab.begin_seq_index and strict:
