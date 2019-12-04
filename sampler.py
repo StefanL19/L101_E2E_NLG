@@ -52,8 +52,8 @@ class NMTSampler:
 
         self._last_batch["unnormalized_predictions"] = y_pred
 
-        print("The predictions for the two samples are the same: ")
-        print(torch.allclose(y_pred[0], y_pred[1]))
+        # print("The predictions for the two samples are the same: ")
+        # print(torch.allclose(y_pred[0], y_pred[1]))
 
         start_predictions = self._last_batch["unnormalized_predictions"].select(1, 0).unsqueeze(1)
         idx = torch.tensor(0)
@@ -62,8 +62,8 @@ class NMTSampler:
             start_predictions, idx, self.take_step
         )
 
-        print("The beam search results are the same: ")
-        print(torch.allclose(all_top_k_predictions[0], all_top_k_predictions[1]))
+        # print("The beam search results are the same: ")
+        # print(torch.allclose(all_top_k_predictions[0], all_top_k_predictions[1]))
         all_top_k_predictions = all_top_k_predictions.detach().numpy()
         log_probabilities = log_probabilities.detach().numpy()
         #print(all_top_k_predictions[0])

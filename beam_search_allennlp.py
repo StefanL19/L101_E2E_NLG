@@ -36,7 +36,7 @@ class BeamSearch:
         end_index: int,
         max_steps: int = 50,
         beam_size: int = 10,
-        per_node_beam_size: int = None,
+        per_node_beam_size: int = 1,
     ) -> None:
         self._end_index = end_index
         self.max_steps = max_steps
@@ -166,7 +166,7 @@ class BeamSearch:
             # shape: (batch_size * beam_size,)
             last_predictions = predictions[-1].reshape(batch_size * self.beam_size)
             
-            print("Is the problem here: ", torch.allclose(last_predictions[0], last_predictions[1]))
+            #print("Is the problem here: ", torch.allclose(last_predictions[0], last_predictions[1]))
 
             # If every predicted token from the last step is `self._end_index`,
             # then we can stop early.
@@ -202,24 +202,22 @@ class BeamSearch:
             )
 
 
-            print(torch.allclose(last_log_probabilities[0], last_log_probabilities[1]))
+            #print(torch.allclose(last_log_probabilities[0], last_log_probabilities[1]))
             # Here we expand the last log probabilities to (batch_size * beam_size, per_node_beam_size)
             # so that we can add them to the current log probs for this timestep.
             # This lets us maintain the log probability of each element on the beam.
             # shape: (batch_size * beam_size, per_node_beam_size)
-            # expanded_last_log_probabilities = (
-            #     last_log_probabilities.unsqueeze(2)
-            #     .expand(batch_size, self.beam_size, self.per_node_beam_size)
-            #     .reshape(batch_size * self.beam_size, self.per_node_beam_size)
-            # )
+            expanded_last_log_probabilities = (
+                last_log_probabilities.unsqueeze(2)
+                .expand(batch_size, self.beam_size, self.per_node_beam_size)
+                .reshape(batch_size * self.beam_size, self.per_node_beam_size)
+            )
 
-            expanded_last_log_probabilities = class_log_probabilities.repeat(repetitions ,1)
-
-            print(torch.allclose(expanded_last_log_probabilities[0], expanded_last_log_probabilities[32]))
+            #print(torch.allclose(expanded_last_log_probabilities[0], expanded_last_log_probabilities[32]))
             # shape: (batch_size * beam_size, per_node_beam_size)
             summed_top_log_probabilities = top_log_probabilities + expanded_last_log_probabilities
 
-            print(torch.allclose(summed_top_log_probabilities[0], summed_top_log_probabilities[32]))
+            #print(torch.allclose(summed_top_log_probabilities[0], summed_top_log_probabilities[32]))
 
             # shape: (batch_size, beam_size * per_node_beam_size)
             reshaped_summed = summed_top_log_probabilities.reshape(

@@ -40,8 +40,8 @@ class NMTEncoder(nn.Module):
                 x_unpacked.shape = (batch, seq_size, rnn_hidden_size * 2)
                 x_birnn_h.shape = (batch, rnn_hidden_size * 2)
         """
-        print("Inputs are equal")
-        print(torch.equal(x_source[0], x_source[1]))
+        # print("Inputs are equal")
+        # print(torch.equal(x_source[0], x_source[1]))
         # The sequence goes through the embedding
         x_embedded = self.source_embedding(x_source)
         
