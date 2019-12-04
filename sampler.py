@@ -1,10 +1,16 @@
 import numpy as np
-from utils_inference import sentence_from_indices, beam_search_decoder
+from utils_inference import sentence_from_indices, beam_search_decoder, sentence_from_tensor_indices
 from alignment_utils import tokenize_mr, tokenize_mr_upper
 from data_processing import Delexicalizer
 from slot_aligner import SlotAligner
 import torch
 from nltk.translate import bleu_score
+from beam_search_allennlp import BeamSearch 
+
+
+def take_step(all_predictions, idx):
+    return 
+
 
 class NMTSampler:
     def __init__(self, vectorizer, model, use_reranker, beam_width=3):
@@ -15,6 +21,26 @@ class NMTSampler:
         self.use_reranker = use_reranker
         self.beam_width = beam_width
         self.smoothing_function = bleu_score.SmoothingFunction()
+        self._beam_search = BeamSearch(
+            vectorizer.target_vocab.end_seq_index, max_steps=30, beam_size=self.beam_width
+        )
+
+    def get_prediction_slice(self, idx):
+        preds_slice = self._last_batch["unnormalized_predictions"].select(1, idx)
+        return preds_slice
+
+    def take_step(self, last_predictions, idx):
+        desired_shape = last_predictions.shape[0]
+
+        preds = self.get_prediction_slice(idx)
+
+        class_log_probabilities = torch.nn.functional.softmax(preds, dim=1)
+
+        idx = idx+1
+        repetitions = int(desired_shape/class_log_probabilities.shape[0])
+        new_log_probs = class_log_probabilities.repeat(repetitions ,1)
+
+        return new_log_probs, idx
 
     def apply_to_batch(self, batch_dict):
         self._last_batch = batch_dict
@@ -23,7 +49,32 @@ class NMTSampler:
                             x_source_lengths=batch_dict['x_source_length'], 
                             target_sequence=batch_dict['x_target'],
                             sample_probability=1.0)
+
+        self._last_batch["unnormalized_predictions"] = y_pred
+
+        print("The predictions for the two samples are the same: ")
+        print(torch.allclose(y_pred[0], y_pred[1]))
+
+        start_predictions = self._last_batch["unnormalized_predictions"].select(1, 0).unsqueeze(1)
+        idx = torch.tensor(0)
+
+        all_top_k_predictions, log_probabilities = self._beam_search.search(
+            start_predictions, idx, self.take_step
+        )
+
+        print("The beam search results are the same: ")
+        print(torch.allclose(all_top_k_predictions[0], all_top_k_predictions[1]))
+        all_top_k_predictions = all_top_k_predictions.detach().numpy()
+        log_probabilities = log_probabilities.detach().numpy()
+        #print(all_top_k_predictions[0])
+        # print(self._last_batch['inp_gt'][0])
+        # print(sentence_from_indices(all_top_k_predictions[0][3], self.vectorizer.target_vocab, return_string=True))
+        # print("Top k predictions shape: ", all_top_k_predictions.shape)
+        # Apply beam search on the predictions
+
         self._last_batch['y_pred'] = y_pred
+        self._last_batch["beam_search_results"] = (all_top_k_predictions, log_probabilities)
+
         attention_batched = np.stack(self.model.decoder._cached_p_attn).transpose(1, 0, 2)
         self._last_batch['attention'] = attention_batched
         
@@ -45,14 +96,22 @@ class NMTSampler:
         ref_gt = self._last_batch['ref_gt'][index]
         return ref_gt
     
+    def _get_beam_seach_results(self, index):
+        res_seq = self._last_batch["beam_search_results"][0]
+        res_probs = self._last_batch["beam_search_results"][1]
+
+        return (res_seq[index], res_probs[index])
+
     def _get_sampled_sentence(self, index, return_string=True):
         vocab = self.vectorizer.target_vocab
 
         # Convert the scores for the words to softmax probabilities
         prob_res = torch.nn.functional.softmax(self._last_batch['y_pred'], dim=2)
         sentece_probs = prob_res[index].cpu().detach().numpy()
-        
-        top_sequences = beam_search_decoder(sentece_probs, self.beam_width)
+
+        bs_res = self._get_beam_seach_results(index)
+
+        #top_sequences = beam_search_decoder(sentece_probs, self.beam_width)
 
         gt_mr = tokenize_mr(self._last_batch['inp_gt'][index])
 
@@ -60,32 +119,56 @@ class NMTSampler:
         max_seq_idx = 0
 
         if self.use_reranker:
-            res_after_reranking = []
-            # Iterate over all produced sequences
-            for sequence in top_sequences:
+            with open("data/results/reranker_1.txt", "a") as f:
+                f.write(self._last_batch['inp_gt'][index])
+                f.write("\n")
+                f.write("------------------------------------")
+                f.write("\n")
+                seq_probs = []
+                for idx, sequence in enumerate(bs_res[0]):
+                    sent_str = sentence_from_indices(sequence, vocab, return_string=True)
+                    reranker_score = self.aligner.alignment_reranker(gt_mr, sent_str)
+                    f.write(sent_str)
+                    f.write("|||")
+                    f.write(str(reranker_score))
+                    f.write("|||")
+                    f.write(str(index))
+                    f.write("\n")
+                    seq_probs.append(bs_res[1][idx]*reranker_score)
+                f.write("\n\n\n")
+            max_seq_idx = seq_probs.index(max(seq_probs))
+            #print("The index of the maximal sequence is: ", max_seq_idx)
 
-                # Produce the sentence
-                sent_str = sentence_from_indices(sequence[0], vocab, return_string=True)
 
-                # Get the reranker score
-                reranker_score = self.aligner.alignment_reranker(gt_mr, sent_str)
+        # if self.use_reranker:
+        #     res_after_reranking = []
+        #     # Iterate over all produced sequences
+        #     for sequence in top_sequences:
+        #         print("The shape of the inernal seq is: ", len(sequence[0]))
+        #         # Produce the sentence
+        #         sent_str = sentence_from_indices(sequence[0], vocab, return_string=True)
 
-                # Produce the new sentence probability 
-                res_after_reranking.append(sequence[1]*reranker_score)  
-                print(sent_str)
-            print("------------------")
-                # Get the sentence with max probability of after both beam search and reranking
-            max_seq_idx = res_after_reranking.index(max(res_after_reranking))
-            print(max_seq_idx)
+        #         # Get the reranker score
+        #         reranker_score = self.aligner.alignment_reranker(gt_mr, sent_str)
 
-            if max_seq_idx != 0:
-                print("Reranker did its job")
+        #         # Produce the new sentence probability 
+        #         res_after_reranking.append(sequence[1]*reranker_score)  
+        #         print(sent_str)
+        #     print("------------------")
+        #         # Get the sentence with max probability of after both beam search and reranking
+        #     max_seq_idx = res_after_reranking.index(max(res_after_reranking))
+        #     print(max_seq_idx)
+
+        #     if max_seq_idx != 0:
+        #         print("Reranker did its job")
         
-        sentence_indices = top_sequences[max_seq_idx][0]
-        
-        print("Making a prediction {}".format(index))
-        
-        return sentence_from_indices(sentence_indices, vocab, return_string=return_string)
+        #sentence_indices = top_sequences[max_seq_idx][0]
+        sentence_indices = bs_res[0][max_seq_idx]
+        # print("Making a prediction {}".format(index))
+        # print(sentence_from_indices(sentence_indices, vocab, return_string=True))
+        sent_result = sentence_from_indices(sentence_indices, vocab, return_string=return_string)
+        # print("----------------------------------")
+        return sent_result
 
     def get_ith_item(self, index, return_string=True):
         sampled_sentence = self._get_sampled_sentence(index, return_string=return_string)

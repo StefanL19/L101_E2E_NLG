@@ -22,10 +22,10 @@ from alignment_utils import tokenize_mr
 dataset = NMTDataset.load_dataset_and_load_vectorizer("data/inp.csv", "data/model_storage/vectorizer.json")
 
 vect = dataset.get_vectorizer()
-s_v = vect.source_vocab
+s_v = vect.target_vocab
 print(s_v.lookup_index(3))
-print(s_v.lookup_index(13))
-print(s_v.lookup_index(18))
+print(s_v.lookup_index(34))
+#print(s_v.lookup_index(18))
 # res = vect.vectorize("<inform> pricerange more than £30 <inform> position inner", "prices start at £30 .")
 # print(res)
 # 
