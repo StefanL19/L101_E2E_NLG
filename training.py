@@ -122,9 +122,9 @@ def sequence_loss(y_pred, y_true, mask_index):
     y_pred, y_true = normalize_sizes(y_pred, y_true)
     return F.cross_entropy(y_pred, y_true, ignore_index=mask_index)
 
-args = Namespace(dataset_csv="data/inp_and_gt.csv",
-                 vectorizer_file="vectorizer.json",
-                 model_state_file="model.pth",
+args = Namespace(dataset_csv="data/inp_and_gt_augmented.csv",
+                 vectorizer_file="vectorizer_augmented.json",
+                 model_state_file="model_augmented.pth",
                  save_dir="data/model_storage/",
                  reload_from_files=False,
                  expand_filepaths_to_save_dir=True,
@@ -184,7 +184,8 @@ model = NMTModel(source_vocab_size=len(vectorizer.source_vocab),
                  target_vocab_size=len(vectorizer.target_vocab),
                  target_embedding_size=args.target_embedding_size, 
                  encoding_size=args.encoding_size,
-                 target_bos_index=vectorizer.target_vocab.begin_seq_index)
+                 target_bos_index=vectorizer.target_vocab.begin_seq_index,
+                 is_training=True)
 
 if args.reload_from_files and os.path.exists(args.model_state_file):
     model.load_state_dict(torch.load(args.model_state_file))

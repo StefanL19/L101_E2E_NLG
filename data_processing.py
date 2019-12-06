@@ -241,8 +241,67 @@ class DataPreprocessor(object):
 
         return cls(df, delexicalization_type, delexicalization_slots)
 
-    def add_samples(self, samples_file_path):
-        pass
+    def add_samples(self, samples_file_path, original_train_path):
+        with open(samples_file_path, "r") as f:
+            lines = f.readlines()
+        
+        delexicalizer = Delexicalizer(self.delexicalization_type, self.delexicalization_slots)
+
+        # Load the training csv, so the mrs can be extracted
+        train_df = pd.read_csv(original_train_path)
+
+        input_language = []
+        output_language = []
+        mr_no_preprocessing = []
+        ref_no_processing = []
+
+        for idx, line in tqdm(enumerate(lines)):
+            line = line.strip("\n")
+            orig_train_sample = train_df.iloc[idx]
+            input_mr = orig_train_sample[0]
+            
+            input_mr = tokenize_mr(input_mr)
+            
+            # The customer rating slot should be renamed - empty spaces in a slot are not a good thing :D 
+            if "customer rating" in input_mr.keys():
+                input_mr["customerrating"] = input_mr.pop("customer rating")
+
+            # Convert the values of all input_mrs to lower
+            for mr in input_mr.keys():
+                input_mr[mr] = input_mr[mr].lower()
+
+            line = line.lower()
+
+            input_mr, output_ref, delexicalization_results = delexicalizer.delexicalize_sample(input_mr, line)
+
+            inp = []
+            for slot_name in list(input_mr.keys()):
+                inp.append("<inform>")
+                inp.append(slot_name)
+                inp.append(input_mr[slot_name])
+
+            # Punctuation should be a separate token 
+            ref = re.sub('([.,!?()])', r' \1 ', output_ref)
+            ref = re.sub('\s{2,}', ' ', ref)
+            inp_sent = " ".join(inp)
+
+            input_language.append(inp_sent)
+            output_language.append(ref)
+            mr_no_preprocessing.append(orig_train_sample[0])
+
+            # Append an empty stringfor the no preprocessed refernce - we do not need it for the training class
+            ref_no_processing.append(" ")
+
+        print("Input training samples: ", len(input_language))
+        print("Output training samples: ", len(output_language))
+        train_description = ["train"]*len(input_language)
+
+        new_df = pd.DataFrame({'source_language': input_language, 'target_language': output_language,
+         'split': train_description, 'inp_gt':mr_no_preprocessing, 'ref_gt':ref_no_processing})
+        
+        self.dataframe = pd.concat([self.dataframe, new_df], keys=['source_language', 'target_language', 'split', 'inp_gt', 'ref_gt'])
+
+            
 
     def save_data(self, output_path):
         self.dataframe.to_csv(output_path, encoding='utf-8', index=False)

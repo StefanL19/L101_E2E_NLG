@@ -20,7 +20,7 @@ class NMTModel(nn.Module):
     """ The Neural Machine Translation Model """
     def __init__(self, source_vocab_size, source_embedding_size, 
                  target_vocab_size, target_embedding_size, encoding_size, 
-                 target_bos_index):
+                 target_bos_index, is_training):
         """
         Args:
             source_vocab_size (int): number of unique words in source language
@@ -42,7 +42,8 @@ class NMTModel(nn.Module):
         self.decoder = NMTDecoder(num_embeddings=target_vocab_size, 
                                   embedding_size=target_embedding_size, 
                                   rnn_hidden_size=decoding_size,
-                                  bos_index=target_bos_index)
+                                  bos_index=target_bos_index,
+                                  training_mode=is_training)
     
     def forward(self, x_source, x_source_lengths, target_sequence, sample_probability=0.0):
         """The forward pass of the model

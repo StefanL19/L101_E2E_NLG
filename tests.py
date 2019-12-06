@@ -17,14 +17,20 @@ from alignment_utils import tokenize_mr
 # dataset = NMTDataset.load_dataset_and_make_vectorizer("data/inp_and_gt.csv")
 # dataset.save_vectorizer("data/vectorizer.json")
 
+
+##################################### Add TUDA Samples 
+processor = DataPreprocessor.from_existing_df("data/inp_and_gt.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
+processor.add_samples("data/trainset.csv.predicted", "data/e2e-dataset/trainset.csv")
+processor.save_data("data/inp_and_gt_augmented.csv")
+
 # # ################################# Load data processor and vectorizer
 # processor = DataPreprocessor.from_existing_df("data/inp.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
-dataset = NMTDataset.load_dataset_and_load_vectorizer("data/inp.csv", "data/model_storage/vectorizer.json")
+# dataset = NMTDataset.load_dataset_and_load_vectorizer("data/inp.csv", "data/model_storage/vectorizer.json")
 
-vect = dataset.get_vectorizer()
-s_v = vect.target_vocab
-print(s_v.lookup_index(3))
-print(s_v.lookup_index(34))
+# vect = dataset.get_vectorizer()
+# s_v = vect.target_vocab
+# print(s_v.lookup_index(3))
+# print(s_v.lookup_index(34))
 #print(s_v.lookup_index(18))
 # res = vect.vectorize("<inform> pricerange more than £30 <inform> position inner", "prices start at £30 .")
 # print(res)
