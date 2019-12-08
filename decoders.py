@@ -40,6 +40,7 @@ def verbose_attention(encoder_state_vectors, query_vector):
 
     return context_vectors, vector_probabilities, vector_scores
 
+
 def terse_attention(encoder_state_vectors, query_vector):
     """A shorter and more optimized version of the neural attention mechanism
     
