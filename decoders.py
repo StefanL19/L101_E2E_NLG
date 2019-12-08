@@ -23,6 +23,10 @@ def verbose_attention(encoder_state_vectors, query_vector):
     Returns:
         
     """
+
+    print("The shape of the encoder state vectors is: ", encoder_state_vectors.shape)
+    print("The shape of the query vector is: ", query_vector.shape)
+    
     batch_size, num_vectors, vector_size = encoder_state_vectors.size()
 
     # APPLYING DOT PRODUCT ATTENTION
@@ -151,6 +155,7 @@ class NMTDecoder(nn.Module):
             #print("After taking a GRU step: ")
             # Step 2: Make a GRU step, getting a new hidden vector
             h_t = self.gru_cell(rnn_input, h_t)
+
             #print(torch.equal(h_t[0], h_t[1]))
             
             self._cached_ht.append(h_t.cpu().detach().numpy())
