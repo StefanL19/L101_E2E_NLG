@@ -119,7 +119,7 @@ class NMTSampler:
         max_seq_idx = 0
 
         if self.use_reranker:
-            with open("data/results/reranker_1.txt", "a") as f:
+            with open("data/results/reranker_augmented.txt", "a") as f:
                 f.write(self._last_batch['inp_gt'][index])
                 f.write("\n")
                 f.write("------------------------------------")

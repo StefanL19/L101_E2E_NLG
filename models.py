@@ -15,12 +15,13 @@ from torch.utils.data import Dataset, DataLoader
 from tqdm import tqdm_notebook
 from encoders import NMTEncoder
 from decoders import NMTDecoder
+import attention_mechanisms
 
 class NMTModel(nn.Module):
     """ The Neural Machine Translation Model """
     def __init__(self, source_vocab_size, source_embedding_size, 
                  target_vocab_size, target_embedding_size, encoding_size, 
-                 target_bos_index, is_training):
+                 target_bos_index, is_training, attention_mode="multiplicative"):
         """
         Args:
             source_vocab_size (int): number of unique words in source language
@@ -30,6 +31,7 @@ class NMTModel(nn.Module):
             encoding_size (int): the size of the encoder RNN.  
         """
         super(NMTModel, self).__init__()
+
         self.encoder = NMTEncoder(num_embeddings=source_vocab_size, 
                                   embedding_size=source_embedding_size,
                                   rnn_hidden_size=encoding_size)
@@ -38,12 +40,19 @@ class NMTModel(nn.Module):
         # comes from a Bidirectional Layer
         decoding_size = encoding_size * 2
 
+        if attention_mode == "bahdanau":
+          attention = attention_mechanisms.BahdanauAttention(key_size=decoding_size, query_size=decoding_size)
+          print("Using Bahdanau Attention Mechanism")
+        else:
+          print("Using Multiplicative Attention Mechanism")
+          attention = attention_mechanisms.Multiplicative_Attention()
 
         self.decoder = NMTDecoder(num_embeddings=target_vocab_size, 
                                   embedding_size=target_embedding_size, 
                                   rnn_hidden_size=decoding_size,
                                   bos_index=target_bos_index,
-                                  training_mode=is_training)
+                                  training_mode=is_training,
+                                  attention_mechanism=attention)
     
     def forward(self, x_source, x_source_lengths, target_sequence, sample_probability=0.0):
         """The forward pass of the model

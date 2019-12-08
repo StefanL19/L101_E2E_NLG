@@ -23,6 +23,10 @@ def verbose_attention(encoder_state_vectors, query_vector):
     Returns:
         
     """
+
+    print("The shape of the encoder state vectors is: ", encoder_state_vectors.shape)
+    print("The shape of the query vector is: ", query_vector.shape)
+
     batch_size, num_vectors, vector_size = encoder_state_vectors.size()
 
     # APPLYING DOT PRODUCT ATTENTION
@@ -40,6 +44,7 @@ def verbose_attention(encoder_state_vectors, query_vector):
 
     return context_vectors, vector_probabilities, vector_scores
 
+
 def terse_attention(encoder_state_vectors, query_vector):
     """A shorter and more optimized version of the neural attention mechanism
     
@@ -54,7 +59,7 @@ def terse_attention(encoder_state_vectors, query_vector):
     return context_vectors, vector_probabilities
 
 class NMTDecoder(nn.Module):
-    def __init__(self, num_embeddings, embedding_size, rnn_hidden_size, bos_index, training_mode=False):
+    def __init__(self, num_embeddings, embedding_size, rnn_hidden_size, bos_index, attention_mechanism, training_mode=False):
         """
         Args:
             num_embeddings (int): number of embeddings is also the number of 
@@ -75,6 +80,8 @@ class NMTDecoder(nn.Module):
         self.bos_index = bos_index
         self._sampling_temperature = 3
         self.training_mode = training_mode
+        self.attention_mechanism = attention_mechanism
+
         print("The training mode is: ", training_mode)
     
     def _init_indices(self, batch_size):
@@ -150,14 +157,18 @@ class NMTDecoder(nn.Module):
             #print("After taking a GRU step: ")
             # Step 2: Make a GRU step, getting a new hidden vector
             h_t = self.gru_cell(rnn_input, h_t)
+
             #print(torch.equal(h_t[0], h_t[1]))
             
             self._cached_ht.append(h_t.cpu().detach().numpy())
             
             # Step 3: Use the current hidden to attend to the encoder state
-            context_vectors, p_attn, _ = verbose_attention(encoder_state_vectors=encoder_state, 
-                                                           query_vector=h_t)
+            #context_vectors, p_attn, _ = verbose_attention(encoder_state_vectors=encoder_state, 
+            #                                               query_vector=h_t)
             
+            context_vectors, p_attn = self.attention_mechanism(encoder_state_vectors=encoder_state, query_vector=h_t)
+
+
             #print("After going through the attention: ")
             #print(torch.equal(context_vectors[0], context_vectors[1]))
             
