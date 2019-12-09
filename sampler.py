@@ -74,9 +74,9 @@ class NMTSampler:
 
         self._last_batch['y_pred'] = y_pred
         self._last_batch["beam_search_results"] = (all_top_k_predictions, log_probabilities)
-
-        attention_batched = np.stack(self.model.decoder._cached_p_attn).transpose(1, 0, 2)
-        self._last_batch['attention'] = attention_batched
+        # print(self.model.decoder._cached_p_attn.shape)
+        # attention_batched = np.stack(self.model.decoder._cached_p_attn).transpose(1, 0, 2)
+        # self._last_batch['attention'] = attention_batched
         
     def _get_source_sentence(self, index, return_string=True):
         indices = self._last_batch['x_source'][index].cpu().detach().numpy()
@@ -119,7 +119,7 @@ class NMTSampler:
         max_seq_idx = 0
 
         if self.use_reranker:
-            with open("data/results/reranker_augmented.txt", "a") as f:
+            with open("data/results/reranker_bahdanau.txt", "a") as f:
                 f.write(self._last_batch['inp_gt'][index])
                 f.write("\n")
                 f.write("------------------------------------")
@@ -180,7 +180,7 @@ class NMTSampler:
         output = {"source": self._get_source_sentence(index, return_string=return_string), 
                   "reference": self._get_reference_sentence(index, return_string=return_string), 
                   "sampled": sampled_sentence,
-                  "attention": self._last_batch['attention'][index],
+                  # "attention": self._last_batch['attention'][index],
                   "sampled_normalized":sampled_normalized,
                   "reference_gt":ref_gt,
                   "mrs_gt":gt_mrs,

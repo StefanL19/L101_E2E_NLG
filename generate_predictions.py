@@ -30,8 +30,8 @@ import sampler
 import numpy as np
 
 args = Namespace(dataset_csv="data/inp_and_gt.csv",
-                 vectorizer_file="vectorizer_augmented.json",
-                 model_state_file="model_augmented.pth",
+                 vectorizer_file="vectorizer_bahdanau.json",
+                 model_state_file="model_bahdanau.pth",
                  save_dir="data/model_storage/",
                  cuda=True,
                  seed=1337,
@@ -64,12 +64,13 @@ model = NMTModel(source_vocab_size=len(vectorizer.source_vocab),
                  target_embedding_size=args.target_embedding_size, 
                  encoding_size=args.encoding_size,
                  target_bos_index=vectorizer.target_vocab.begin_seq_index,
-                 is_training=False)
+                 is_training=False,
+                 attention_mode="bahdanau")
 
 model.load_state_dict(torch.load(args.save_dir+args.model_state_file, map_location=torch.device(args.device)))
 model.eval().to(args.device)
 
-inference_sampler = sampler.NMTSampler(vectorizer, model, use_reranker=True, beam_width=3)
+inference_sampler = sampler.NMTSampler(vectorizer, model, use_reranker=True, beam_width=10)
 dataset.set_split('val')
 
 batch_generator = generate_nmt_batches(dataset, 
