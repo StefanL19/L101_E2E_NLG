@@ -1,11 +1,12 @@
 import torch
 from torch.nn import functional as F
+from sparsemax import Sparsemax
 
 class BahdanauAttention(torch.nn.Module):
     """
         Bahdanau Attention Mechanism
     """
-    def __init__(self, key_size, query_size):
+    def __init__(self, key_size, query_size, attention_function):
         """
         Args:
             key_size (int): The size of each one of the output vectors
@@ -35,6 +36,13 @@ class BahdanauAttention(torch.nn.Module):
         # The final weight matrix which is the the leftmost part in the equation in the Bahdanau paper, it projects the similarity to a value
         self.energy_layer = torch.nn.Linear(query_size, 1, bias=False)
 
+        if attention_function == "sparsemax":
+            print("Using sparsemax attention")
+            self.attention_calculation = Sparsemax(dim=-1)
+        else:
+            print("Using softmax attention")
+            self.attention_calculation = torch.nn.Softmax(dim=-1)
+
     def forward(self, encoder_state_vectors, query_vector):
 
         batch_size, num_vectors, vector_size = encoder_state_vectors.size()
@@ -57,7 +65,7 @@ class BahdanauAttention(torch.nn.Module):
         scores = scores.squeeze(2).unsqueeze(1)
 
         # Compute the vector probabilities
-        vector_probabilities = F.softmax(scores, dim=-1)
+        vector_probabilities = self.attention_calculation(scores) #F.softmax(scores, dim=-1)
 
         # Calculate the context vector
         weighted_vectors = encoder_state_vectors * vector_probabilities.view(batch_size, num_vectors, 1)
