@@ -30,8 +30,8 @@ import sampler
 import numpy as np
 
 args = Namespace(dataset_csv="data/inp_and_gt_augmented.csv",
-                 vectorizer_file="vectorizer_bahdanau_augmented.json",
-                 model_state_file="model_bahdanau_augmented.pth",
+                 vectorizer_file="vectorizer_bahdanau_augmented_sparsemax.json",
+                 model_state_file="model_bahdanau_augmented_sparsemax.pth",
                  save_dir="data/model_storage/",
                  cuda=True,
                  seed=1337,
