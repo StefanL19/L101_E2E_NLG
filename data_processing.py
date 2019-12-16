@@ -183,6 +183,7 @@ class DataPreprocessor(object):
         for slot_name in aligner_failures.keys():
             print(slot_name + " : " + str(len(aligner_failures[slot_name])))
 
+        return
 
         val_input_language = []
         val_output_language = []
@@ -310,6 +311,7 @@ class Delexicalizer(object):
     def __init__(self, delexicalization_type, delexicalization_slots=None):
         self.delexicalization_type = delexicalization_type
         self.delexicalization_slots = delexicalization_slots
+        self.aligner = SlotAligner()
 
     def delexicalize_sample(self, inp, output=None):
         """
@@ -357,7 +359,6 @@ class Delexicalizer(object):
                 if "food" in mr.keys():
                     food_val = mr["food"]
                     model_output = self._reverse_delexicalize_food_slug2slug(food_val, model_output)
-
         return model_output
 
 
@@ -392,6 +393,12 @@ class Delexicalizer(object):
         if "food" in self.delexicalization_slots:
             inp, output, is_success = self._delexicalize_food_slug2slug(inp, output)
             delexicalization_results.append(("food", is_success))
+
+        if "familyfriendly" in self.delexicalization_slots:
+            inp, output, is_success = self._delexicalize_family_friendly(inp, output)
+
+        if "pricerange" in self.delexicalization_slots:
+            self._delexicalize_price_range(inp, output)
 
         return inp, output, delexicalization_results
 
@@ -434,12 +441,22 @@ class Delexicalizer(object):
         """
         pass
 
-    def _delexicalize_price_range(self, sample):
+    def _delexicalize_price_range(self, inp, output):
         """
-            Delexicalizes the name field in an input/output pair
+            Delexicalizes the pricerange field in an input/output pair
             sample: input, output pair to be delexicalized
         """
-        pass
+        is_success = True
+        if "pricerange" in inp.keys():
+            range_value = inp["pricerange"]
+            with open("pricerange_realizations.txt", "a") as f:
+                if range_value in output:
+                    f.write("Detected ||| " + range_value + " |||| " + output + "\n")
+                else:
+                    f.write("Non detected ||| " + range_value + " |||| " + output + "\n")
+        else:
+            print("No pricerange in the slots")
+            print("......................")
 
     def _delexicalize_customer_rating(self, sample):
         """
@@ -550,10 +567,22 @@ class Delexicalizer(object):
         """
         pass
 
-    def _delexicalize_family_friendly(self, sample):
+    def _delexicalize_family_friendly(self, inp, output):
         """
-            Delexicalizes the name field in an input/output pair
+            Delexicalizes the family-friendly field in an input/output pair
             sample: input, output pair to be delexicalized
+            TODO: Figure out delexicalization for this slot
         """
-        pass
+
+        if "familyfriendly" in inp.keys():
+            family_friendly_value = inp["familyfriendly"]
+            res = self.aligner.align_familyfriendly(output, family_friendly_value)
+            print("####", family_friendly_value)
+            print(output[res:])
+            if family_friendly_value == "no":
+                print(output)
+        else:
+            print("family friendly not found in the keys")
+
+        return inp, output, True
 

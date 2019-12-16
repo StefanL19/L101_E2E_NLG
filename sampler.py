@@ -5,11 +5,7 @@ from data_processing import Delexicalizer
 from slot_aligner import SlotAligner
 import torch
 from nltk.translate import bleu_score
-from beam_search_allennlp import BeamSearch 
-
-
-def take_step(all_predictions, idx):
-    return 
+from beam_search_allennlp import BeamSearch  
 
 
 class NMTSampler:
@@ -119,7 +115,7 @@ class NMTSampler:
         max_seq_idx = 0
 
         if self.use_reranker:
-            with open("data/results/reranker_bahdanau.txt", "a") as f:
+            with open("data/results/reranker_bahdanau_augmented.txt", "a") as f:
                 f.write(self._last_batch['inp_gt'][index])
                 f.write("\n")
                 f.write("------------------------------------")

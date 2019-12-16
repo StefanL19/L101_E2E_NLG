@@ -123,8 +123,8 @@ def sequence_loss(y_pred, y_true, mask_index):
     return F.cross_entropy(y_pred, y_true, ignore_index=mask_index)
 
 args = Namespace(dataset_csv="data/inp_and_gt_augmented.csv",
-                 vectorizer_file="vectorizer_bahdanau_augmented.json",
-                 model_state_file="model_bahdanau_augmented.pth",
+                 vectorizer_file="vectorizer_bahdanau_augmented_sparsemax.json",
+                 model_state_file="model_bahdanau_augmented_sparsemax.pth",
                  save_dir="data/model_storage/",
                  reload_from_files=False,
                  expand_filepaths_to_save_dir=True,

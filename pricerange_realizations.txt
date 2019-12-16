@@ -1,0 +1,343 @@
+Non detected ||| more than £30 |||| x-name pub near x-near has a 5 star rating. prices start at £30.
+Detected ||| cheap |||| close to x-near, x-name pub serves delicious tuscan beef for the cheap price of £10.50. delicious pub food.
+Detected ||| less than £20 |||| x-name is a low rated coffee shop near x-near and the riverside that is family friendly and is less than £20 for x-con-cuisine-food food.
+Non detected ||| £20-25 |||| located near x-near is a x-con-cuisine-food theme eatery and coffee shop called x-name, with a price range at £20-£25 it is in the riverside area.
+Detected ||| moderate |||| x-name is a moderately priced restaurant who's main cuisine is x-vow-cuisine-food food. you will find this local gem near x-near in the riverside area.
+Detected ||| less than £20 |||| x-name coffee shop serves x-con-cuisine-food food. it is situated near x-near at the riverside. prices are less than £20. it is not family-friendly.
+Detected ||| moderate |||| x-name is a x-con-food place located in the riverside area. they have moderate pricing and a customer rating of 3 out of 5.
+Non detected ||| £20-25 |||| x-name is a restaurant with a customer rating of 3 out of 5 and and a price range of £20-£25
+Non detected ||| cheap |||| for a family-friendly coffee shop x-name can serve you x-vow-cuisine-food food at affordable prices. the customer rating however is only average.
+Detected ||| high |||| x-name is an x-vow-cuisine-food restaurant with high prices.
+Detected ||| cheap |||| x-name provides x-vow-cuisine-food food in the cheap price range.
+Detected ||| high |||| x-name is located in the city centre. it offers x-vow-cuisine-food food, has a high price range, and a customer rating of one out of five.
+Non detected ||| £20-25 |||| x-near, near the x-name city centre is a x-con-food place with high customer rating, and has a price range of 20-25 euros
+Detected ||| less than £20 |||| x-name is located near x-near in the city centre. their prices are less than £20 and they are family-friendly.
+Detected ||| more than £30 |||| an x-vow-cuisine-food coffee shop called x-name is at the riverside. it is near x-near and its price range is more than £30.
+Detected ||| moderate |||| near x-near is a moderately priced x-vow-cuisine-food place, with a customer rating of 3 out of 5, it's called x-name.
+Non detected ||| £20-25 |||| x-name serves x-vow-cuisine-food food and is highly rated by its customers. the prices are average but it is easily located close to the x-near in riverside.
+Non detected ||| more than £30 |||| x-name, x-con-cuisine-food food high price range in the riverside area.
+Detected ||| high |||| x-name features x-con-cuisine-food food with average customer ratings at a high price. it is located in riverside near x-near.
+Non detected ||| £20-25 |||| x-name is a pub located near x-near. it offers x-con-cuisine-food food in the range of £20-£25.
+Non detected ||| less than £20 |||| x-name is a restaurant providing dine in meals in the low price range. it is located in at x-near.
+Non detected ||| less than £20 |||| located outside cambridge city centre is x-name, a cheap, not child friendly eatery.
+Detected ||| more than £30 |||| a coffee shop that is kid friendly near x-near named x-name in the riverside area has a price range of more than £30 that serves x-vow-cuisine-food food.
+Detected ||| high |||| x-name offers x-vow-cuisine-food food at a high price. it is near x-near. it should be noted that it is not kids friendly.
+Non detected ||| more than £30 |||| x-name is a x-con-cuisine-food restaurant in the city centre. it is not child friendly and is located near x-near. it costs more than thirty pounds.
+Detected ||| less than £20 |||| x-name is not family-friendly and has a price range of less than £20.
+Detected ||| more than £30 |||| in the riverside area is the x-name restaurant prices ranging more than £30
+Detected ||| more than £30 |||| x-name is a x-con-cuisine-food restaurant that has a price range of more than £30.
+Detected ||| less than £20 |||| x-name coffee shop is a family friendly with less than £20 price range serves x-con-cuisine-food food near x-near has a low customer rating.
+Non detected ||| more than £30 |||| x-name is a coffee shop along the river near x-near. the prices are quite high while the customer ratings are quite low. it is not recommended to take children there.
+Non detected ||| £20-25 |||| x-name is a well-respected x-vow-cuisine-food coffee shop, offering food at the higher price range. it is child-friendly.
+Detected ||| cheap |||| x-vow-cuisine-food family friendly near x-near is x-name which is a cheap coffee shop with average rating.
+Detected ||| moderate |||| there is a pub that is moderate priced called x-name in the riverside area, that serves x-vow-cuisine-food food and is not child friendly.
+Non detected ||| more than £30 |||| for those prepared to pay over £30, x-name is a restaurant located near x-near.
+Non detected ||| more than £30 |||| a good coffee shop that received a customer rating of 5 out of 5 is x-name. it is in the riverside area near the x-near. it costs more than 30 pounds and is kid friendly.
+Detected ||| cheap |||| x-name is a cheap coffee shop located in the riverside, near x-near.
+Non detected ||| high |||| x-name public house is a one star establishment which serves food.
+Non detected ||| less than £20 |||| there is a family friendly restaurant x-name near x-near. it is inexpensive.
+Non detected ||| less than £20 |||| the x-name is located near the x-near. it serves x-con-cuisine-food, is cheap, family friendly and low rated.
+Detected ||| less than £20 |||| x-name providing x-con-food less than £20 price range. it is located in city center.
+Detected ||| cheap |||| in the riverside area, x-name is family friendly, cheap and has an average customer rating.
+Non detected ||| more than £30 |||| x-name is x-con-food. they are children friendly. the price range is cheap and located near riverside.
+Detected ||| cheap |||| x-name is a cheap x-vow-cuisine-food coffee shop that is located in the city centre. it has a customer rating of 5 out of 5.
+Non detected ||| more than £30 |||| x-name for coffee shop offers x-con-food for cheap price for kids friendly.
+Detected ||| moderate |||| x-name serves x-con-food for a moderate price, customers have given it a poor rating
+Detected ||| cheap |||| a coffee shop located on the riverside called x-name, has a 5 out of 5 customer rating. its price range are fairly cheap for it's excellent x-con-food.
+Non detected ||| more than £30 |||| x-name serves x-vow-cuisine-food food costing more that £30 and has a high customer rating. it is located in the city centre and has a children friendly atmosphere.
+Detected ||| £20-25 |||| x-name in riverside was rate 3 out of 5 and has an average price range of £20-25, however it is not kid friendly.
+Non detected ||| less than £20 |||| x-name is an inexpensive, family-friendly pub serving wine and cheese.
+Detected ||| moderate |||| x-name is a moderately-priced, child-friendly coffee shop that is located near x-near and has a customer rating of 3 out of 5.
+Detected ||| moderate |||| x-name is a restaurant that cooks x-con-cuisine-food food it is located by the riverside and the price range is moderate
+Non detected ||| cheap |||| in the centre of the city, there is a restaurant called x-name. it is a highly recommended, yet inexpensive, restaurant for families.
+Detected ||| high |||| x-name is a coffee shop that provides x-vow-cuisine-food. it is located by the riverside with an average customer rating and a high price range.
+Detected ||| £20-25 |||| x-name is not kid friendly, but has been rated 3 out of 5 by customers. it is located in riverside and has an average price range of £20-25.
+Detected ||| high |||| x-name is located near the x-near and is in the high price range.
+Non detected ||| moderate |||| x-name is near x-near in city centre. it is kids friendly.
+Detected ||| more than £30 |||| children friendly x-con-cuisine-food food x-name which has low customer rating and price range more than £30 is served near x-near.
+Detected ||| moderate |||| x-name serves x-vow-cuisine-food food, it is near the riverside, kid friendly and moderately priced.
+Non detected ||| high |||| wine and spirits 3 star pub relax by the river at x-name pub.
+Detected ||| £20-25 |||| near x-near in the riverside area is kid friendly x-name. the price range is between £20-25.
+Detected ||| moderate |||| x-name coffee shop is located in the riverside area near the x-near. it serves x-vow-cuisine-food food with a moderate price range and is kids-friendly.
+Detected ||| cheap |||| x-name is in the cheap price range. it is a restaurant
+Detected ||| high |||| x-name is located in the riverside area and features high priced x-vow-cuisine-food food and is not kid friendly.
+Non detected ||| £20-25 |||| x-name, in the riverside area, near x-near, has x-vow-cuisine-food food, is kids friendly, has a high customer rating, and has a price range between 20 and 25 pounds.
+Non detected ||| less than £20 |||| x-name is located in the city center. it is a low rated x-vow-cuisine-food restaurant that is not family-friendly and costs more than 20.
+Detected ||| high |||| x-name, near x-near, is a pub serving x-vow-cuisine-food food. it is not children friendly and in the high price range.
+Detected ||| cheap |||| there is a x-con-cuisine-food food restaurant called x-name in the riverside area. it has an average customer rating and the price range is cheap.
+Detected ||| more than £30 |||| x-name is in riverside near x-near and serves x-vow-cuisine-food food with a price range is more than £30.
+Detected ||| high |||| x-name is a three star wine and cheese shop located outside of the city centre with a high price point.
+Detected ||| cheap |||| for best coffee just go to x-name. price is very cheap near to x-near riverside
+Non detected ||| more than £30 |||| there is an expensive-priced coffee shop located close to x-near called x-name.
+Non detected ||| more than £30 |||| serving x-con-cuisine-food cuisine, x-name is in city centre with a low customer rating. not children friendly.
+Non detected ||| £20-25 |||| near x-near in the city centre, x-name is a highly rated, averagely priced coffee shop and is not kid-friendly.
+Non detected ||| more than £30 |||| the coffee shop x-name is north of the city centre. it serves expensive food and has a 5 star rating.
+Non detected ||| cheap |||| x-name offers british food in the low price range. it is family friendly with a 3 out of 5 star rating. you can find it near the x-near.
+Detected ||| high |||| x-name is a restaurant with high prices.
+Non detected ||| high |||| x-name is a x-con-food restaurant, with a customer rating of 3 out of 5.
+Detected ||| less than £20 |||| the x-name offers x-vow-cuisine-food food in riverside for less than £20.
+Non detected ||| moderate |||| x-name restaurant offers mid-price traditional british fare.
+Non detected ||| moderate |||| there is a low priced coffee shop located near x-near called x-name.
+Detected ||| moderate |||| x-name is a kids friendly pub with a moderate price range. customer rating is 3 out of 5.
+Non detected ||| £20-25 |||| x-name is a pub that serves x-vow-cuisine-food food in the twenty to twenty five pound price range near the riverside that is kid friendly.
+Non detected ||| less than £20 |||| located near the x-near, it's inexpensive and family friendly, but the x-con-cuisine-food food at x-name has a low customer rating.
+Detected ||| high |||| located near the x-near, x-name offers high priced pub food in the riverside area.
+Non detected ||| high |||| moderately priced x-name located just up the road from x-near is a 3 star family friendly eatery.
+Detected ||| £20-25 |||| x-name serves x-con-cuisine-food food near x-near by the riverside with a high customer rating and a price range of £20-25.
+Detected ||| high |||| x-name is a coffee shop with x-con-food at a high price near x-near
+Detected ||| more than £30 |||| with the price range running more than £30, it's surprising that x-name is a children friendly site that offers x-con-cuisine-food food in the riverside area.
+Non detected ||| less than £20 |||| x-name coffee shop has a low customer rating. it is low cost and family friendly.
+Non detected ||| more than £30 |||| x-name near the x-near serves x-con-cuisine-food food at a high price in a family friendly environment with high customer ratings and is located right in the city centre
+Non detected ||| less than £20 |||| x-name is a coffee shop located in city centre. it is rated one star.
+Detected ||| moderate |||| near the riverside can be found a moderate-priced, child-friendly pub named x-name, which serves x-vow-cuisine-food food.
+Non detected ||| high |||| if you're looking for an upscale coffee shop, look no further than x-name, a child-friendly, riverside coffee shop near x-near.
+Non detected ||| less than £20 |||| x-name is an x-vow-cuisine-food food restaurant that is cheap and affordable, though customers are not generally pleased and have given the restaurant a low rating.
+Non detected ||| cheap |||| the x-con-cuisine-food coffee shop, x-name, is located in the city centre near x-near. they are adult oriented and have great reviews.
+Non detected ||| moderate |||| in city centre near x-near is x-name, a x-con-food store.
+Detected ||| cheap |||| at riverside,x-name is rated 5 out of 5 and is cheap
+Non detected ||| moderate |||| x-name is an affordable joint to grab a simple lunch, for work meetings or with friends.
+Non detected ||| moderate |||| x-name is a fair priced coffee shop with x-con-cuisine-food food, in the riverside area and great customer rating.
+Non detected ||| high |||| x-name is a one star restaurant near the x-near
+Non detected ||| less than £20 |||| featuring x-con-cuisine-food food priced less than 20 pounds, x-name is a a family friendly restaurant located near x-near.
+Detected ||| cheap |||| the cheap highly rated family-friendly coffee shop called x-name is located in the city centre, near x-near. it serves x-con-cuisine-food food.
+Detected ||| £20-25 |||| x-name has items in the £20-25 price range and is in riverside.
+Non detected ||| more than £30 |||| with prices starting at £0 for delicious x-con-cuisine-food food in a coffee shop environment, x-name also boasts being close to x-near
+Detected ||| cheap |||| x-name offers cheap x-vow-cuisine-food food with average customer rating. it is not family friendly.
+Detected ||| moderate |||| in the city centre, near x-near, you can find the moderate x-con-food place x-name.
+Non detected ||| more than £30 |||| x-name is an x-vow-cuisine-food restaurant with cheap prices
+Detected ||| cheap |||| near x-near is a x-name, providing cheap x-vow-cuisine-food food.
+Detected ||| £20-25 |||| in the riverside area is located a child friendly coffee shop. prices are in the £20-25 range and the shop has a high customer rating, look for the x-name.
+Detected ||| less than £20 |||| near the x-near is x-name. it has a low rating but costs less than £20.
+Non detected ||| moderate |||| there is a mid price ranged restaurant called x-name.
+Detected ||| moderate |||| there is a x-con-cuisine-food cuisine establishment located near x-near, x-name. the price range is moderate, the environment is not kid friendly and the customer satisfaction rating is a low 1 out of 5.
+Detected ||| moderate |||| located in the city centre x-name coffee shop, with a customer rating of 3 out of 5, offers x-vow-cuisine-food food for a moderate price. while it is not kid friendly there is a x-near nearby.
+Non detected ||| moderate |||| x-name is a pub and no children is allowed.
+Detected ||| cheap |||| a cheap hotel near cambridge is x-name, part of the chain called x-near. this hotel was rated 5 out of 5.
+Detected ||| moderate |||| moderately priced x-name serves x-vow-cuisine-food food of a good standard near the x-near in the city centre. but is not child friendly.
+Non detected ||| more than £30 |||| x-name is a 5 star rated coffee shop in the riverside area. it serves dishes for more than 30 pounds in an adult environment.
+Detected ||| moderate |||| x-name offer x-vow-cuisine-food food at a moderate cost by the riverside. unfortunately kids are not permitted.
+Non detected ||| £20-25 |||| with 5 out of 5 stars and in the mid price range x-name is a x-con-food pub
+Non detected ||| more than £30 |||| x-name is a child friendly establishment near x-near with higher end prices.
+Non detected ||| more than £30 |||| x-name is located near x-near. it has high prices with a 5 out of 5 customer rating.
+Detected ||| less than £20 |||| a pub in the riverside area, x-name offers x-con-cuisine-food food for less than £20.
+Non detected ||| more than £30 |||| x-name is a high-priced x-con-food coffee shop located in city centre near x-near.
+Non detected ||| less than £20 |||| a coffee shop located near the riverside area x-name is in the low price range and customers have rated it poorly. its name is x-name.
+Non detected ||| less than £20 |||| x-name is a very cheap restaurant located in the centre of the city and delivers take away.
+Non detected ||| £20-25 |||| the kids friendly x-name is average priced
+Detected ||| moderate |||| x-name, a moderately priced x-vow-cuisine-food coffee shop in the center of the city near x-near, has a low customer rating and does not welcome children.
+Non detected ||| less than £20 |||| x-name is a cheap family friendly x-con-cuisine-food restaurant.
+Detected ||| moderate |||| x-name, with a 3 out of 5 rating, serves x-con-food by the riverside. it has a moderate price range but isn't child friendly.
+Non detected ||| more than £30 |||| x-name is a child friendly, city centre pub. it serves expensive x-con-cuisine-food food.
+Detected ||| £20-25 |||| x-name is a great coffee shop which sells x-vow-cuisine-food food. prices ranging from £20-25. they have a high customer rating. can be found in the city centre. no children allowed
+Detected ||| £20-25 |||| x-name is an x-vow-cuisine-food pub with a price range of £20-25. the pub has a very high customer rating.
+Non detected ||| more than £30 |||| x-name is a child-friendly x-con-cuisine-food coffee shop in the riverside area with a low customer rating and prices higher than £30.
+Detected ||| moderate |||| x-name is located near x-near on the riverside. the price is moderate and the food is x-vow-cuisine-food.
+Detected ||| high |||| x-con-food restaurant x-name has a high price range.
+Non detected ||| more than £30 |||| there is a cheap restaurant x-name located in the centre of the city that provides take-away deliveries.
+Detected ||| moderate |||| x-name is a kids friendly place located a few steps of the x-near. its prices are moderates, and it has a poor rating between its clients.
+Detected ||| high |||| for x-vow-cuisine-food food at high prices that isn't children-friendly go to x-name that is a riverside pub
+Detected ||| cheap |||| x-name is a cheap x-con-cuisine-food restaurant with a five out of five customer rating near x-near.
+Detected ||| more than £30 |||| x-name is a pub that is located by the riverside with a high customer rating and a price range of more than £30.
+Non detected ||| £20-25 |||| highly rated and mid priced, x-name is located in the city centre near x-near.
+Non detected ||| cheap |||| there is a variety of wines, cheeses, and fondues to enjoy at x-name coffee shop.
+Non detected ||| £20-25 |||| x-near is near a sushi restaurant called x-name. x-name is averagely priced and has a five star customer rating.
+Detected ||| less than £20 |||| x-name in riverside has options priced less than £20. it's family-friendly and has an average customer rating.
+Detected ||| moderate |||| x-name is a coffee shop located by the riverside. its moderately priced x-vow-cuisine-food food has a customer rating of 1 out of 5.
+Detected ||| cheap |||| x-name provides x-con-cuisine-food food in the cheap price range. it is near x-near. its customer rating is average.
+Detected ||| high |||| in the riverside area there is an x-vow-cuisine-food food venue named x-name. it is in the high price range and has an average customer rating.
+Non detected ||| £20-25 |||| for the best in x-vow-cuisine-food food costing between £20 to £25 in the riverside area, visit x-name close to x-near.
+Detected ||| high |||| x-name is a high priced x-vow-cuisine-food pub located in the riverside area and is child friendly.
+Non detected ||| less than £20 |||| x-name coffee shop is an inexpensive x-con-food restaurant. it is not family-friendly and has a 1 of 5 star rating.
+Non detected ||| less than £20 |||| x-name is a low-priced family restaurant next to x-near.
+Non detected ||| £20-25 |||| x-name is a highly rated x-con-cuisine-food coffee shop near x-near. prices are average.
+Detected ||| high |||| x-name is a non-child friendly pub with a high price range and a customer rating of 3 out of 5.
+Non detected ||| less than £20 |||| x-name is a low priced restaurant located near x-near that is family friendly.
+Detected ||| £20-25 |||| x-name is a kids friendly coffee shop, located in the riverside area, which provides x-con-cuisine-food food within a price range of £20-25. it has a high customer rating.
+Non detected ||| moderate |||| eggs and beans are low priced breakfasts at x-name nearby the x-near.
+Detected ||| moderate |||| x-name has a customer rating of 1 out of 5 and serves moderately priced x-vow-cuisine-food food near x-near in the riverside area.
+Non detected ||| moderate |||| x-name, reasonably priced x-vow-cuisine-food food in the city centre near the x-near. 1 star.
+Non detected ||| less than £20 |||| near x-near is x-name, it is x-con-food. and family friendly.
+Non detected ||| moderate |||| x-name is a x-con-food restaurant in the riverside area. its prices are low.
+Detected ||| less than £20 |||| x-name is low price range restaurant, less than £20. it is family-friendly and has a average rating.
+Detected ||| high |||| x-name near x-near is a high price ranged x-vow-cuisine-food
+Non detected ||| more than £30 |||| x-name serves x-vow-cuisine-food food and has a customer rating of 5 out of 5, it is located in the riverside area.
+Non detected ||| less than £20 |||| x-name is a low-priced restaurant in the city centre x-near
+Non detected ||| more than £30 |||| x-name is a one star x-con-food restaurant.
+Non detected ||| less than £20 |||| the inexpensive x-name is in the riverside area near x-near and serves average food.
+Detected ||| more than £30 |||| x-name is near x-near in the riverside area. it is an expensive coffee shop with an average price range of more than £30. it has a high customer rating.
+Non detected ||| less than £20 |||| x-name is right off of the river in x-near, is cheap, and is not a family friendly environment.
+Non detected ||| less than £20 |||| the x-name is an affordable coffee shop that serves x-con-cuisine-food food, located in x-near.
+Detected ||| high |||| the x-name is a place in the city centre area near x-near. they serve x-con-cuisine-food food with a high price range and a customer rating of 1 out of 5.
+Non detected ||| £20-25 |||| x-name is a kid friendly restaurant in riverside which offers x-con-cuisine-food food for £20-£25.
+Detected ||| high |||| x-name, which has an average customer review, is located near the x-near and is in the high price range.
+Non detected ||| £20-25 |||| a x-con-cuisine-food restaurant that is priced between 20-25 euros with an average customer rating with a location in the center of the city is x-name.
+Non detected ||| less than £20 |||| x-name is a cheap family friendly place serving x-con-cuisine-food food. it is in the riverside area near the x-near. it has a low customer rating.
+Detected ||| cheap |||| x-name is a cheap x-con-food restaurant near x-near. it has an average customer rating.
+Detected ||| high |||| x-name is a coffee shop. it is located in riverside area. high price range and have 3 out of 5 costumer rating.
+Detected ||| £20-25 |||| x-name is a restaurant located near the x-near in city centre, where it offers x-vow-cuisine-food food in a no kids friendly environment at a price range of £20-25
+Detected ||| £20-25 |||| x-name is located in the riverside. it serves x-vow-cuisine-food food in the range of £20-25.
+Detected ||| cheap |||| x-name serves x-vow-cuisine-food cuisine at cheap, affordable prices. customers have rated the food as average. x-name can be found near the riverside and x-near.
+Non detected ||| more than £30 |||| near x-near is x-name, a family friendly restaurant.
+Non detected ||| moderate |||| a medium priced burger restaurant called x-name is a great venue for families.
+Non detected ||| more than £30 |||| x-name is a very well-respected restaurant in the city centre that serves gourmet x-con-cuisine-food cuisine.
+Non detected ||| high |||| in the city centre is x-name, which is a x-con-food pub in the city centre.
+Detected ||| high |||| high priced pub named x-name is located near x-near at the riverside.
+Detected ||| more than £30 |||| x-name is rated high by its customers and has a price range of more than £30.
+Detected ||| cheap |||| offering cheap but 5 out of 5 rated x-con-food for adults, the x-name coffee shop is not family-friendly.
+Detected ||| less than £20 |||| x-name is a family friendly coffee shop in the less than £20 range. they serve x-con-cuisine-food food and can be found near x-near. they have a low customer rating.
+Detected ||| £20-25 |||| in the city centre you'll find an x-vow-cuisine-food restaurant called x-name which as a price range of £20-25 and a high customer rating.
+Non detected ||| more than £30 |||| x-name is an x-vow-cuisine-food pub near x-near whose meals are more than 30 pounds.
+Non detected ||| moderate |||| x-name is a low rated, reasonably priced sushi restaurant. it does not cater for families.
+Non detected ||| less than £20 |||| located next to x-near, x-name offers great food for the family at amazingly affordable prices.
+Detected ||| high |||| x-name serves x-con-cuisine-food food in the high price range and is located at the riverside near x-near and it is children friendly
+Non detected ||| moderate |||| there is a kids friendly restaurant located in city centre called x-name.
+Non detected ||| more than £30 |||| x-name is a family friendly pub that offer drinks at a high price.
+Detected ||| cheap |||| x-name provides x-con-cuisine-food food in the cheap price range. it is located in the riverside. its customer rating is 5 out of 5.
+Detected ||| moderate |||| if looking for a moderately priced 1 out of 5 star restaurant near the riverside, x-name is a good option - located near x-near.
+Non detected ||| moderate |||| x-name is an x-vow-cuisine-food coffee shop in riverside near x-near with a customer rating of 1 out of 5
+Detected ||| moderate |||| x-name is a place with moderate price range but low customer rating.
+Detected ||| cheap |||| a cheap, family friendly restaurant, x-name, is near x-near.
+Non detected ||| less than £20 |||| x-name is a restaurant ranging at less than 20 pounds. it has low ratings.
+Non detected ||| high |||| there is a restaurant near x-near called x-name that is expensive.
+Non detected ||| moderate |||| x-name is a decent assessment of clients and offers eating x-con-food at average prices. nearby there is a x-near
+Non detected ||| moderate |||| x-name is an affordable pub but no kids is allowed.
+Non detected ||| high |||| x-name pub is expensive and offers gourmet burgers
+Detected ||| high |||| if you are looking for a high-priced restaurant, go to x-name, a x-con-cuisine-food restaurant with a customer rating of 3 out of 5.
+Detected ||| less than £20 |||| x-name is a x-con-cuisine-food pub with price range less than £20 in city centre.
+Detected ||| £20-25 |||| located near x-near, in the city centre, the x-name has a current customer rating of 3 out of 5, with a price range of £20-25.
+Non detected ||| more than £30 |||| x-name offers x-con-cuisine-food food at a price range of above £30. whilst not child friendly it has a customer rating of 5 out of 5.
+Non detected ||| more than £30 |||| for a nice pub try x-name, located near x-near.
+Non detected ||| less than £20 |||| for cheap food there is x-name public house. it is not family friendly and has one out of five stars.
+Non detected ||| moderate |||| there is an average priced british pub called x-name. it has a 3 out of 5 customer rating.
+Detected ||| high |||| x-name is an x-vow-cuisine-food restaurant. they dumpling tree has high prices.
+Non detected ||| less than £20 |||| low priced x-name is in city centre located near x-near. it is low priced with an average customer rating.
+Non detected ||| less than £20 |||| it's an x-vow-cuisine-food one. in a pub matter. noodles are their specialty. x-name is a very popular place too.
+Non detected ||| £20-25 |||| x-name is a coffee shop have 3 out of 5 costumer rating, and £20-26 price range. it is located in city center.
+Non detected ||| high |||| there is an expensive coffee shop called x-name in riverside that is not children friendly and only has a 3 out of 5 rating.
+Non detected ||| cheap |||| low priced, family friendly restaurant x-name in the riverside area rated three star.
+Non detected ||| £20-25 |||| high rated x-vow-cuisine-food food served at the x-name located in the city centre near x-near.
+Non detected ||| less than £20 |||| there is a cheap pub x-name located near x-near that provides x-vow-cuisine-food food.
+Non detected ||| more than £30 |||| a kid friendly coffee shop is x-name, offering high customer ratings and £30 dining options.
+Detected ||| moderate |||| x-name is a coffee shop providing x-vow-cuisine-food food in the moderate price range. it is near x-near. its customer rating is 3 out of 5.
+Non detected ||| more than £30 |||| if you are looking for a 5 out of 5 restaurant, try x-name. it has a price range over 30.
+Detected ||| more than £30 |||| located on the riverside near x-near, x-name is a x-con-cuisine-food venue that costs more than £30 and is not child friendly.
+Detected ||| cheap |||| riverside area there's a average customer rating . x-name is near x-near that serves x-vow-cuisine-food food and has a cheap price range.
+Non detected ||| more than £30 |||| there is a coffee shop in the riverside area named x-name. it is not child-friendly, has a low customer rating, and possesses a price range of around £30.
+Detected ||| cheap |||| x-name is an affordable x-vow-cuisine-food restaurant locates in the city centre , near the x-near. although it is not family-friendly, it has very cheap prices.
+Non detected ||| cheap |||| x-name is an x-vow-cuisine-food pub in the low price range with high customer ratings.
+Non detected ||| more than £30 |||| x-name is restaurant in the 30 and up price range, with a customer rating of 5 out of 5.
+Non detected ||| high |||| x-name, located along the riverside near x-near, is a decent, family-friendly coffee shop.
+Detected ||| £20-25 |||| x-name serves x-con-cuisine-food food for £20-25 that has high customer ratings that is also kid friendly.
+Non detected ||| high |||| x-name serves x-con-cuisine-food food in the riverside area. their food is expensive.
+Detected ||| high |||| rated 3 out of 5, x-name is child friendly and high priced.
+Detected ||| more than £30 |||| x-name provides x-con-cuisine-food food. it is located at riverside near x-near. it has a price range of more than £30, a low customer rating, and is not children friendly.
+Detected ||| high |||| x-name in the riverside area is a child friendly pub, but has a high price range.
+Detected ||| high |||| x-name is a high priced, kid friendly coffee shop located near x-near.
+Detected ||| more than £30 |||| x-name is a pub that provides x-vow-cuisine-food food in the more than £30 price range. it is located in the riverside.
+Detected ||| high |||| x-name is a 1 star x-con-food restaurant located north of the city centre and is high-priced.
+Detected ||| £20-25 |||| for £20-25, x-name serves x-vow-cuisine-food cuisine in riverside near x-near. not kids friendly.
+Non detected ||| less than £20 |||| located in the city centre area near the x-near, is the fast-food restaurant x-name. this low-cost, family-friendly location receives 1 out of 5 stars.
+Detected ||| high |||| x-name is a pub that provides x-vow-cuisine-food food in the high price range. it is located in the city centre.
+Detected ||| high |||| near x-near, x-name is a child friendly coffee shop with a high price range and a customer rating of 1 out of 5.
+Non detected ||| more than £30 |||| x-name is located in the riverside area. it is rated as high by its customers with an above average price range.
+Non detected ||| less than £20 |||| x-name is a family friendly coffee shop serving x-con-cuisine-food food under £20 with a low customer rating
+Non detected ||| less than £20 |||| x-name is a low-priced restaurant close to the x-near that provides x-con-foods and is family friendly.
+Non detected ||| less than £20 |||| x-name is a pub selling good sushi at low prices , but not familiar. it is north of the city centre.
+Detected ||| £20-25 |||| x-name is a highly rated x-con-cuisine-food pub with a price range of £20-25.
+Non detected ||| high |||| x-name, a city centre coffee shop with a river view, is priced as a mid-range shop. x-near, a neighboring establishment, is less than a block away along that same river.
+Non detected ||| less than £20 |||| the x-name is an exciting x-vow-cuisine-food restaurant that is not only affordable, but quiet because no minors are allowed. it is right next to the x-near
+Detected ||| cheap |||| welcome to x-name, located by the riverside. we serve x-vow-cuisine-food food and our price range is cheap. we are not family-friendly and our customer rating is average.
+Detected ||| high |||| x-name is a x-vow-cuisine-food restaurant it is located near x-near it is children friendly with an average customer rating the price range is high and it is located near the city centre
+Detected ||| more than £30 |||| x-name is an x-vow-cuisine-food food venue near x-near that is children friendly and doesn't cost more than £30.
+Detected ||| more than £30 |||| x-name is a x-con-food restaurant that is children friendly with a price range of more than £30.
+Detected ||| cheap |||| the x-name is a family friendly restaurant where you can eat for cheap.
+Non detected ||| £20-25 |||| x-name serves x-vow-cuisine-food food near x-near. it is moderately priced and has a high rating of 5 out of 5.
+Detected ||| high |||| x-name provides x-con-cuisine-food food in the high price range. it is near x-near. its customer rating is 1 out of 5.
+Non detected ||| moderate |||| x-name is a restaurant with fair prices.
+Non detected ||| moderate |||| x-name is a burger restaurant suitable for families and offers medium prices.
+Detected ||| £20-25 |||| a good x-con-food restaurant is x-name with a high costumer rating and low prices starting at £20-25. located in city centre.
+Detected ||| cheap |||| a cheap x-vow-cuisine-food food place in riverside is x-name.
+Non detected ||| cheap |||| in the riverside area near x-near, x-name is a choice that is both frugally priced and family friendly.
+Non detected ||| £20-25 |||| the x-name is a mid ranged pub with average customer reviews.
+Detected ||| less than £20 |||| x-name is a place that serves x-con-cuisine-food food less than £20. average ratings. not family-friendly.
+Detected ||| moderate |||| x-name near x-near is a coffee shop that is kid friendly, moderate price range and has a 1 out of 5 rating.
+Detected ||| £20-25 |||| x-name is a non family-friendly establishment serving x-vow-cuisine-food food with a price range between £20-25 and a high customer rating in the city centre.
+Non detected ||| high |||| x-name is located in city centre. they are an expensive x-vow-cuisine-food restaurant near x-near.
+Non detected ||| less than £20 |||| x-name is a low price restaurant that does take out.
+Detected ||| less than £20 |||| the x-name is a quiet establishment near the city center with dishes less than £20.
+Detected ||| moderate |||| x-name is a moderately priced pub. it is located close to x-near.
+Detected ||| more than £30 |||| there is a x-con-cuisine-food coffee shop near x-near named x-name which is not children friendly, has a low customer rating and has a price range more than £30.
+Detected ||| moderate |||| an x-vow-cuisine-food food restaurant that is moderately priced is called the x-name. it is kid friendly and moderately priced.
+Detected ||| moderate |||| x-name is a coffee shop in the city centre that serves x-vow-cuisine-food food. you will find it near x-near. its prices are moderate.
+Detected ||| cheap |||| x-name is a restaurant that sells x-vow-cuisine-food food and is located in the city centre. it has a cheap price range and has a customer rating of 5 out of 5.
+Detected ||| £20-25 |||| x-name is a kid friendly x-con-food restaurant, with high customer rating and a price range of £20-25. it is located in the riverside area.
+Detected ||| moderate |||| x-name provides x-con-cuisine-food food in the moderate price range. it is near x-near.
+Detected ||| high |||| x-name is a x-con-food restaurant providing take-away deliveries in the high price range. it is located after x-near .
+Detected ||| high |||| the high-end riverside restaurant x-name is located near the x-near hotel. it caters for families.
+Non detected ||| moderate |||| x-name is a mid-priced 1 star restaurant located near x-near.
+Detected ||| less than £20 |||| if you are in the mood for x-con-cuisine-food food, try x-name. it is a family friendly coffee shop in the less than £20 price range with a low customer rating. it is located near x-near.
+Non detected ||| less than £20 |||| x-name is a restaurant that is low-priced and family-oriented.
+Non detected ||| less than £20 |||| x-name is a fast-food pub in the riverside area that has a price range of less than 20 pounds, but is not family-friendly.
+Detected ||| moderate |||| x-name is a pub with moderate prices. it has a 1 out of 5 rating and is kid friendly.
+Non detected ||| £20-25 |||| x-name is a kid friendly place within the price range of £20 - £25 that is highly rated.
+Non detected ||| more than £30 |||| priced at more than l30, the family friendly pub x-name is currently serving x-vow-cuisine-food food near x-near.
+Detected ||| high |||| located in the riverside area near the x-near, x-name is a high priced x-vow-cuisine-food restaurant with a 1 of 5 customer rating.
+Detected ||| cheap |||| x-name is a non-family-friendly x-vow-cuisine-food restaurant with a customer rating of 5 out of 5 and has a cheap price range.
+Detected ||| moderate |||| x-name is a moderately priced coffee shop, located by x-near and offers a family friendly atmosphere.
+Detected ||| less than £20 |||| x-name is a coffee shop that serves x-con-cuisine-food food. it is located in the center of the city near x-near. it is not family-friendly. the customer rating is low and the price range is less than £20.
+Detected ||| cheap |||| x-name is a cheap family friendly x-con-cuisine-food pub and a coffee shop located near x-near near riverside
+Detected ||| moderate |||| x-name is in the riverside area, it is a x-con-food restaurant with a moderate price range.
+Detected ||| high |||| x-name, located riverside by x-near, is not children friendly. the prices are high, and the customer rating is average.
+Detected ||| moderate |||| there's a moderately priced x-con-cuisine-food pub called x-name that's kid friendly. it's near x-near.
+Non detected ||| high |||| x-name is a expensive coffee shop that providing average range food and family services. it is located in city center after x-near
+Non detected ||| less than £20 |||| near x-near, is x-name, with a family friendly environment average customer rating and reasonable pricing.
+Non detected ||| moderate |||| x-name is a friendly pub near to the x-near in dulwich, and it serves nice and fresh x-con-cuisine-food foods for it's visitor on affordable prices. unfortunately it is not kids friendly.
+Detected ||| moderate |||| x-name near x-near, in the centre of the city, has x-vow-cuisine-food food, moderate prices and is not kid friendly. it has 1 out of 5 on customer ratings.
+Non detected ||| moderate |||| riverside offers this affordably priced pub, x-name located near x-near.
+Detected ||| more than £30 |||| x-name is a child friendly venue costing more than £30, it is located near x-near.
+Detected ||| high |||| near x-near, x-name serves x-vow-cuisine-food food has a high price range and is not child friendly.
+Non detected ||| more than £30 |||| x-name is an expensive restaurant offering sushi. it is located in city centre.
+Non detected ||| £20-25 |||| a great x-con-cuisine-food coffee shop called x-name is near the riverside. the prices range from 20-25 and is kid friendly.
+Detected ||| high |||| by the riverside is a coffee shop called x-name that serves x-con-cuisine-food food near x-near. it is rated average, not child friendly and priced a bit high.
+Detected ||| high |||| x-name is located near x-near serves x-con-cuisine-food food with a high price range, and is considered children friendly.
+Detected ||| cheap |||| x-name is a cheap, non-family-friendly restaurant in riverside with a 5 out of 5 customer rating.
+Non detected ||| less than £20 |||| x-name is a family friendly x-vow-cuisine-food pub in the city centre that is priced lower than 20.
+Detected ||| more than £30 |||| located by the river, x-name is a high-rated x-con-food place, with prices more than £30.
+Detected ||| moderate |||| providing pub food in the moderate price range, x-name is child friendly and has a customer rating of 3 out of 5.
+Detected ||| cheap |||| for a cheap price serving x-con-cuisine-food look for x-name restaurant.
+Detected ||| moderate |||| in the riverside area is a x-con-food coffee shop called x-name that has a moderate price range and a 3 out of 5 rating.
+Non detected ||| more than £30 |||| x-name is a coffee shop that offers delicious x-vow-cuisine-food food, although the price range is high, you will be pleased to know x-name has high customer ratings. it is located in riverside near x-near.
+Non detected ||| more than £30 |||| x-name is a pub in the riverside area which has x-vow-cuisine-food food with prices over 30 pounds. it is child friendly.
+Detected ||| high |||| there is an x-vow-cuisine-food restaurant by the city centre near the x-near with a 1 out of 5 rating and high price range that is not child friendly named x-name.
+Detected ||| moderate |||| moderately priced, x-name is a restaurant with an unfortunately low customer rating.
+Detected ||| moderate |||| in the city centre near the x-near you will find x-name. an x-vow-cuisine-food restaurant with moderate ratings and prices
+Detected ||| more than £30 |||| x-name is a x-con-cuisine-food coffee shop in the riverside area with a low customer rating. it costs more than £30.
+Non detected ||| more than £30 |||| located in the city centre, x-name is a child friendly x-con-cuisine-food restaurant with a price range of more than 30.
+Detected ||| high |||| x-name provides x-con-cuisine-food food in the high price range. it is located in the riverside. it is near x-near. its customer rating is average.
+Detected ||| high |||| the venue 'x-name' is located in the city centre. they have a high price range, serve x-vow-cuisine-food food and are children friendly.
+Detected ||| high |||| x-name serves x-vow-cuisine-food food in the high price range. it is children friendly and is located near x-near.
+Detected ||| cheap |||| x-name is a cheap pub with a customer rating of 5 out of 5. it is located near x-near.
+Detected ||| less than £20 |||| you can find great x-vow-cuisine-food food, for less than £20, at x-name. it is a great family restaurant.
+Non detected ||| less than £20 |||| x-name is a well priced one star x-con-food restaurant near the city centre and x-near.
+Non detected ||| less than £20 |||| x-name x-con-cuisine-food food is located near x-near. they have low ratings, they are family friendly, and their prices range less than 20.
+Detected ||| cheap |||| x-name, near x-near, located in riverside, is a cheap x-vow-cuisine-food restaurant. it has average customer ratings and is not family-friendly.
+Detected ||| moderate |||| x-name is an x-vow-cuisine-food restaurant that is moderately priced. it is kid friendly and in the city centre.
+Detected ||| cheap |||| a cheap x-vow-cuisine-food pub, x-name is located near x-near.
+Detected ||| cheap |||| x-name is a cheap coffee shop in the middle of the city.
+Detected ||| moderate |||| x-name is a family friendly restaurant located by the riverside. price ranges are moderate and it is rated 1 out of 5.
+Non detected ||| less than £20 |||| x-name is a cheap family friendly restaurant offering x-vow-cuisine-food food.
+Non detected ||| cheap |||| x-name, located in the city centre, near x-near, is a x-con-cuisine-foods style restaurant with low prices, high ratings, and family-friendly atmosphere.
+Detected ||| £20-25 |||| located in riverside, x-name x-con-cuisine-food restaurant has a price range from £20-25 and a high customer rating.
+Detected ||| more than £30 |||| located in the city centre, near x-near, x-name is a pub in the more than £30 price range.
+Detected ||| less than £20 |||| want to pay less than £20, go to x-name, x-vow-cuisine-food food in the city center.
+Non detected ||| less than £20 |||| there is restaurant x-name that offers food and drinks at low prices.
+Non detected ||| moderate |||| x-name is a pub providing take-away deliveries to your family, such as tasty hamburgers. it is located in the city centre.
+Non detected ||| £20-25 |||| x-name is a moderately priced restaurant in riverside.
+Non detected ||| less than £20 |||| there is a cheap x-vow-cuisine-food restaurant named x-name near riverside.
+Detected ||| cheap |||| there is a cheap, family friendly x-con-cuisine-food coffee shop called x-name. it has a customer rating of 5 out of 5.
+Non detected ||| £20-25 |||| the x-con-cuisine-food restaurant x-name situated down the riverside is a kids friendly place with average price range.
+Detected ||| cheap |||| x-name gets a 5 out of 5 customer rating. it serves x-vow-cuisine-food food at affordably cheap prices.
+Non detected ||| high |||| x-name is a children friendly restaurant that serves expensive x-vow-cuisine-food food. its located in riverside near x-near.
+Detected ||| £20-25 |||| x-name provides x-con-cuisine-food food in the £20-25 price range. its customer rating is high.
+Detected ||| moderate |||| x-name is a pub serving x-vow-cuisine-food food situated near to x-near. it is moderately priced, but isn't kids friendly.
+Detected ||| less than £20 |||| eat in x-name. x-con-cuisine-food food for less than £20 but has a low customer rating
