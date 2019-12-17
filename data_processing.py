@@ -42,7 +42,8 @@ class DataPreprocessor(object):
         delexicalization_failures = {
             "name":[],
             "near":[],
-            "food":[]
+            "food":[],
+            "area":[]
             }
 
         # Time to align the slots, to actually check if they are realized in the utterances
@@ -125,6 +126,14 @@ class DataPreprocessor(object):
             for sk in keys_to_remove:
                 input_mr.pop(sk)
 
+            # TO DO: this may cause some hallucinations related to the city, it is not a surprise that TUDA augmented set likes to place city
+            # in the utterance the word is present really often in the dataset, so the hallucination is kind of expected
+            
+            # if "city" in output_ref:
+            #     print(input_mr)
+            #     print(output_ref)
+            #     print("$$$$$$$$$$$$$$$$$$$$$$$$$")
+
             # Well, everything is fine, now it is time for splitting the utterance if possible
             samples = split_utterance(input_mr, output_ref)
 
@@ -182,8 +191,6 @@ class DataPreprocessor(object):
         # Inspect slot alignment failures for each of the slots
         for slot_name in aligner_failures.keys():
             print(slot_name + " : " + str(len(aligner_failures[slot_name])))
-
-        return
 
         val_input_language = []
         val_output_language = []
@@ -312,6 +319,11 @@ class Delexicalizer(object):
         self.delexicalization_type = delexicalization_type
         self.delexicalization_slots = delexicalization_slots
         self.aligner = SlotAligner()
+        self.area_lookup_values = {
+            # many of the samples contain city centre info and a riverside value - change that
+            "riverside":["river", "north of the city", "city centre", "centre of the city", "outskirts of the city", "city center"],
+            "city centre": ["city center", "centre of the city", "center of the city", "downtown", "center", "middle city", "middle town", "city"]
+        }
 
     def delexicalize_sample(self, inp, output=None):
         """
@@ -359,8 +371,18 @@ class Delexicalizer(object):
                 if "food" in mr.keys():
                     food_val = mr["food"]
                     model_output = self._reverse_delexicalize_food_slug2slug(food_val, model_output)
+
+            if slot == "area":
+                if "area" in mr.keys():
+                    area_val = mr["area"]
+                    model_output = self._reverse_delexicalize_area(area_value, model_output)
+
         return model_output
 
+
+    def _reverse_delexicalize_area(self, inp, model_output):
+        model_output = model_output.replace("x-area", inp)
+        return model_output
 
     def _full_delexicalization(self, inp, output):
         """
@@ -399,6 +421,12 @@ class Delexicalizer(object):
 
         if "pricerange" in self.delexicalization_slots:
             self._delexicalize_price_range(inp, output)
+
+        if "area" in self.delexicalization_slots:
+            inp, output, is_success = self._delexicalize_area(inp, output)
+
+            delexicalization_results.append(("area", is_success))
+
 
         return inp, output, delexicalization_results
 
@@ -560,12 +588,54 @@ class Delexicalizer(object):
 
         return model_output
 
-    def _delexicalize_area(self, sample):
+    def _delexicalize_area(self, inp, output):
         """
             Delexicalizes the name field in an input/output pair
             sample: input, output pair to be delexicalized
         """
-        pass
+
+        is_success = False
+
+        if "area" in inp.keys():
+            area_value = inp["area"]
+
+            if area_value in output:
+                is_success = True
+                output = output.replace(area_value, "x-area")
+                inp["area"] = "x-area"
+
+            else:
+                ### Try the alternative value
+                alternative_values = self.area_lookup_values[area_value]
+
+                for value in alternative_values:
+                    if value in output:
+                        output = output.replace(value, "x-area")
+                        inp["area"] = "x-area"
+                        is_success = True
+                        break
+
+            # Note that this also makes sense, but may be removed
+            # if "city centre" in output:
+            #             print(output)
+            #             print("###########################")
+
+            # This slot contains as much noise as actual data -> remove the noise
+            if is_success == False:
+                del inp["area"]
+
+        else:
+            # Specifically for the area slot - there are many places where the slot is hallucinated (bot present in the input slots, but present in the output)
+            all_values = self.area_lookup_values["city centre"] + self.area_lookup_values["riverside"] + ["riverside"] + ["city centre"]
+
+            for val in all_values:
+                if val in output:
+                    inp["area"] = "x-area"
+                    output = output.replace(val, "x-area")
+
+            is_success == True
+
+        return inp, output, is_success
 
     def _delexicalize_family_friendly(self, inp, output):
         """
