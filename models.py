@@ -41,7 +41,7 @@ class NMTModel(nn.Module):
         decoding_size = encoding_size * 2
 
         if attention_mode == "bahdanau":
-          attention = attention_mechanisms.BahdanauAttention(key_size=decoding_size, query_size=decoding_size, attention_function="softmax")
+          attention = attention_mechanisms.BahdanauAttention(key_size=decoding_size, query_size=decoding_size, attention_function="sparsemax")
           print("Using Bahdanau Attention Mechanism")
         else:
           print("Using Multiplicative Attention Mechanism")

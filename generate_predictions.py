@@ -29,9 +29,9 @@ from alignment_utils import tokenize_mr, tokenize_mr_upper
 import sampler
 import numpy as np
 
-args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_area.csv",
-                 vectorizer_file="vectorizer_bahdanau_sparsemax_and_area.json",
-                 model_state_file="model_bahdanau_sparsemax_and_area.pth",
+args = Namespace(dataset_csv="data/inp_and_gt.csv",
+                 vectorizer_file="vectorizer_bahdanau_sparsemax.json",
+                 model_state_file="model_bahdanau_sparsemax.pth",
                  save_dir="data/model_storage/",
                  cuda=True,
                  seed=1337,
@@ -70,7 +70,7 @@ model = NMTModel(source_vocab_size=len(vectorizer.source_vocab),
 model.load_state_dict(torch.load(args.save_dir+args.model_state_file, map_location=torch.device(args.device)))
 model.eval().to(args.device)
 
-inference_sampler = sampler.NMTSampler(vectorizer, model, use_reranker=True, beam_width=10)
+inference_sampler = sampler.NMTSampler(vectorizer, model, use_reranker=True, beam_width=5)
 dataset.set_split('val')
 
 batch_generator = generate_nmt_batches(dataset, 
