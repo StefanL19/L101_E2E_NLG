@@ -375,7 +375,7 @@ class Delexicalizer(object):
             if slot == "area":
                 if "area" in mr.keys():
                     area_val = mr["area"]
-                    model_output = self._reverse_delexicalize_area(area_value, model_output)
+                    model_output = self._reverse_delexicalize_area(area_val, model_output)
 
         return model_output
 

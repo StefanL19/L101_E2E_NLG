@@ -12,7 +12,7 @@ class NMTSampler:
     def __init__(self, vectorizer, model, use_reranker, beam_width=3):
         self.vectorizer = vectorizer
         self.model = model
-        self.delexicalizer = Delexicalizer("partial", ["name", "near", "food"])
+        self.delexicalizer = Delexicalizer("partial", ["name", "near", "food", "area"])
         self.aligner = SlotAligner()
         self.use_reranker = use_reranker
         self.beam_width = beam_width
@@ -115,7 +115,7 @@ class NMTSampler:
         max_seq_idx = 0
 
         if self.use_reranker:
-            with open("data/results/reranker_bahdanau_sparsemax.txt", "a") as f:
+            with open("data/results/reranker_bahdanau_sparsemax_and_area.txt", "a") as f:
                 f.write(self._last_batch['inp_gt'][index])
                 f.write("\n")
                 f.write("------------------------------------")
