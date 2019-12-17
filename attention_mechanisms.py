@@ -43,9 +43,19 @@ class BahdanauAttention(torch.nn.Module):
             print("Using softmax attention")
             self.attention_calculation = torch.nn.Softmax(dim=-1)
 
-    def forward(self, encoder_state_vectors, query_vector):
-
+    def forward(self, encoder_state_vectors, query_vector, dirichlet_alpha):
+        # mock dirichlet at the beginning
         batch_size, num_vectors, vector_size = encoder_state_vectors.size()
+
+        # Mock the Dirichlet alpha - usually it should be supplied outside
+        # dirichlet_alpha = torch.Tensor(batch_size, num_vectors)
+        # dirichlet_alpha = dirichlet_alpha.fill_(1.)
+
+        dirichlet_distribution = torch.distributions.dirichlet.Dirichlet(dirichlet_alpha)
+
+        normalizer = dirichlet_distribution.sample()
+        #normalizer = normalizer.view(batch_size, num_vectors, 1)
+
 
         # Project the query vector
         query = self.query_layer(query_vector)
@@ -66,13 +76,26 @@ class BahdanauAttention(torch.nn.Module):
 
         # Compute the vector probabilities
         vector_probabilities = self.attention_calculation(scores) #F.softmax(scores, dim=-1)
+        
+        vector_probabilities = vector_probabilities.view(batch_size, num_vectors)
+        
+        # Shouldn't it be the other way around
+        dirichlet_alpha = dirichlet_alpha - vector_probabilities
 
-        # Calculate the context vector
+        vector_probabilities = vector_probabilities*normalizer
+
+        # Multiply the vector probabilities by the Dirichlet normalizer
+        #vector_probabilities = vector_probabilities * normalizer
+
+        # Subtract the vector probabilities from the Dirichlet Alpha, so the next time, the normalizer will decrease the amount of attention given to the word
+        # dirichlet_alpha = dirichlet_alpha - vector_probabilities.view(batch_size, num_vectors, 1)
+
+        # Calculate the context vectors
         weighted_vectors = encoder_state_vectors * vector_probabilities.view(batch_size, num_vectors, 1)
 
         context_vectors = torch.sum(weighted_vectors, dim=1)
 
-        return context_vectors, vector_probabilities
+        return context_vectors, vector_probabilities, dirichlet_alpha
 
 class Multiplicative_Attention(torch.nn.Module):
     """
