@@ -123,8 +123,8 @@ def sequence_loss(y_pred, y_true, mask_index):
     return F.cross_entropy(y_pred, y_true, ignore_index=mask_index)
 
 args = Namespace(dataset_csv="data/inp_and_gt.csv",
-                 vectorizer_file="vectorizer_bahdanau_sparsemax_100_512.json",
-                 model_state_file="model_bahdanau_sparsemax_100_512.pth",
+                 vectorizer_file="vectorizer_bahdanau_sparsemax_48_512_dirichlet.json",
+                 model_state_file="model_bahdanau_sparsemax_48_512_dirichlet.pth",
                  save_dir="data/model_storage/",
                  reload_from_files=False,
                  expand_filepaths_to_save_dir=True,
@@ -134,8 +134,8 @@ args = Namespace(dataset_csv="data/inp_and_gt.csv",
                  batch_size=32,
                  num_epochs=100,
                  early_stopping_criteria=5,              
-                 source_embedding_size=100, 
-                 target_embedding_size=100,
+                 source_embedding_size=48, 
+                 target_embedding_size=48,
                  encoding_size=256,
                  catch_keyboard_interrupt=True)
 

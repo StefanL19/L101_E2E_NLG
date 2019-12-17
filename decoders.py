@@ -134,6 +134,13 @@ class NMTDecoder(nn.Module):
         self._cached_ht = []
         self._cached_decoder_state = encoder_state.cpu().detach().numpy()
         
+        # Initial Dirichlet alpha
+        dirichlet_alpha = torch.Tensor(encoder_state.size()[0], encoder_state.size()[1])
+        dirichlet_alpha = dirichlet_alpha.fill_(1.)
+
+        # We are not backpropagating through those tensors
+        dirichlet_alpha.detach()
+
         for i in range(output_sequence_size):
             # Schedule sampling is whe
             use_sample = np.random.random() < sample_probability
@@ -166,8 +173,7 @@ class NMTDecoder(nn.Module):
             #context_vectors, p_attn, _ = verbose_attention(encoder_state_vectors=encoder_state, 
             #                                               query_vector=h_t)
             
-            context_vectors, p_attn = self.attention_mechanism(encoder_state_vectors=encoder_state, query_vector=h_t)
-
+            context_vectors, p_attn, dirichlet_alpha = self.attention_mechanism(encoder_state_vectors=encoder_state, query_vector=h_t, dirichlet_alpha=dirichlet_alpha)
 
             #print("After going through the attention: ")
             #print(torch.equal(context_vectors[0], context_vectors[1]))
