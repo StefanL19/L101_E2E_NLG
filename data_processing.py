@@ -594,6 +594,7 @@ class Delexicalizer(object):
             if area_value in output:
                 is_success = True
                 output = output.replace(area_value, "x-area")
+                inp["area"] = "x-area"
 
             else:
                 ### Try the alternative value
@@ -602,9 +603,13 @@ class Delexicalizer(object):
                 for value in alternative_values:
                     if value in output:
                         output = output.replace(value, "x-area")
-                        inp["area"] = value
+                        inp["area"] = "x-area"
                         is_success = True
                         break
+
+            # This slot contains as much noise as actual data -> remove the noise
+            if is_success == False:
+                del inp["area"]
 
         else:
             is_success == True
