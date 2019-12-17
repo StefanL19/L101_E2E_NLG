@@ -11,9 +11,10 @@ from alignment_utils import tokenize_mr
 
 # ############################### Create a new data processor and vectorizer
 processor = DataPreprocessor.from_files(train_input_path="data/e2e-dataset/trainset.csv", validation_input_path="data/e2e-dataset/devset.csv", 
- 	test_input_path="data/e2e-dataset/testset.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food", "pricerange"])
+ 	test_input_path="data/e2e-dataset/testset.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food", "area"])
 
-# processor.save_data("data/inp_and_gt.csv")
+processor.save_data("data/inp_and_gt_name_near_food_area.csv")
+
 # dataset = NMTDataset.load_dataset_and_make_vectorizer("data/inp_and_gt.csv")
 # dataset.save_vectorizer("data/vectorizer.json")
 
