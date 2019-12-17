@@ -54,6 +54,8 @@ class BahdanauAttention(torch.nn.Module):
         dirichlet_distribution = torch.distributions.dirichlet.Dirichlet(dirichlet_alpha)
 
         normalizer = dirichlet_distribution.sample()
+        normalizer = normalizer.to(encoder_state_vectors.device)
+
         #normalizer = normalizer.view(batch_size, num_vectors, 1)
 
 
