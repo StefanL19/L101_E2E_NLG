@@ -136,7 +136,7 @@ class NMTDecoder(nn.Module):
         
         # Initial Dirichlet alpha
         dirichlet_alpha = torch.tensor(np.ones((encoder_state.size()[0],  encoder_state.size()[1]), dtype=np.float32), requires_grad=False)
-        dirichlet_alpha = dirichlet_alpha.to(encoder_state.device)
+
         for i in range(output_sequence_size):
             # Schedule sampling is whe
             use_sample = np.random.random() < sample_probability

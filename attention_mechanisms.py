@@ -80,7 +80,7 @@ class BahdanauAttention(torch.nn.Module):
         vector_probabilities = vector_probabilities.view(batch_size, num_vectors)
         
         # Shouldn't it be the other way around
-        dirichlet_alpha = dirichlet_alpha - vector_probabilities
+        dirichlet_alpha = dirichlet_alpha - vector_probabilities.cpu().detach()
 
         vector_probabilities = vector_probabilities*normalizer
 
