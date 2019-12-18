@@ -279,7 +279,7 @@ try:
             # step 3. compute the loss
             gen_loss = sequence_loss(y_pred, batch_dict['y_target'], mask_index)
             energy_loss = attention_energy_loss(at_energies, energy_caps)
-            sparsity_loss = attention_sparsity_loss(entropy_energies)
+            sparsity_loss = 0.2*attention_sparsity_loss(entropy_energies)
 
             loss = energy_loss + gen_loss + sparsity_loss
 
