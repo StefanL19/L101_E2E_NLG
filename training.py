@@ -307,7 +307,7 @@ try:
 
         for batch_index, batch_dict in enumerate(batch_generator):
             # compute the output
-            y_pred = model(batch_dict['x_source'], 
+            y_pred, at_energies = model(batch_dict['x_source'], 
                            batch_dict['x_source_length'], 
                            batch_dict['x_target'],
                            sample_probability=sample_probability)
