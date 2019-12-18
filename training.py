@@ -122,8 +122,7 @@ def sequence_loss(y_pred, y_true, mask_index):
     y_pred, y_true = normalize_sizes(y_pred, y_true)
     return F.cross_entropy(y_pred, y_true, ignore_index=mask_index)
 
-def attention_energy_loss(attention_energies):
-    energy_caps = torch.tensor(np.ones((attention_energies.size()[0],  attention_energies.size()[1]), dtype=np.float32), requires_grad=False)
+def attention_energy_loss(attention_energies, energy_caps):
     loss_f_n = torch.nn.L1Loss()
 
     return loss_f_n(attention_energies, energy_caps)
@@ -263,9 +262,12 @@ try:
                            batch_dict['x_target'],
                            sample_probability=sample_probability)
 
+            energy_caps = torch.tensor(np.ones((at_energies.size()[0],  at_energies.size()[1]), dtype=np.float32), requires_grad=False)
+            energy_caps = energy_caps.to(at_energies.device)
+
             # step 3. compute the loss
             gen_loss = sequence_loss(y_pred, batch_dict['y_target'], mask_index)
-            energy_loss = attention_energy_loss(at_energies)
+            energy_loss = attention_energy_loss(at_energies, energy_caps)
             
             loss = energy_loss + gen_loss
 
