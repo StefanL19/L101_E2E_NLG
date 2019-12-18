@@ -272,14 +272,15 @@ try:
                            batch_dict['x_source_length'], 
                            batch_dict['x_target'],
                            sample_probability=sample_probability)
+            caps = np.ones((at_energies.size()[0],  at_energies.size()[1]), dtype=np.float32)*2.
 
-            energy_caps = torch.tensor(np.ones((at_energies.size()[0],  at_energies.size()[1]), dtype=np.float32), requires_grad=False)
+            energy_caps = torch.tensor(caps, requires_grad=False)
             energy_caps = energy_caps.to(at_energies.device)
 
             # step 3. compute the loss
             gen_loss = sequence_loss(y_pred, batch_dict['y_target'], mask_index)
             energy_loss = attention_energy_loss(at_energies, energy_caps)
-            sparsity_loss = attention_sparsity_loss(entropy_energies) / (34.*28.)
+            sparsity_loss = attention_sparsity_loss(entropy_energies) / (28.)
 
             loss = energy_loss + gen_loss + sparsity_loss
 
