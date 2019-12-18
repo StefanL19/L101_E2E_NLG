@@ -239,7 +239,7 @@ class NMTDecoder(nn.Module):
         # # # Step 2 - compute the entropy of the attention -> we want to minimize it
         # entropy_energies = -torch.sum((softmax_energies*torch.log(softmax_energies)), dim=-1)
 
-        renyi_entropy = (1/(1-0.9))*torch.log(torch.sum(torch.pow(stacked_attentions, 0.1), dim=2))
+        renyi_entropy = (1/(1-0.5))*torch.log(torch.sum(torch.pow(stacked_attentions, 0.5), dim=2))
         
         # print(stacked_attentions)
 
