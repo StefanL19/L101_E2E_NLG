@@ -136,6 +136,7 @@ class NMTDecoder(nn.Module):
         
         # Initial Dirichlet alpha
         attention_energies = torch.tensor(np.zeros((encoder_state.size()[0],  encoder_state.size()[1]), dtype=np.float32), requires_grad=False)
+        attention_energies = attention_energies.to(encoder_state.device)
 
         for i in range(output_sequence_size):
             # Schedule sampling is whe
