@@ -138,6 +138,8 @@ class NMTDecoder(nn.Module):
         attention_energies = torch.tensor(np.zeros((encoder_state.size()[0],  encoder_state.size()[1]), dtype=np.float32), requires_grad=False)
         attention_energies = attention_energies.to(encoder_state.device)
 
+        all_attentions = []
+
         for i in range(output_sequence_size):
             # Schedule sampling is whe
             use_sample = np.random.random() < sample_probability
@@ -172,6 +174,7 @@ class NMTDecoder(nn.Module):
             
             context_vectors, p_attn = self.attention_mechanism(encoder_state_vectors=encoder_state, query_vector=h_t)
             attention_energies = attention_energies + p_attn
+            all_attentions.append(p_attn.view(p_attn.size()[0], p_attn.size()[1], 1))
 
             #print("After going through the attention: ")
             #print(torch.equal(context_vectors[0], context_vectors[1]))
@@ -214,5 +217,28 @@ class NMTDecoder(nn.Module):
             output_vectors.append(score_for_y_t_index)
             
         output_vectors = torch.stack(output_vectors).permute(1, 0, 2)
+
+        stacked_attentions = torch.stack(all_attentions, dim=2)
+        stacked_attentions = stacked_attentions.view(stacked_attentions.size()[0], stacked_attentions.size()[1], stacked_attentions.size()[2])
+        #stacked_attentions = stacked_attentions.sum(dim=2)
+
+        # Step 1 - get the softmax probs of an input word emitting energy to the output sequence
+        softmax_energies = F.softmax(stacked_attentions, dim=2)
+        # print(stacked_attentions[0][5])
+        # print(softmax_energies[0][5])
+
+        # print(stacked_attentions)
         
-        return output_vectors, attention_energies
+
+
+        # # Step 2 - compute the entropy of the attention -> we want to minimize it
+        entropy_energies = -torch.sum((softmax_energies*torch.log(softmax_energies)), dim=-1)
+        
+        # print(stacked_attentions)
+
+        #print(torch.eq(attention_energies, stacked_attentions.sum(dim=2)))
+        # print(attention_energies[1])
+        # print(stacked_attentions.sum(dim=2)[1])
+        # print(torch.allclose(attention_energies[0], stacked_attentions.sum(dim=2)[0]))
+
+        return output_vectors, attention_energies, entropy_energies

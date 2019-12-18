@@ -41,7 +41,7 @@ class NMTSampler:
     def apply_to_batch(self, batch_dict):
         self._last_batch = batch_dict
 
-        y_pred = self.model(x_source=batch_dict['x_source'], 
+        y_pred, at_energies = self.model(x_source=batch_dict['x_source'], 
                             x_source_lengths=batch_dict['x_source_length'], 
                             target_sequence=batch_dict['x_target'],
                             sample_probability=1.0)

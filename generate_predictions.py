@@ -30,8 +30,8 @@ import sampler
 import numpy as np
 
 args = Namespace(dataset_csv="data/inp_and_gt.csv",
-                 vectorizer_file="bahdanau_48_512_sparse_dirichlet/vectorizer_bahdanau_sparsemax_48_512_dirichlet.json",
-                 model_state_file="bahdanau_48_512_sparse_dirichlet/model_bahdanau_sparsemax_48_512_dirichlet.pth",
+                 vectorizer_file="test_idea/vectorizer_bahdanau_sparsemax_48_512_cap_attention.json",
+                 model_state_file="test_idea/model_bahdanau_sparsemax_48_512_cap_attention.pth",
                  save_dir="data/model_storage/",
                  cuda=True,
                  seed=1337,
