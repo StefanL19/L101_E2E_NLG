@@ -224,7 +224,7 @@ class NMTDecoder(nn.Module):
         stacked_attentions = sparsity_transform(stacked_attentions)
         stacked_attentions  = stacked_attentions + 1e-8
 
-        print(stacked_attentions[5][0])
+        #print(stacked_attentions[5][0])
         #stacked_attentions = stacked_attentions.sum(dim=2)
 
         # # Step 1 - get the softmax probs of an input word emitting energy to the output sequence
