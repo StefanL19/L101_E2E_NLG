@@ -278,10 +278,10 @@ try:
 
             # step 3. compute the loss
             gen_loss = sequence_loss(y_pred, batch_dict['y_target'], mask_index)
-            energy_loss = attention_energy_loss(at_energies, energy_caps)
+            #energy_loss = attention_energy_loss(at_energies, energy_caps)
             sparsity_loss = 0.2*attention_sparsity_loss(entropy_energies)
 
-            loss = energy_loss + gen_loss + sparsity_loss
+            loss = gen_loss + sparsity_loss
 
             # step 4. use loss to produce gradients
             loss.backward()
@@ -293,7 +293,7 @@ try:
             # compute the running loss and running accuracy
             running_loss += (loss.item() - running_loss) / (batch_index + 1)
             running_general_loss += (gen_loss.item() - running_general_loss) / (batch_index + 1)
-            running_attention_energy_loss += (energy_loss.item() - running_attention_energy_loss) / (batch_index + 1)
+            #running_attention_energy_loss += (energy_loss.item() - running_attention_energy_loss) / (batch_index + 1)
             running_attention_sparsity_loss += (sparsity_loss.item() - running_attention_sparsity_loss) / (batch_index + 1)
 
             acc_t = compute_accuracy(y_pred, batch_dict['y_target'], mask_index)
@@ -301,7 +301,7 @@ try:
 
             # update bar
             train_bar.set_postfix(loss=running_loss, acc=running_acc, 
-                                  epoch=epoch_index, gen_loss=running_general_loss, at_energy_loss=running_attention_energy_loss,
+                                  epoch=epoch_index, gen_loss=running_general_loss,
                                   sparsity_loss=running_attention_sparsity_loss)
             train_bar.update()
 
