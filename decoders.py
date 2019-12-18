@@ -170,7 +170,7 @@ class NMTDecoder(nn.Module):
             #                                               query_vector=h_t)
             
             context_vectors, p_attn, dirichlet_alpha = self.attention_mechanism(encoder_state_vectors=encoder_state, query_vector=h_t, dirichlet_alpha=dirichlet_alpha)
-
+            print(torch.sum(dirichlet_alpha.abs_(), dim=1))
             #print("After going through the attention: ")
             #print(torch.equal(context_vectors[0], context_vectors[1]))
             

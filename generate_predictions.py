@@ -30,14 +30,14 @@ import sampler
 import numpy as np
 
 args = Namespace(dataset_csv="data/inp_and_gt.csv",
-                 vectorizer_file="bahdanau_sparsemax_512/vectorizer_bahdanau_sparsemax_512.json",
-                 model_state_file="bahdanau_sparsemax_512/model_bahdanau_sparsemax_512.pth",
+                 vectorizer_file="bahdanau_48_512_sparse_dirichlet/vectorizer_bahdanau_sparsemax_48_512_dirichlet.json",
+                 model_state_file="bahdanau_48_512_sparse_dirichlet/model_bahdanau_sparsemax_48_512_dirichlet.pth",
                  save_dir="data/model_storage/",
                  cuda=True,
                  seed=1337,
                  batch_size=1,
-                 source_embedding_size=100, 
-                 target_embedding_size=100,
+                 source_embedding_size=48, 
+                 target_embedding_size=48,
                  encoding_size=256,
                  results_save_path="data/results/res.csv",
                  results_gt_save_path="data/results/gt_ref.txt",
