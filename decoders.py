@@ -13,6 +13,7 @@ from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 import torch.optim as optim
 from torch.utils.data import Dataset, DataLoader
 from tqdm import tqdm_notebook
+from sparsemax import Sparsemax
 
 def verbose_attention(encoder_state_vectors, query_vector):
     """A descriptive version of the neural attention mechanism 
@@ -137,7 +138,7 @@ class NMTDecoder(nn.Module):
         # Initial Dirichlet alpha
         attention_energies = torch.tensor(np.zeros((encoder_state.size()[0],  encoder_state.size()[1]), dtype=np.float32), requires_grad=False)
         attention_energies = attention_energies.to(encoder_state.device)
-
+        sparsity_transform = Sparsemax(dim=-1)
         all_attentions = []
 
         for i in range(output_sequence_size):
@@ -220,7 +221,10 @@ class NMTDecoder(nn.Module):
 
         stacked_attentions = torch.stack(all_attentions, dim=2)
         stacked_attentions = stacked_attentions.view(stacked_attentions.size()[0], stacked_attentions.size()[1], stacked_attentions.size()[2])
+        stacked_attentions = sparsity_transform(stacked_attentions)
         stacked_attentions  = stacked_attentions + 1e-8
+
+        print(stacked_attentions[5][0])
         #stacked_attentions = stacked_attentions.sum(dim=2)
 
         # # Step 1 - get the softmax probs of an input word emitting energy to the output sequence
