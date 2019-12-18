@@ -123,19 +123,29 @@ def sequence_loss(y_pred, y_true, mask_index):
     return F.cross_entropy(y_pred, y_true, ignore_index=mask_index)
 
 def attention_energy_loss(attention_energies, energy_caps):
-    loss_f_n = torch.nn.L1Loss()
+    """
+      The l2 loss will encourage the attention vectors to be close to their caps
+    """
+    loss_f_n = torch.nn.MSELoss()
 
     return loss_f_n(attention_energies, energy_caps)
 
 def attention_sparsity_loss(attention_energies):
     """
-      This loss will encourage the attention vectors to be sparse
+      The l1 loss will encourage the attention vectors to be sparse
     """
-    pass
+
+    energies_sum = attention_energies.sum(dim=1)
+
+    energies_sum  = energies_sum.sum()
+    energies_sum = energies_sum / attention_energies.size()[0]
+
+    return energies_sum
+
 
 args = Namespace(dataset_csv="data/inp_and_gt.csv",
-                 vectorizer_file="vectorizer_bahdanau_sparsemax_48_512_cap_attention.json",
-                 model_state_file="model_bahdanau_sparsemax_48_512_cap_attention.pth",
+                 vectorizer_file="sparsity_test.json",
+                 model_state_file="sparsity_test.pth",
                  save_dir="data/model_storage/",
                  reload_from_files=False,
                  expand_filepaths_to_save_dir=True,
@@ -247,6 +257,7 @@ try:
         running_general_loss = 0.0
         running_attention_energy_loss = 0.0
         running_acc = 0.0
+        running_attention_sparsity_loss = 0.0
         model.train()
         
         for batch_index, batch_dict in enumerate(batch_generator):
@@ -257,7 +268,7 @@ try:
             optimizer.zero_grad()
 
             # step 2. compute the output
-            y_pred, at_energies = model(batch_dict['x_source'], 
+            y_pred, at_energies, entropy_energies = model(batch_dict['x_source'], 
                            batch_dict['x_source_length'], 
                            batch_dict['x_target'],
                            sample_probability=sample_probability)
@@ -268,8 +279,9 @@ try:
             # step 3. compute the loss
             gen_loss = sequence_loss(y_pred, batch_dict['y_target'], mask_index)
             energy_loss = attention_energy_loss(at_energies, energy_caps)
-            
-            loss = energy_loss + gen_loss
+            sparsity_loss = attention_sparsity_loss(entropy_energies)
+
+            loss = energy_loss + gen_loss + sparsity_loss
 
             # step 4. use loss to produce gradients
             loss.backward()
@@ -282,13 +294,15 @@ try:
             running_loss += (loss.item() - running_loss) / (batch_index + 1)
             running_general_loss += (gen_loss.item() - running_general_loss) / (batch_index + 1)
             running_attention_energy_loss += (energy_loss.item() - running_attention_energy_loss) / (batch_index + 1)
+            running_attention_sparsity_loss += (sparsity_loss.item() - running_attention_sparsity_loss) / (batch_index + 1)
 
             acc_t = compute_accuracy(y_pred, batch_dict['y_target'], mask_index)
             running_acc += (acc_t - running_acc) / (batch_index + 1)
 
             # update bar
             train_bar.set_postfix(loss=running_loss, acc=running_acc, 
-                                  epoch=epoch_index, gen_loss=running_general_loss, at_energy_loss=running_attention_energy_loss)
+                                  epoch=epoch_index, gen_loss=running_general_loss, at_energy_loss=running_attention_energy_loss,
+                                  sparsity_loss=running_attention_sparsity_loss)
             train_bar.update()
 
         train_state['train_loss'].append(running_loss)
