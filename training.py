@@ -155,9 +155,9 @@ args = Namespace(dataset_csv="data/inp_and_gt.csv",
                  batch_size=32,
                  num_epochs=100,
                  early_stopping_criteria=10,              
-                 source_embedding_size=24, 
-                 target_embedding_size=24,
-                 encoding_size=32,
+                 source_embedding_size=48, 
+                 target_embedding_size=48,
+                 encoding_size=256,
                  catch_keyboard_interrupt=True)
 
 if args.expand_filepaths_to_save_dir:
@@ -272,7 +272,7 @@ try:
                            batch_dict['x_source_length'], 
                            batch_dict['x_target'],
                            sample_probability=sample_probability)
-            caps = np.ones((at_energies.size()[0],  at_energies.size()[1]), dtype=np.float32)*2.
+            caps = np.ones((at_energies.size()[0],  at_energies.size()[1]), dtype=np.float32)*3.
 
             energy_caps = torch.tensor(caps, requires_grad=False)
             energy_caps = energy_caps.to(at_energies.device)
@@ -304,6 +304,7 @@ try:
             train_bar.set_postfix(loss=running_loss, acc=running_acc, 
                                   epoch=epoch_index, gen_loss=running_general_loss, at_energy_loss=running_attention_energy_loss,
                                   sparsity_loss=running_attention_sparsity_loss)
+
             train_bar.update()
 
         train_state['train_loss'].append(running_loss)
@@ -316,6 +317,11 @@ try:
         batch_generator = generate_nmt_batches(dataset, 
                                                batch_size=args.batch_size, 
                                                device=args.device)
+        
+        with open("training_monitor.txt", "a") as f:
+            f.write("Training Loss: "+running_loss+" at_energy_loss: "+running_attention_energy_loss+" sparsity_loss "+running_attention_sparsity_loss)
+            f.write("\n")
+
         running_loss = 0.
         running_acc = 0.
         model.eval()
@@ -345,6 +351,12 @@ try:
         print("Current validation loss is: {}".format(running_loss))
         train_state['val_acc'].append(running_acc)
         print("Current validation accuracy is: {}".format(running_acc))
+
+        with open("training_monitor.txt", "a") as f:
+            f.write("Validation Loss: "+running_loss+" Validation Accuracy: "+running_acc)
+            f.write("\n")
+            f.write("----------------------")
+            f.write("\n")
 
         train_state = update_train_state(args=args, model=model, 
                                          train_state=train_state)
