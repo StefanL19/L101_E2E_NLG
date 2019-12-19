@@ -154,10 +154,10 @@ args = Namespace(dataset_csv="data/inp_and_gt.csv",
                  learning_rate=5e-4,
                  batch_size=32,
                  num_epochs=100,
-                 early_stopping_criteria=5,              
-                 source_embedding_size=48, 
-                 target_embedding_size=48,
-                 encoding_size=256,
+                 early_stopping_criteria=10,              
+                 source_embedding_size=24, 
+                 target_embedding_size=24,
+                 encoding_size=32,
                  catch_keyboard_interrupt=True)
 
 if args.expand_filepaths_to_save_dir:
