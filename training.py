@@ -240,6 +240,10 @@ val_bar = tqdm(desc='split=val',
                         position=1, 
                         leave=True)
 
+with open("training_monitor.txt", "a") as f:
+            f.write("Bahdanau Attention, Sparsemax, 48, 48, 256, Attention Caps:3, Sparse Attention 0.5")
+            f.write("\n")
+
 try:
     for epoch_index in range(args.num_epochs):
         sample_probability = (20 + epoch_index) / args.num_epochs
@@ -319,7 +323,7 @@ try:
                                                device=args.device)
         
         with open("training_monitor.txt", "a") as f:
-            f.write("Training Loss: "+running_loss+" at_energy_loss: "+running_attention_energy_loss+" sparsity_loss "+running_attention_sparsity_loss)
+            f.write("Training Loss: "+str(running_loss)+" at_energy_loss: "+str(running_attention_energy_loss)+" sparsity_loss: "+str(running_attention_sparsity_loss))
             f.write("\n")
 
         running_loss = 0.
@@ -353,7 +357,7 @@ try:
         print("Current validation accuracy is: {}".format(running_acc))
 
         with open("training_monitor.txt", "a") as f:
-            f.write("Validation Loss: "+running_loss+" Validation Accuracy: "+running_acc)
+            f.write("Validation Loss: "+str(running_loss)+" Validation Accuracy: "+str(running_acc))
             f.write("\n")
             f.write("----------------------")
             f.write("\n")
