@@ -246,7 +246,7 @@ with open("training_monitor.txt", "a") as f:
 
 try:
     for epoch_index in range(args.num_epochs):
-        sample_probability = (20 + epoch_index) / args.num_epochs
+        sample_probability = (20 + epoch_index) / 100#args.num_epochs
         
         train_state['epoch_index'] = epoch_index
 
