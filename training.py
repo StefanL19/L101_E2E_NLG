@@ -143,7 +143,7 @@ def attention_sparsity_loss(attention_energies):
     return energies_sum
 
 
-args = Namespace(dataset_csv="data/inp_and_gt.csv",
+args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
                  vectorizer_file="sparsity_test.json",
                  model_state_file="sparsity_test.pth",
                  save_dir="data/model_storage/",

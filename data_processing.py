@@ -144,7 +144,7 @@ class DataPreprocessor(object):
 
                 inp = []
                 for slot_name in list(mrs.keys()):
-                    inp.append("<inform>")
+                    #inp.append("<inform>")
                     inp.append(slot_name)
                     inp.append(mrs[slot_name])
 
@@ -152,12 +152,12 @@ class DataPreprocessor(object):
                 ref = re.sub('([.,!?()])', r' \1 ', ref)
                 ref = re.sub('\s{2,}', ' ', ref)
                 inp_sent = " ".join(inp)
-                if "<inform>" not in inp_sent:
-                    #Something went wrong
-                    print("The sentence is processed in a wrong way: ")
-                    print(row[0])
-                    print(row[1])
-                    continue
+                # if "<inform>" not in inp_sent:
+                #     #Something went wrong
+                #     print("The sentence is processed in a wrong way: ")
+                #     print(row[0])
+                #     print(row[1])
+                #     continue
 
                 input_language.append(inp_sent)
                 output_language.append(ref)
@@ -417,12 +417,15 @@ class Delexicalizer(object):
             delexicalization_results.append(("food", is_success))
 
         if "familyfriendly" in self.delexicalization_slots:
+            print("Delexicalizing family friendly")
             inp, output, is_success = self._delexicalize_family_friendly(inp, output)
 
         if "pricerange" in self.delexicalization_slots:
+            print("Delexicalizing pricerange")
             self._delexicalize_price_range(inp, output)
 
         if "area" in self.delexicalization_slots:
+            print("Delexicalizing area")
             inp, output, is_success = self._delexicalize_area(inp, output)
 
             delexicalization_results.append(("area", is_success))
