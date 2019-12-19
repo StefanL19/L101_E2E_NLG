@@ -9,11 +9,11 @@ import pandas as pd
 from alignment_utils import tokenize_mr
 
 
-# ############################### Create a new data processor and vectorizer
+# # ############################### Create a new data processor and vectorizer
 processor = DataPreprocessor.from_files(train_input_path="data/e2e-dataset/trainset.csv", validation_input_path="data/e2e-dataset/devset.csv", 
- 	test_input_path="data/e2e-dataset/testset.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food", "area"])
+ 	test_input_path="data/e2e-dataset/testset.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
 
-processor.save_data("data/inp_and_gt_name_near_food_area.csv")
+processor.save_data("data/inp_and_gt_name_near_food_no_inform.csv")
 
 # dataset = NMTDataset.load_dataset_and_make_vectorizer("data/inp_and_gt.csv")
 # dataset.save_vectorizer("data/vectorizer.json")
@@ -25,12 +25,13 @@ processor.save_data("data/inp_and_gt_name_near_food_area.csv")
 # processor.save_data("data/inp_and_gt_augmented.csv")
 
 # # ################################# Load data processor and vectorizer
-# processor = DataPreprocessor.from_existing_df("data/inp.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
-# dataset = NMTDataset.load_dataset_and_load_vectorizer("data/inp.csv", "data/model_storage/vectorizer.json")
+# #processor = DataPreprocessor.from_existing_df("data/inp_and_gt.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
+# dataset = NMTDataset.load_dataset_and_load_vectorizer("data/inp_and_gt.csv", "data/model_storage/sparsity_test.json")
 
 # vect = dataset.get_vectorizer()
-# s_v = vect.target_vocab
-# print(s_v.lookup_index(3))
+# s_v = vect.source_vocab
+# print(s_v.lookup_word("range"))
+
 # print(s_v.lookup_index(34))
 #print(s_v.lookup_index(18))
 # res = vect.vectorize("<inform> pricerange more than £30 <inform> position inner", "prices start at £30 .")
