@@ -1,5 +1,6 @@
 Bahdanau Attention, Sparsemax, 48, 48, 256, Attention Caps:3, Sparse Attention 0.5
 Training Loss: 6.815460009234292 at_energy_loss: 1.5085464327463083 sparsity_loss: 0.7614632546901704
+<<<<<<< HEAD
 Bahdanau Attention, Sparsemax, 48, 48, 256, no inform
 Training Loss: 2.0530928500008945 at_energy_loss: 199.1499671058169 sparsity_loss: 0.856459926193983
 Validation Loss: 1.7868794447755159 Validation Accuracy: 58.879893381028694
