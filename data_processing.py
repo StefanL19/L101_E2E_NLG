@@ -152,12 +152,13 @@ class DataPreprocessor(object):
                 ref = re.sub('([.,!?()])', r' \1 ', ref)
                 ref = re.sub('\s{2,}', ' ', ref)
                 inp_sent = " ".join(inp)
-                # if "<inform>" not in inp_sent:
-                #     #Something went wrong
-                #     print("The sentence is processed in a wrong way: ")
-                #     print(row[0])
-                #     print(row[1])
-                #     continue
+                if "nan" in str(inp_sent).lower():
+                    print(inp_sent)
+                    #Something went wrong
+                    print("The sentence is processed in a wrong way: ")
+                    print(row[0])
+                    print(row[1])
+                    continue
 
                 input_language.append(inp_sent)
                 output_language.append(ref)
@@ -218,7 +219,7 @@ class DataPreprocessor(object):
 
             inp_val = []
             for slot_name in list(input_mr.keys()):
-                    inp_val.append("<inform>")
+                    #inp_val.append("<inform>")
                     inp_val.append(slot_name)
                     inp_val.append(input_mr[slot_name])
 

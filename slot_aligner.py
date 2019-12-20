@@ -66,7 +66,7 @@ class SlotAligner(object):
 
         alignment_result = count_all / ((count_overgenerated+1)*(count_undergenerated+1))
         
-        return alignment_result
+        return alignment_result, count_overgenerated, count_undergenerated
 
 
 

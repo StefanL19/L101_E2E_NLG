@@ -121,18 +121,25 @@ class NMTSampler:
                 f.write("------------------------------------")
                 f.write("\n")
                 seq_probs = []
+                reranker_probs = []
                 for idx, sequence in enumerate(bs_res[0]):
                     sent_str = sentence_from_indices(sequence, vocab, return_string=True)
-                    reranker_score = self.aligner.alignment_reranker(gt_mr, sent_str)
+                    reranker_score, overgen, undergen = self.aligner.alignment_reranker(gt_mr, sent_str)
                     f.write(sent_str)
                     f.write("|||")
                     f.write(str(reranker_score))
                     f.write("|||")
                     f.write(str(index))
+                    f.write("||||")
+                    f.write(str(overgen))
+                    f.write("||||")
+                    f.write(str(undergen))
                     f.write("\n")
                     seq_probs.append(bs_res[1][idx]*reranker_score)
+                    reranker_probs.append([reranker_score, overgen, undergen])
                 f.write("\n\n\n")
             max_seq_idx = seq_probs.index(max(seq_probs))
+
             #print("The index of the maximal sequence is: ", max_seq_idx)
 
 
@@ -160,14 +167,31 @@ class NMTSampler:
         
         #sentence_indices = top_sequences[max_seq_idx][0]
         sentence_indices = bs_res[0][max_seq_idx]
+
         # print("Making a prediction {}".format(index))
         # print(sentence_from_indices(sentence_indices, vocab, return_string=True))
         sent_result = sentence_from_indices(sentence_indices, vocab, return_string=return_string)
+
+        if reranker_probs[max_seq_idx][0] < len(gt_mr.keys()):
+            with open("data/results/aigner_mistakes_test.txt", "a") as f:
+                f.write(self._last_batch['inp_gt'][index])
+                f.write("\n")
+                f.write("------------------------------------")
+                f.write("\n")
+                f.write(sent_str)
+                f.write("|||")
+                f.write(str(reranker_probs[max_seq_idx][0]))
+                f.write("\n")
+                f.write("\n")
+
+        best_score_overgenerated = reranker_probs[max_seq_idx][1]
+        best_score_undergenerated = reranker_probs[max_seq_idx][2]
+
         # print("----------------------------------")
-        return sent_result
+        return sent_result, best_score_overgenerated, best_score_undergenerated
 
     def get_ith_item(self, index, return_string=True):
-        sampled_sentence = self._get_sampled_sentence(index, return_string=return_string)
+        sampled_sentence, best_score_overgenerated, best_score_undergenerated = self._get_sampled_sentence(index, return_string=return_string)
         gt_mrs = self._get_gt_mrs(index)
         ref_gt = self._get_gt_ref(index)
         
@@ -180,7 +204,9 @@ class NMTSampler:
                   "sampled_normalized":sampled_normalized,
                   "reference_gt":ref_gt,
                   "mrs_gt":gt_mrs,
-                  "y_target": self._last_batch['y_target'][index]
+                  "y_target": self._last_batch['y_target'][index],
+                  "overgenerated":best_score_overgenerated,
+                  "undergenerated":best_score_undergenerated
                  }
         
         reference = output['reference']

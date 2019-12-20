@@ -15,8 +15,8 @@ processor = DataPreprocessor.from_files(train_input_path="data/e2e-dataset/train
 
 processor.save_data("data/inp_and_gt_name_near_food_no_inform.csv")
 
-# dataset = NMTDataset.load_dataset_and_make_vectorizer("data/inp_and_gt.csv")
-# dataset.save_vectorizer("data/vectorizer.json")
+dataset = NMTDataset.load_dataset_and_make_vectorizer("data/inp_and_gt_name_near_food_no_inform.csv")
+dataset.save_vectorizer("data/vectorizer.json")
 
 
 ##################################### Add TUDA Samples 
