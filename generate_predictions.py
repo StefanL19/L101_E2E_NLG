@@ -29,9 +29,9 @@ from alignment_utils import tokenize_mr, tokenize_mr_upper
 import sampler
 import numpy as np
 
-args = Namespace(dataset_csv="data/inp_and_gt.csv",
-                 vectorizer_file="bahdanau_sparsemax_512/vectorizer_bahdanau_sparsemax_512.json",
-                 model_state_file="bahdanau_sparsemax_512/model_bahdanau_sparsemax_512.pth",
+args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
+                 vectorizer_file="sparsity_test_no_inform.json",
+                 model_state_file="sparsity_test_no_inform.pth",
                  save_dir="data/model_storage/",
                  cuda=True,
                  seed=1337,
