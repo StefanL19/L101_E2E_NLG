@@ -223,8 +223,8 @@ class NMTDecoder(nn.Module):
         stacked_attentions = stacked_attentions.view(stacked_attentions.size()[0], stacked_attentions.size()[1], stacked_attentions.size()[2])
         stacked_attentions = sparsity_transform(stacked_attentions)
         stacked_attentions  = stacked_attentions + 1e-8
-        #renyi_entropy = (1/(1-0.5))*torch.log(torch.sum(torch.pow(stacked_attentions, 0.5), dim=2))
-        shannon_entropy = -torch.sum((stacked_attentions*torch.log(stacked_attentions)), dim =2)
+        renyi_entropy = (1/(1-0.3))*torch.log(torch.sum(torch.pow(stacked_attentions, 0.3), dim=2))
+        #shannon_entropy = -torch.sum((stacked_attentions*torch.log(stacked_attentions)), dim =2)
         #entropy = -np.sum(a*np.log(a))
         # print(stacked_attentions)
 
