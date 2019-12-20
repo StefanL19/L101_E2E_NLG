@@ -233,4 +233,4 @@ class NMTDecoder(nn.Module):
         # print(stacked_attentions.sum(dim=2)[1])
         # print(torch.allclose(attention_energies[0], stacked_attentions.sum(dim=2)[0]))
 
-        return output_vectors, attention_energies, shannon_entropy
+        return output_vectors, attention_energies, renyi_entropy
