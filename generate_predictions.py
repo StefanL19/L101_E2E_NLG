@@ -30,8 +30,8 @@ import sampler
 import numpy as np
 
 args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
-                 vectorizer_file="sparsity_test_no_inform.json",
-                 model_state_file="sparsity_test_no_inform.pth",
+                 vectorizer_file="sparsity_test_no_inform_softmax.json",
+                 model_state_file="sparsity_test_no_inform_softmax.pth",
                  save_dir="data/model_storage/",
                  cuda=True,
                  seed=1337,
