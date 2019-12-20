@@ -1,2 +1,24 @@
 Bahdanau Attention, Sparsemax, 48, 48, 256, Attention Caps:3, Sparse Attention 0.5
 Training Loss: 6.815460009234292 at_energy_loss: 1.5085464327463083 sparsity_loss: 0.7614632546901704
+Bahdanau Attention, Sparsemax, 48, 48, 256, no inform
+Training Loss: 2.0530928500008945 at_energy_loss: 199.1499671058169 sparsity_loss: 0.856459926193983
+Validation Loss: 1.7868794447755159 Validation Accuracy: 58.879893381028694
+----------------------
+Training Loss: 1.6297882510567019 at_energy_loss: 144.33832243364748 sparsity_loss: 0.8410045725264297
+Validation Loss: 1.7523252106692688 Validation Accuracy: 59.483521472610384
+----------------------
+Training Loss: 1.5571500273080785 at_energy_loss: 106.50396716575052 sparsity_loss: 0.8271456236599699
+Validation Loss: 1.7036654916528151 Validation Accuracy: 60.30458567937771
+----------------------
+Training Loss: 1.5211313856639812 at_energy_loss: 89.62687551287875 sparsity_loss: 0.8173206528338802
+Validation Loss: 1.7266115472741321 Validation Accuracy: 60.04399874866344
+----------------------
+Training Loss: 1.5090099022995265 at_energy_loss: 83.02280686675405 sparsity_loss: 0.8101243980388467
+Validation Loss: 1.7195617319786383 Validation Accuracy: 60.22265480544874
+----------------------
+Training Loss: 1.4680040427644716 at_energy_loss: 78.81012200916442 sparsity_loss: 0.8037128576631399
+Validation Loss: 1.7223395468437503 Validation Accuracy: 60.301613217125926
+----------------------
+Training Loss: 1.4787770549489005 at_energy_loss: 76.74516347605467 sparsity_loss: 0.8011894409945212
+Validation Loss: 1.7713288166751604 Validation Accuracy: 59.387357291381285
+----------------------
