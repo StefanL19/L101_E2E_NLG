@@ -144,8 +144,8 @@ def attention_sparsity_loss(attention_energies):
 
 
 args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
-                 vectorizer_file="sparsity_test_no_inform_softmax_energy_loss.json",
-                 model_state_file="sparsity_test_no_inform_softmax_energy_loss.pth",
+                 vectorizer_file="sparsity_test_no_inform_sparsemax_shannon_energy.json",
+                 model_state_file="sparsity_test_no_inform_sparsemax_shannon_energy.pth",
                  save_dir="data/model_storage/",
                  reload_from_files=False,
                  expand_filepaths_to_save_dir=True,
