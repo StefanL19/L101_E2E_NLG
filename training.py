@@ -241,7 +241,7 @@ val_bar = tqdm(desc='split=val',
                         leave=True)
 
 with open("training_monitor.txt", "a") as f:
-            f.write("Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss")
+            f.write("Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss Shannon")
             f.write("\n")
 
 try:
