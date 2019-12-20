@@ -140,7 +140,15 @@ class NMTVectorizer(object):
         max_source_length = 0
         max_target_length = 0
 
-        for _, row in bitext_df.iterrows():
+        for idx, row in bitext_df.iterrows():
+            if type(row["source_language"]) != str:
+                print(row["target_language"])
+                print(idx)
+                continue
+            # if len(row["source_language"]) < 20:
+            #     print(row["source_language"])
+            #     print(row["target_language"])
+
             source_tokens = row["source_language"].split(" ")
             if len(source_tokens) > max_source_length:
                 max_source_length = len(source_tokens)

@@ -30,8 +30,8 @@ import sampler
 import numpy as np
 
 args = Namespace(dataset_csv="data/inp_and_gt.csv",
-                 vectorizer_file="sparsity_test.json",
-                 model_state_file="sparsity_test.pth",
+                 vectorizer_file="bahdanau_sparsemax_512/vectorizer_bahdanau_sparsemax_512.json",
+                 model_state_file="bahdanau_sparsemax_512/model_bahdanau_sparsemax_512.pth",
                  save_dir="data/model_storage/",
                  cuda=True,
                  seed=1337,
@@ -80,13 +80,27 @@ batch_generator = generate_nmt_batches(dataset,
 
 all_results = []
 
-for batch_idx in tqdm(range(0, dataset.get_num_batches(args.batch_size))):
+val_bar = tqdm(desc='validation_res',
+                        total=dataset.get_num_batches(args.batch_size), 
+                        position=0, 
+                        leave=True)
+
+# Counters of total overgenerated and undergenerated slots
+total_overgen = 0
+total_undergen = 0
+
+for batch_idx in range(0, dataset.get_num_batches(args.batch_size)):
     batch_dict = next(batch_generator)
     inference_sampler.apply_to_batch(batch_dict)
     
     for i in range(args.batch_size):
-        all_results.append(inference_sampler.get_ith_item(i, False))
+        res = inference_sampler.get_ith_item(i, False)
+        total_overgen += res["overgenerated"]
+        total_undergen += res["undergenerated"]
+        all_results.append(res)
 
+    val_bar.set_postfix(total_overgenerated=total_overgen, totral_undergenerated=total_undergen)
+    val_bar.update()
 
 res_mrs_gt = []
 res_input_mr = []
