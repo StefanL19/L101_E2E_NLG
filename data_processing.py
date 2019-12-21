@@ -264,7 +264,10 @@ class DataPreprocessor(object):
         mr_no_preprocessing = []
         ref_no_processing = []
 
-        for idx, line in tqdm(enumerate(lines)):
+        print(train_df.iloc[100])
+        print("$$$$$$$$$$$$$$$$$")
+
+        for idx, line in tqdm(enumerate(lines[:10000])):
             line = line.strip("\n")
             orig_train_sample = train_df.iloc[idx]
             input_mr = orig_train_sample[0]
@@ -285,14 +288,18 @@ class DataPreprocessor(object):
 
             inp = []
             for slot_name in list(input_mr.keys()):
-                inp.append("<inform>")
+                #inp.append("<inform>")
                 inp.append(slot_name)
                 inp.append(input_mr[slot_name])
 
             # Punctuation should be a separate token 
             ref = re.sub('([.,!?()])', r' \1 ', output_ref)
             ref = re.sub('\s{2,}', ' ', ref)
+
             inp_sent = " ".join(inp)
+            # print(inp)
+            # print("--------------------------------")
+            # print(ref)
 
             input_language.append(inp_sent)
             output_language.append(ref)
