@@ -143,9 +143,9 @@ def attention_sparsity_loss(attention_energies):
     return energies_sum
 
 
-args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
-                 vectorizer_file="sparsity_test_no_inform_sparsemax_no_renyi_2_energy.json",
-                 model_state_file="sparsity_test_no_inform_sparsemax_no_renyi_2_energy.pth",
+args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform_augmented.csv",
+                 vectorizer_file="sparsity_test_no_inform_sparsemax_renyi_0.5_2_energy_augmented.json",
+                 model_state_file="sparsity_test_no_inform_sparsemax_renyi_0.5_2_energy_augmented.pth",
                  save_dir="data/model_storage/",
                  reload_from_files=False,
                  expand_filepaths_to_save_dir=True,
@@ -241,7 +241,7 @@ val_bar = tqdm(desc='split=val',
                         leave=True)
 
 with open("training_monitor.txt", "a") as f:
-            f.write("Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss no Renyi")
+            f.write("Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss 2, Renyi, Augmented")
             f.write("\n")
 
 try:
@@ -276,7 +276,7 @@ try:
                            batch_dict['x_source_length'], 
                            batch_dict['x_target'],
                            sample_probability=sample_probability)
-            caps = np.ones((at_energies.size()[0],  at_energies.size()[1]), dtype=np.float32)*3.
+            caps = np.ones((at_energies.size()[0],  at_energies.size()[1]), dtype=np.float32)*2.
 
             energy_caps = torch.tensor(caps, requires_grad=False)
             energy_caps = energy_caps.to(at_energies.device)
@@ -286,7 +286,7 @@ try:
             energy_loss = attention_energy_loss(at_energies, energy_caps)
             sparsity_loss = 0.01*attention_sparsity_loss(entropy_energies)
 
-            loss = gen_loss + energy_loss# + sparsity_loss
+            loss = gen_loss + energy_loss + sparsity_loss
 
             # step 4. use loss to produce gradients
             loss.backward()
