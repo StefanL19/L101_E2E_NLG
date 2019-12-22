@@ -71,6 +71,7 @@ Validation Loss: 1.8809086811052607 Validation Accuracy: 57.66231978902645
 ----------------------
 Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss
 <<<<<<< HEAD
+<<<<<<< HEAD
 Training Loss: 3.3826238926395678 at_energy_loss: 0.5849118447454806 sparsity_loss: 0.715163120131516
 Validation Loss: 1.816656540517938 Validation Accuracy: 58.25506898257553
 ----------------------
@@ -101,3 +102,27 @@ Validation Loss: 1.784720888693039 Validation Accuracy: 59.45569413562119
 Training Loss: 2.4507743772211366 at_energy_loss: 0.5826217764443851 sparsity_loss: 0.32752178843812846
 Validation Loss: 1.8389277156085184 Validation Accuracy: 58.41818328474628
 ----------------------
+=======
+Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss
+Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss
+Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss
+Bahdanau Attention, Softmax Delezicalized Area
+Bahdanau Attention, Softmax Delezicalized Area
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+>>>>>>> f65fc2714c6fa360cc485785744ffa338aa1a30d
