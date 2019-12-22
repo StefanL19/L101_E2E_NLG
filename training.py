@@ -149,7 +149,7 @@ def attention_sparsity_loss(stacked_attentions, valid_indices):
     # For now discard the valid indices pruning
 
     # We will be minimizing the Renyi Entropy to encourage sparsity and sharpness
-    energies_sum = (1/(1-0.5))*torch.log(torch.sum(torch.pow(stacked_attentions, 0.5), dim=1))
+    energies_sum = (1/(1-0.9))*torch.log(torch.sum(torch.pow(stacked_attentions, 0.9), dim=1))
     energies_sum  = energies_sum.sum()
 
     # Normalize the response 
@@ -332,6 +332,7 @@ try:
                                   sparsity_loss=running_attention_sparsity_loss)
 
             train_bar.update()
+            torch.save(model.state_dict(), "test_model.pth")
 
         train_state['train_loss'].append(running_loss)
         train_state['train_acc'].append(running_acc)
