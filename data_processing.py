@@ -433,7 +433,7 @@ class Delexicalizer(object):
             self._delexicalize_price_range(inp, output)
 
         if "area" in self.delexicalization_slots:
-            print("Delexicalizing area")
+            #print("Delexicalizing area")
             inp, output, is_success = self._delexicalize_area(inp, output)
 
             delexicalization_results.append(("area", is_success))
