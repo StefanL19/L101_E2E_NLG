@@ -10,19 +10,19 @@ from alignment_utils import tokenize_mr
 
 
 # # ############################### Create a new data processor and vectorizer
-# processor = DataPreprocessor.from_files(train_input_path="data/e2e-dataset/trainset.csv", validation_input_path="data/e2e-dataset/devset.csv", 
-#  	test_input_path="data/e2e-dataset/testset.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
+processor = DataPreprocessor.from_files(train_input_path="data/e2e-dataset/trainset.csv", validation_input_path="data/e2e-dataset/devset.csv", 
+ 	test_input_path="data/e2e-dataset/testset.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food", "area"])
 
-# processor.save_data("data/inp_and_gt_name_near_food_no_inform.csv")
+processor.save_data("data/inp_and_gt_name_near_food_near_no_inform.csv")
 
-# dataset = NMTDataset.load_dataset_and_make_vectorizer("data/inp_and_gt_name_near_food_no_inform.csv")
+dataset = NMTDataset.load_dataset_and_make_vectorizer("data/inp_and_gt_name_near_food_near_no_inform.csv")
 # dataset.save_vectorizer("data/vectorizer.json")
 
 
 ##################################### Add TUDA Samples 
-processor = DataPreprocessor.from_existing_df("data/inp_and_gt_name_near_food_no_inform.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
-processor.add_samples("data/trainset.csv.predicted", "data/e2e-dataset/trainset.csv")
-processor.save_data("data/inp_and_gt_name_near_food_no_inform_augmented.csv")
+# processor = DataPreprocessor.from_existing_df("data/inp_and_gt_name_near_food_no_inform.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
+# processor.add_samples("data/trainset.csv.predicted", "data/e2e-dataset/trainset.csv")
+# processor.save_data("data/inp_and_gt_name_near_food_no_inform_augmented.csv")
 
 # # ################################# Load data processor and vectorizer
 # #processor = DataPreprocessor.from_existing_df("data/inp_and_gt.csv", delexicalization_type="partial", delexicalization_slots=["name", "near", "food"])
