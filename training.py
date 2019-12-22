@@ -284,9 +284,9 @@ try:
             # step 3. compute the loss
             gen_loss = sequence_loss(y_pred, batch_dict['y_target'], mask_index)
             energy_loss = attention_energy_loss(at_energies, energy_caps)
-            sparsity_loss = attention_sparsity_loss(entropy_energies) #0.01*attention_sparsity_loss(entropy_energies)
+            sparsity_loss = 0.01*attention_sparsity_loss(entropy_energies) #0.01*attention_sparsity_loss(entropy_energies)
 
-            loss = gen_loss + energy_loss + 0.01* sparsity_loss
+            loss = gen_loss + energy_loss + sparsity_loss
 
             # step 4. use loss to produce gradients
             loss.backward()
