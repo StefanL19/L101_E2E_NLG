@@ -127,7 +127,7 @@ def attention_energy_loss(stacked_attentions, energy_caps, valid_indices):
       The l2 loss will encourage the attention vectors to be close to their caps
     """
     # The attention should be distributed only to the output words that participate in the sequence
-    stacked_attentions = stacked_attentions*valid_indices
+   # stacked_attentions = stacked_attentions*valid_indices
 
     # Sum along the last dimension to obtain the stacked attentions
     attention_energies = torch.sum(stacked_attentions, dim=-1)
@@ -141,6 +141,8 @@ def attention_sparsity_loss(stacked_attentions, valid_indices):
     """
       The minimum entropy loss will encourage the attention distribution to be both sparse and sharp
     """
+    from sparsemax import Sparsemax
+    activation = Sparsemax(dim=2)
     # if domain == "freq": 
     #   reduce_dim = 1
     # else:
@@ -149,7 +151,11 @@ def attention_sparsity_loss(stacked_attentions, valid_indices):
     # For now discard the valid indices pruning
 
     # We will be minimizing the Renyi Entropy to encourage sparsity and sharpness
-    energies_sum = (1/(1-0.9))*torch.log(torch.sum(torch.pow(stacked_attentions, 0.9), dim=1))
+#    energies_sum = (1/(1-0.9))*torch.log(torch.sum(torch.pow(stacked_attentions, 0.9), dim=1))
+    stacked_attentions = activation(stacked_attentions)
+    stacked_attentions += 1e-8
+    energies_sum = (1/(1-0.3))*torch.log(torch.sum(torch.pow(stacked_attentions, 0.3), dim=2))
+    #energies_sum = -torch.sum((stacked_attentions*torch.log(stacked_attentions)), dim =2)
     energies_sum  = energies_sum.sum()
 
     # Normalize the response 
@@ -159,9 +165,9 @@ def attention_sparsity_loss(stacked_attentions, valid_indices):
 
 
 args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
-                 vectorizer_file="sparsity_test_no_inform_sparsemax_cap_2_other_domain_entropy.json",
-                 model_state_file="sparsity_test_no_inform_sparsemax_cap_2_other_domain_entropy.pth",
-                 save_dir="data/model_storage/",
+                 vectorizer_file="test.json",
+                 model_state_file="test.pth",
+                 save_dir="data/trained_models/15/",
                  reload_from_files=False,
                  expand_filepaths_to_save_dir=True,
                  cuda=True,
@@ -332,7 +338,7 @@ try:
                                   sparsity_loss=running_attention_sparsity_loss)
 
             train_bar.update()
-
+            #torch.save(model.state_dict(), "data/trained_models/15/test.pth")
         train_state['train_loss'].append(running_loss)
         train_state['train_acc'].append(running_acc)
 

@@ -126,3 +126,94 @@ Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
 Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
 Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
 Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Training Loss: 5.0356225554004315 at_energy_loss: 1.4270478968663498 sparsity_loss: 1.4129928098331777
+Validation Loss: 1.8760303977417614 Validation Accuracy: 57.37397931950188
+----------------------
+Training Loss: 4.2618162715454675 at_energy_loss: 1.4501820936234457 sparsity_loss: 1.085980202769475
+Validation Loss: 1.876511993473523 Validation Accuracy: 57.52056011676931
+----------------------
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Training Loss: 5.038602120008262 at_energy_loss: 1.4281803035166536 sparsity_loss: 1.4134673102830917
+Validation Loss: 1.8796290387846024 Validation Accuracy: 57.310612747697036
+----------------------
+Training Loss: 4.006037877752917 at_energy_loss: 1.4692494233416569 sparsity_loss: 0.7917743492411219
+Validation Loss: 1.8491815263277862 Validation Accuracy: 58.03672650323473
+----------------------
+Training Loss: 3.267893725014997 at_energy_loss: 1.433049979575184 sparsity_loss: 0.18522668929994587
+Validation Loss: 1.7890702763648882 Validation Accuracy: 58.98194871418112
+----------------------
+Training Loss: 3.2104815627636945 at_energy_loss: 1.4340765816228573 sparsity_loss: 0.1681333846110338
+Validation Loss: 1.8181175973317387 Validation Accuracy: 58.46638632801464
+----------------------
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Training Loss: 7.1525661067475665 at_energy_loss: 3.2490772574010696 sparsity_loss: 1.6546691509310432
+Validation Loss: 1.9192009486564223 Validation Accuracy: 56.61310106171461
+----------------------
+Training Loss: 6.0064986961873865 at_energy_loss: 3.099254121252106 sparsity_loss: 1.1419826132265303
+Validation Loss: 1.860084641469668 Validation Accuracy: 57.72121886995014
+----------------------
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Training Loss: 4.375202919545249 at_energy_loss: 0.4756350288270384 sparsity_loss: 1.6499907393530175
+Validation Loss: 1.9199827509383627 Validation Accuracy: 56.58408015762669
+----------------------
+Training Loss: 3.2525387028296646 at_energy_loss: 0.3554720875578502 sparsity_loss: 1.1307757843218296
+Validation Loss: 1.8635003411606568 Validation Accuracy: 57.58949550191361
+----------------------
+Training Loss: 3.058655534780395 at_energy_loss: 0.4159911132511206 sparsity_loss: 0.9340751957166714
+Validation Loss: 1.8311346107966278 Validation Accuracy: 58.20081408350742
+----------------------
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Training Loss: 3.474580090462276 at_energy_loss: 1.3709592783618003 sparsity_loss: 2.1854285041032995
+Validation Loss: 1.7925412287450817 Validation Accuracy: 58.736861010442674
+----------------------
+Training Loss: 2.9988619398442333 at_energy_loss: 1.3642032566484927 sparsity_loss: 2.204402235528391
+Validation Loss: 1.744950311641171 Validation Accuracy: 59.849166435059956
+----------------------
+Training Loss: 2.9197431778200738 at_energy_loss: 1.3609013233143594 sparsity_loss: 2.2059909097936248
+Validation Loss: 1.6984018912054097 Validation Accuracy: 60.32334679281923
+----------------------
+Training Loss: 2.8871616881211843 at_energy_loss: 1.36390226919824 sparsity_loss: 2.208769499666413
+Validation Loss: 1.716565630207323 Validation Accuracy: 60.19054836287718
+----------------------
+Training Loss: 2.871829484400674 at_energy_loss: 1.3593110391099914 sparsity_loss: 2.2071653753273552
+Validation Loss: 1.714528596564515 Validation Accuracy: 60.3945237229422
+----------------------
+Training Loss: 2.832609910450418 at_energy_loss: 1.3589169801607153 sparsity_loss: 2.2073301847232356
+Validation Loss: 1.7179479941929865 Validation Accuracy: 60.528980293259025
+----------------------
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Training Loss: 4.061518662156548 at_energy_loss: 1.3943783477857021 sparsity_loss: 0.5162864734082683
+Validation Loss: 1.846652319170024 Validation Accuracy: 57.938372318548836
+----------------------
+Training Loss: 3.4571519405680826 at_energy_loss: 1.385831109160647 sparsity_loss: 0.3861546854210848
+Validation Loss: 1.789830037992294 Validation Accuracy: 58.88842178114992
+----------------------
+Training Loss: 3.625577064577791 at_energy_loss: 1.5034348126101929 sparsity_loss: 0.4428809767917308
+Validation Loss: 1.882364276337297 Validation Accuracy: 57.52666795546371
+----------------------
+Training Loss: 3.5964804661922085 at_energy_loss: 1.41500926737043 sparsity_loss: 0.5179202507512378
+Validation Loss: 1.8132206307698604 Validation Accuracy: 58.77547515516895
+----------------------
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Training Loss: 5.945261123251098 at_energy_loss: 3.089798271459647 sparsity_loss: 0.6546613120855971
+Validation Loss: 1.867520300492849 Validation Accuracy: 57.39584469811364
+----------------------
+Training Loss: 5.183334594405263 at_energy_loss: 2.96412116517443 sparsity_loss: 0.5182424558470817
+Validation Loss: 1.8062863750000515 Validation Accuracy: 58.666981397905694
+----------------------
+Training Loss: 5.053301008961343 at_energy_loss: 2.976950118235348 sparsity_loss: 0.45797364019728976
+Validation Loss: 1.7552994579485015 Validation Accuracy: 59.631876592476125
+----------------------
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Training Loss: 5.9637922009290625 at_energy_loss: 3.088227792027755 sparsity_loss: 0.6774996078804847
+Validation Loss: 1.8576605548597356 Validation Accuracy: 57.53586310872509
+----------------------
+Training Loss: 5.226007554735332 at_energy_loss: 2.9645881290981713 sparsity_loss: 0.562865333990662
+Validation Loss: 1.8244578887338507 Validation Accuracy: 58.24572529080614
+----------------------

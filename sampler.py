@@ -60,8 +60,8 @@ class NMTSampler:
 
         # print("The beam search results are the same: ")
         # print(torch.allclose(all_top_k_predictions[0], all_top_k_predictions[1]))
-        all_top_k_predictions = all_top_k_predictions.detach().numpy()
-        log_probabilities = log_probabilities.detach().numpy()
+        all_top_k_predictions = all_top_k_predictions.cpu().detach().numpy()
+        log_probabilities = log_probabilities.cpu().detach().numpy()
         #print(all_top_k_predictions[0])
         # print(self._last_batch['inp_gt'][0])
         # print(sentence_from_indices(all_top_k_predictions[0][3], self.vectorizer.target_vocab, return_string=True))
