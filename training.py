@@ -332,7 +332,6 @@ try:
                                   sparsity_loss=running_attention_sparsity_loss)
 
             train_bar.update()
-            torch.save(model.state_dict(), "test_model.pth")
 
         train_state['train_loss'].append(running_loss)
         train_state['train_acc'].append(running_acc)
