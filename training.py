@@ -122,23 +122,38 @@ def sequence_loss(y_pred, y_true, mask_index):
     y_pred, y_true = normalize_sizes(y_pred, y_true)
     return F.cross_entropy(y_pred, y_true, ignore_index=mask_index)
 
-def attention_energy_loss(attention_energies, energy_caps):
+def attention_energy_loss(stacked_attentions, energy_caps, valid_indices):
     """
       The l2 loss will encourage the attention vectors to be close to their caps
     """
+    # The attention should be distributed only to the output words that participate in the sequence
+    stacked_attentions = stacked_attentions*valid_indices
+
+    # Sum along the last dimension to obtain the stacked attentions
+    attention_energies = torch.sum(stacked_attentions, dim=-1)
+
+    # Obtain the MSE loss with the energy caps (each word should givea fixed energy to the output sequence)
     loss_f_n = torch.nn.MSELoss()
 
     return loss_f_n(attention_energies, energy_caps)
 
-def attention_sparsity_loss(attention_energies):
+def attention_sparsity_loss(stacked_attentions, valid_indices):
     """
-      The l1 loss will encourage the attention vectors to be sparse
+      The minimum entropy loss will encourage the attention distribution to be both sparse and sharp
     """
+    # if domain == "freq": 
+    #   reduce_dim = 1
+    # else:
+    #   reduce_dim = 2
 
-    energies_sum = attention_energies.sum(dim=1)
+    # For now discard the valid indices pruning
 
+    # We will be minimizing the Renyi Entropy to encourage sparsity and sharpness
+    energies_sum = (1/(1-0.5))*torch.log(torch.sum(torch.pow(stacked_attentions, 0.5), dim=1))
     energies_sum  = energies_sum.sum()
-    energies_sum = energies_sum / attention_energies.size()[0]
+
+    # Normalize the response 
+    energies_sum = energies_sum / stacked_attentions.size()[0]
 
     return energies_sum
 
@@ -272,19 +287,26 @@ try:
             optimizer.zero_grad()
 
             # step 2. compute the output
-            y_pred, at_energies, entropy_energies = model(batch_dict['x_source'], 
+            y_pred, stacked_attentions = model(batch_dict['x_source'], 
                            batch_dict['x_source_length'], 
                            batch_dict['x_target'],
                            sample_probability=sample_probability)
-            caps = np.ones((at_energies.size()[0],  at_energies.size()[1]), dtype=np.float32)*2.
+            caps = np.ones((stacked_attentions.size()[0],  stacked_attentions.size()[1]), dtype=np.float32)*2.
 
             energy_caps = torch.tensor(caps, requires_grad=False)
-            energy_caps = energy_caps.to(at_energies.device)
+            energy_caps = energy_caps.to(stacked_attentions.device)
 
             # step 3. compute the loss
             gen_loss = sequence_loss(y_pred, batch_dict['y_target'], mask_index)
-            energy_loss = attention_energy_loss(at_energies, energy_caps)
-            sparsity_loss = 0.01*attention_sparsity_loss(entropy_energies) #0.01*attention_sparsity_loss(entropy_energies)
+
+            # The valid indices
+            valid_ind = torch.ne(batch_dict['y_target'], mask_index).float()
+
+            valid_ind = valid_ind.view(valid_ind.size()[0], 1, valid_ind.size()[1])
+
+
+            energy_loss = attention_energy_loss(stacked_attentions, energy_caps, valid_ind)
+            sparsity_loss = 0.01*attention_sparsity_loss(stacked_attentions, valid_ind) #0.01*attention_sparsity_loss(entropy_energies)
 
             loss = gen_loss + energy_loss + sparsity_loss
 
@@ -332,7 +354,7 @@ try:
 
         for batch_index, batch_dict in enumerate(batch_generator):
             # compute the output
-            y_pred, at_energies, entropy_energies = model(batch_dict['x_source'], 
+            y_pred, _ = model(batch_dict['x_source'], 
                            batch_dict['x_source_length'], 
                            batch_dict['x_target'],
                            sample_probability=sample_probability)

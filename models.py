@@ -68,9 +68,9 @@ class NMTModel(nn.Module):
             decoded_states (torch.Tensor): prediction vectors at each output step
         """
         encoder_state, final_hidden_states = self.encoder(x_source, x_source_lengths)
-        decoded_states, attention_energies, entropy_energies = self.decoder(encoder_state=encoder_state, 
+        decoded_states, stacked_attentions = self.decoder(encoder_state=encoder_state, 
                                       initial_hidden_state=final_hidden_states, 
                                       target_sequence=target_sequence, 
                                       sample_probability=sample_probability)
-        return decoded_states, attention_energies, entropy_energies
+        return decoded_states, stacked_attentions
 

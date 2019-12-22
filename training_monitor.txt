@@ -8,3 +8,18 @@ Bahdanau Attention, Softmax Delezicalized Area
 Bahdanau Attention, Softmax Delezicalized Area
 Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
 Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
+Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01
