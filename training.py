@@ -241,7 +241,7 @@ val_bar = tqdm(desc='split=val',
                         leave=True)
 
 with open("training_monitor.txt", "a") as f:
-            f.write("Bahdanau Attention, Softmax Augmented")
+            f.write("Bahdanau Attention, Softmax Delezicalized Area")
             f.write("\n")
 
 try:
