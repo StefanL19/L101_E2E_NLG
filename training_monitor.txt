@@ -70,6 +70,7 @@ Training Loss: 1.5462373777904856 at_energy_loss: 34.5069513368057 sparsity_loss
 Validation Loss: 1.8809086811052607 Validation Accuracy: 57.66231978902645
 ----------------------
 Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss
+<<<<<<< HEAD
 Training Loss: 3.3826238926395678 at_energy_loss: 0.5849118447454806 sparsity_loss: 0.715163120131516
 Validation Loss: 1.816656540517938 Validation Accuracy: 58.25506898257553
 ----------------------
