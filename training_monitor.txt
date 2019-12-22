@@ -4,3 +4,5 @@ Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss
 Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss
 Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss
 Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss
+Bahdanau Attention, Softmax Delezicalized Area
+Bahdanau Attention, Softmax Delezicalized Area

@@ -143,9 +143,9 @@ def attention_sparsity_loss(attention_energies):
     return energies_sum
 
 
-args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_area_no_inform.csv",
-                 vectorizer_file="sparsity_test_no_inform_softmax_area_delex.json",
-                 model_state_file="sparsity_test_no_inform_softmax_area_delex.pth",
+args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
+                 vectorizer_file="sparsity_test_no_inform_sparsemax_cap_2_other_domain_entropy.json",
+                 model_state_file="sparsity_test_no_inform_sparsemax_cap_2_other_domain_entropy.pth",
                  save_dir="data/model_storage/",
                  reload_from_files=False,
                  expand_filepaths_to_save_dir=True,
@@ -241,7 +241,7 @@ val_bar = tqdm(desc='split=val',
                         leave=True)
 
 with open("training_monitor.txt", "a") as f:
-            f.write("Bahdanau Attention, Softmax Delezicalized Area")
+            f.write("Bahdanau Attention, Sparsemax Freq Domain Renyi Entropy, Cap 2 weight 0.01")
             f.write("\n")
 
 try:
@@ -284,9 +284,9 @@ try:
             # step 3. compute the loss
             gen_loss = sequence_loss(y_pred, batch_dict['y_target'], mask_index)
             energy_loss = attention_energy_loss(at_energies, energy_caps)
-            sparsity_loss = 0.01*attention_sparsity_loss(entropy_energies)
+            sparsity_loss = attention_sparsity_loss(entropy_energies) #0.01*attention_sparsity_loss(entropy_energies)
 
-            loss = gen_loss #+ energy_loss + sparsity_loss
+            loss = gen_loss + energy_loss + 0.01* sparsity_loss
 
             # step 4. use loss to produce gradients
             loss.backward()
