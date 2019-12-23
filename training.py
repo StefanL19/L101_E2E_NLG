@@ -154,7 +154,7 @@ def attention_sparsity_loss(stacked_attentions, valid_indices):
 #    energies_sum = (1/(1-0.9))*torch.log(torch.sum(torch.pow(stacked_attentions, 0.9), dim=1))
     stacked_attentions = activation(stacked_attentions)
     stacked_attentions += 1e-8
-    energies_sum = (1/(1-0.3))*torch.log(torch.sum(torch.pow(stacked_attentions, 0.3), dim=2))
+    energies_sum = (1/(1-0.5))*torch.log(torch.sum(torch.pow(stacked_attentions, 0.5), dim=2))
     #energies_sum = -torch.sum((stacked_attentions*torch.log(stacked_attentions)), dim =2)
     energies_sum  = energies_sum.sum()
 
