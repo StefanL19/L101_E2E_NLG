@@ -143,9 +143,9 @@ def attention_sparsity_loss(attention_energies):
     return energies_sum
 
 
-args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform_augmented.csv",
-                 vectorizer_file="sparsity_test_no_inform_sparsemax_renyi_0.5_2_energy_augmented.json",
-                 model_state_file="sparsity_test_no_inform_sparsemax_renyi_0.5_2_energy_augmented.pth",
+args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
+                 vectorizer_file="sparsity_test_no_inform_sparsemax_renyi_0.5_2_energy_this.json",
+                 model_state_file="sparsity_test_no_inform_sparsemax_renyi_0.5_2_energy_this.pth",
                  save_dir="data/model_storage/",
                  reload_from_files=False,
                  expand_filepaths_to_save_dir=True,
@@ -241,7 +241,7 @@ val_bar = tqdm(desc='split=val',
                         leave=True)
 
 with open("training_monitor.txt", "a") as f:
-            f.write("Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss 2, Renyi, Augmented")
+            f.write("Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss 2, Renyi")
             f.write("\n")
 
 try:
