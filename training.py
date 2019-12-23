@@ -144,8 +144,8 @@ def attention_sparsity_loss(attention_energies):
 
 
 args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
-                 vectorizer_file="checkout_on_best_energy_no_sparse.json",
-                 model_state_file="checkout_on_best_energy_no_sparse.pth",
+                 vectorizer_file="checkout_on_best_energy_3_no_sparse.json",
+                 model_state_file="checkout_on_best_energy_3_no_sparse.pth",
                  save_dir="data/model_storage/",
                  reload_from_files=False,
                  expand_filepaths_to_save_dir=True,
@@ -241,7 +241,7 @@ val_bar = tqdm(desc='split=val',
                         leave=True)
 
 with open("training_monitor.txt", "a") as f:
-            f.write("Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss 2, Renyi")
+            f.write("Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss 3, No Renyi")
             f.write("\n")
 
 try:
@@ -276,7 +276,7 @@ try:
                            batch_dict['x_source_length'], 
                            batch_dict['x_target'],
                            sample_probability=sample_probability)
-            caps = np.ones((at_energies.size()[0],  at_energies.size()[1]), dtype=np.float32)*2.
+            caps = np.ones((at_energies.size()[0],  at_energies.size()[1]), dtype=np.float32)*3.
 
             energy_caps = torch.tensor(caps, requires_grad=False)
             energy_caps = energy_caps.to(at_energies.device)
