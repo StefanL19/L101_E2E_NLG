@@ -144,8 +144,8 @@ def attention_sparsity_loss(attention_energies):
 
 
 args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
-                 vectorizer_file="sparsity_test_no_inform_sparsemax_renyi_0.5_2_energy_this.json",
-                 model_state_file="sparsity_test_no_inform_sparsemax_renyi_0.5_2_energy_this.pth",
+                 vectorizer_file="checkout_on_best_enegy.json",
+                 model_state_file="checkout_on_best_enegy.pth",
                  save_dir="data/model_storage/",
                  reload_from_files=False,
                  expand_filepaths_to_save_dir=True,
@@ -367,6 +367,9 @@ try:
 
         scheduler.step(train_state['val_loss'][-1])
 
+        # Save the model from this epoch
+        torch.save(model.state_dict(), "models/best_"+str(epoch_index)+".pth")
+
         if train_state['stop_early']:
             break
         
@@ -374,6 +377,7 @@ try:
         val_bar.n = 0
         epoch_bar.set_postfix(best_val=train_state['early_stopping_best_val'])
         epoch_bar.update()
+
         
 except KeyboardInterrupt:
     print("Exiting loop")
