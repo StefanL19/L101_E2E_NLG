@@ -144,8 +144,8 @@ def attention_sparsity_loss(attention_energies):
 
 
 args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
-                 vectorizer_file="checkout_on_best_energy_3_yes_shannon.json",
-                 model_state_file="checkout_on_best_energy_3_yes_shannon.pth",
+                 vectorizer_file="softmax_pure_attention.json",
+                 model_state_file="softmax_pure_attention.pth",
                  save_dir="data/model_storage/",
                  reload_from_files=False,
                  expand_filepaths_to_save_dir=True,
@@ -241,7 +241,7 @@ val_bar = tqdm(desc='split=val',
                         leave=True)
 
 with open("training_monitor.txt", "a") as f:
-            f.write("Bahdanau Attention, Sparsemax, 48, 48, 256, no inform, softmax, energy loss 3, Shannon")
+            f.write("Bahdanau Attention, softmax, 48, 48, 256, no inform, softmax pure")
             f.write("\n")
 
 try:
@@ -286,7 +286,7 @@ try:
             energy_loss = attention_energy_loss(at_energies, energy_caps)
             sparsity_loss = 0.01*attention_sparsity_loss(entropy_energies)
 
-            loss = gen_loss + energy_loss + sparsity_loss
+            loss = gen_loss #+ energy_loss + sparsity_loss
 
             # step 4. use loss to produce gradients
             loss.backward()

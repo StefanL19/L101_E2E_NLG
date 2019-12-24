@@ -227,7 +227,7 @@ class NMTDecoder(nn.Module):
 
         #renyi_entropy = (1/(1-0.5))*torch.log(torch.sum(torch.pow(stacked_attentions, 0.5), dim=2))
         shannon_entropy = -torch.sum((stacked_attentions*torch.log(stacked_attentions)), dim =2)
-        
+
         #entropy = -np.sum(a*np.log(a))
         # print(stacked_attentions)
 
