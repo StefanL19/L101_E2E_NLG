@@ -144,9 +144,9 @@ def attention_sparsity_loss(attention_energies):
 
 
 args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
-                 vectorizer_file="sparsemax_minimum_entropy_long_dim_attention.json",
-                 model_state_file="sparsemax_minimum_entropy__long_dim_attention.pth",
-                 save_dir="data/model_storage/",
+                 vectorizer_file="vectorizer.json",
+                 model_state_file="model.pth",
+                 save_dir="data/model_storage/sparsemax_min_entropy_005/",
                  reload_from_files=False,
                  expand_filepaths_to_save_dir=True,
                  cuda=True,
@@ -284,7 +284,7 @@ try:
             # step 3. compute the loss
             gen_loss = sequence_loss(y_pred, batch_dict['y_target'], mask_index)
             energy_loss = attention_energy_loss(at_energies, energy_caps)
-            sparsity_loss = 0.01*attention_sparsity_loss(entropy_energies)
+            sparsity_loss = 0.005*attention_sparsity_loss(entropy_energies)
 
             loss = gen_loss + sparsity_loss #+ energy_loss + sparsity_loss
 
