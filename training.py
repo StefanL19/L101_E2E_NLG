@@ -144,8 +144,8 @@ def attention_sparsity_loss(attention_energies):
 
 
 args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
-                 vectorizer_file="sparsemax_minimum_entropy_attention.json",
-                 model_state_file="sparsemax_minimum_entropy_attention.pth",
+                 vectorizer_file="sparsemax_minimum_entropy_long_dim_attention.json",
+                 model_state_file="sparsemax_minimum_entropy__long_dim_attention.pth",
                  save_dir="data/model_storage/",
                  reload_from_files=False,
                  expand_filepaths_to_save_dir=True,
@@ -241,7 +241,7 @@ val_bar = tqdm(desc='split=val',
                         leave=True)
 
 with open("training_monitor.txt", "a") as f:
-            f.write("Bahdanau Attention, sparsemax, 48, 48, 256, no inform, sparsemax minimum entropy")
+            f.write("Bahdanau Attention, sparsemax, 48, 48, 256, no inform, sparsemax minimum entropy long dimension")
             f.write("\n")
 
 try:

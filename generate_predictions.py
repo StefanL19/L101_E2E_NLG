@@ -30,8 +30,8 @@ import sampler
 import numpy as np
 
 args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
-                 vectorizer_file="22/test.json",
-                 model_state_file="22/best_5.pth",
+                 vectorizer_file="23/test.json",
+                 model_state_file="23/best_7.pth",
                  save_dir="data/trained_models/",
                  cuda=True,
                  seed=1337,
