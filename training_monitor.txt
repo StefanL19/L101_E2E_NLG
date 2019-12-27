@@ -50,3 +50,4 @@ Validation Loss: 1.876852731182151 Validation Accuracy: 57.767921424814645
 Training Loss: 4.924857880373948 at_energy_loss: 2.976173116627598 sparsity_loss: 0.34959021405833973
 Validation Loss: 1.9035712847970936 Validation Accuracy: 57.38167097168472
 ----------------------
+Multiplicative Attention, 48, 48, 256

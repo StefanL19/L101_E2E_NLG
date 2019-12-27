@@ -82,7 +82,7 @@ class Multiplicative_Attention(torch.nn.Module):
         Simple attention mechanism based on dot product vector similarity 
     """
     def __init__(self):
-        pass
+        super(Multiplicative_Attention, self).__init__()
 
     def forward(self, encoder_state_vectors, query_vector):
         batch_size, num_vectors, vector_size = encoder_state_vectors.size()

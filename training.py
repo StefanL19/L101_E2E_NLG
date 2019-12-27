@@ -146,7 +146,7 @@ def attention_sparsity_loss(attention_energies):
 args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
                  vectorizer_file="vectorizer.json",
                  model_state_file="model.pth",
-                 save_dir="data/model_storage/sparsemax_min_entropy_005/",
+                 save_dir="data/model_storage/multiplicative_attention/",
                  reload_from_files=False,
                  expand_filepaths_to_save_dir=True,
                  cuda=True,
@@ -207,7 +207,7 @@ model = NMTModel(source_vocab_size=len(vectorizer.source_vocab),
                  encoding_size=args.encoding_size,
                  target_bos_index=vectorizer.target_vocab.begin_seq_index,
                  is_training=True,
-                 attention_mode="bahdanau")
+                 attention_mode="multiplicative")
 
 if args.reload_from_files and os.path.exists(args.model_state_file):
     model.load_state_dict(torch.load(args.model_state_file))
@@ -241,7 +241,7 @@ val_bar = tqdm(desc='split=val',
                         leave=True)
 
 with open("training_monitor.txt", "a") as f:
-            f.write("Bahdanau Attention, sparsemax, 48, 48, 256, no inform, sparsemax minimum entropy long dimension")
+            f.write("Multiplicative Attention, 48, 48, 256")
             f.write("\n")
 
 try:
@@ -286,7 +286,7 @@ try:
             energy_loss = attention_energy_loss(at_energies, energy_caps)
             sparsity_loss = 0.005*attention_sparsity_loss(entropy_energies)
 
-            loss = gen_loss + sparsity_loss #+ energy_loss + sparsity_loss
+            loss = gen_loss #+ sparsity_loss #+ energy_loss + sparsity_loss
 
             # step 4. use loss to produce gradients
             loss.backward()
