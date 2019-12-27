@@ -29,9 +29,9 @@ from alignment_utils import tokenize_mr, tokenize_mr_upper
 import sampler
 import numpy as np
 
-args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_area_no_inform_fixed.csv",
-                 vectorizer_file="14/sparsity_test_no_inform_softmax_area_delex.json",
-                 model_state_file="14/sparsity_test_no_inform_softmax_area_delex.pth",
+args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
+                 vectorizer_file="multiplicative_attention/vectorizer.json",
+                 model_state_file="multiplicative_attention/best_3.pth",
                  save_dir="data/trained_models/",
                  cuda=True,
                  seed=1337,
@@ -65,7 +65,7 @@ model = NMTModel(source_vocab_size=len(vectorizer.source_vocab),
                  encoding_size=args.encoding_size,
                  target_bos_index=vectorizer.target_vocab.begin_seq_index,
                  is_training=False,
-                 attention_mode="bahdanau")
+                 attention_mode="multiplicative")
 
 model.load_state_dict(torch.load(args.save_dir+args.model_state_file, map_location=torch.device(args.device)))
 model.eval().to(args.device)

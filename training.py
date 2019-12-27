@@ -146,7 +146,7 @@ def attention_sparsity_loss(attention_energies):
 args = Namespace(dataset_csv="data/inp_and_gt_name_near_food_no_inform.csv",
                  vectorizer_file="vectorizer.json",
                  model_state_file="model.pth",
-                 save_dir="data/model_storage/multiplicative_attention/",
+                 save_dir="data/model_storage/baseline_last/",
                  reload_from_files=False,
                  expand_filepaths_to_save_dir=True,
                  cuda=True,
@@ -207,7 +207,7 @@ model = NMTModel(source_vocab_size=len(vectorizer.source_vocab),
                  encoding_size=args.encoding_size,
                  target_bos_index=vectorizer.target_vocab.begin_seq_index,
                  is_training=True,
-                 attention_mode="multiplicative")
+                 attention_mode="bahdanau")
 
 if args.reload_from_files and os.path.exists(args.model_state_file):
     model.load_state_dict(torch.load(args.model_state_file))
@@ -241,7 +241,7 @@ val_bar = tqdm(desc='split=val',
                         leave=True)
 
 with open("training_monitor.txt", "a") as f:
-            f.write("Multiplicative Attention, 48, 48, 256")
+            f.write("Baseline, 48, 48, 256")
             f.write("\n")
 
 try:
